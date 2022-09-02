@@ -18,6 +18,9 @@
   .main {
     @apply flex flex-col min-h-screen bg-fill-light dark:bg-fill-dark sm:flex-row;
   }
+  .page {
+    @apply px-5 sm:px-0;
+  }
   .col-main {
     @apply bg-primary max-w-3xl border sm:ml-64;
   }

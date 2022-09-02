@@ -14,7 +14,9 @@ const Home: NextPage = () => {
     <Layout>
       <div className="w-full">
         <TopNav />
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <div className="page">
+          <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        </div>
       </div>
     </Layout>
   );

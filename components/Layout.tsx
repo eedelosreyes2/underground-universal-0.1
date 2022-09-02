@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Header from './Header';
 import BottomNav from './navigation/BottomNav';
-import Nav from './navigation/Nav';
+import LeftNav from './navigation/LeftNav';
 
 interface Props {
   children?: ReactNode;
@@ -10,9 +10,9 @@ interface Props {
 export default function Layout({ children, ...props }: Props) {
   return (
     <>
+      <Header />
       <main className="main" {...props}>
-        <Header />
-        <Nav />
+        <LeftNav />
         {children}
         <BottomNav />
       </main>

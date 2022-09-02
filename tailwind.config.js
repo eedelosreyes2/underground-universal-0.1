@@ -10,7 +10,7 @@ module.exports = {
       secondary: '#C0C0C0',
       fill: {
         dark: '#0C0C0C',
-        light: '#F9F9F9',
+        light: '#F0F0F0',
       },
       nav: {
         dark: '#1A1A1A',
