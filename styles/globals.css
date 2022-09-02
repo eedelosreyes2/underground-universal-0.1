@@ -13,3 +13,12 @@
     @apply text-base text-h3 font-bold;
   }
 }
+
+@layer components {
+  .main {
+    @apply flex min-h-screen bg-fill-light dark:bg-fill-dark;
+  }
+  .col-main {
+    @apply bg-primary max-w-3xl border sm:ml-64;
+  }
+}
