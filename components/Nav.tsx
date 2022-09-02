@@ -15,9 +15,9 @@ const Nav = () => {
 
   const TopNav = () => {
     return (
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl border mx-auto">
         <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-          Theme
+          <h3>Theme</h3>
         </button>
       </div>
     );
@@ -29,10 +29,10 @@ const Nav = () => {
   if (!mounted) return null;
 
   return (
-    <div>
+    <>
       <LeftNav />
       <TopNav />
-    </div>
+    </>
   );
 };
 
