@@ -1,19 +1,16 @@
 import type { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 
 import Header from '../components/Header';
-import Nav from '../components/Nav';
+const Nav = dynamic(() => import('../components/Nav'), { ssr: false });
 
 const Home: NextPage = () => {
   return (
-    <html className="dark">
-      <body>
-        <main className="min-h-screen dark:bg-slate-900">
-          <Header />
-          <Nav />
-          <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        </main>
-      </body>
-    </html>
+    <div className="min-h-screen bg-fill-light dark:bg-fill-dark">
+      <Header />
+      <Nav />
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+    </div>
   );
 };
 
