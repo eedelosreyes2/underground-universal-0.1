@@ -1,12 +1,19 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
+
+import Header from '../components/Header';
+import Nav from '../components/Nav';
 
 const Home: NextPage = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <html className="dark">
+      <body>
+        <main className="min-h-screen dark:bg-slate-900">
+          <Header />
+          <Nav />
+          <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        </main>
+      </body>
+    </html>
   );
 };
 
