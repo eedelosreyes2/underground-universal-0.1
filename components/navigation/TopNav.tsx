@@ -1,6 +1,6 @@
 import { useTheme } from 'next-themes';
 import { IconContext } from 'react-icons';
-import { BiMoon } from 'react-icons/bi';
+import { HiMoon, HiOutlineMoon } from 'react-icons/hi';
 
 const TopNav = () => {
   const { theme, setTheme } = useTheme();
@@ -9,10 +9,11 @@ const TopNav = () => {
     <div className="flex justify-between py-3 px-5 sm:justify-end sm:py-7 sm:px-12">
       <div className="sm:hidden">*Logo*</div>
       <div className="flex gap-6">
-        <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-          <div className="pt-1.5">
-            <BiMoon />
-          </div>
+        <button
+          className="mt-1"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
         </button>
         <div>Log in</div>
         <div>Join</div>
