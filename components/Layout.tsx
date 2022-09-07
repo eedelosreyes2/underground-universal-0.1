@@ -12,8 +12,9 @@ export default function Layout({ children, ...props }: Props) {
   return (
     <>
       <Header />
-      <main
-        className="flex flex-col min-h-screen bg-fill-light dark:bg-fill-dark sm:flex-row"
+      <div
+        className="z-50 flex flex-col min-h-screen mx-auto max-w-[2200px]  
+        bg-fill-light dark:bg-fill-dark sm:flex-row"
         {...props}
       >
         <LeftNav />
@@ -22,7 +23,15 @@ export default function Layout({ children, ...props }: Props) {
           <div className="px-5 sm:px-0 w-full">{children}</div>
           <BottomNav />
         </div>
-      </main>
+      </div>
+      <div
+        className="z-[-1] w-6/12 h-screen absolute top-0 left-0 
+        bg-nav-light dark:bg-nav-dark"
+      ></div>
+      <div
+        className="z-[-1] w-6/12 h-screen absolute top-0 right-0 
+        bg-fill-light dark:bg-fill-dark"
+      ></div>
     </>
   );
 }
