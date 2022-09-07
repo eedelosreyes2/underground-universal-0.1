@@ -18,7 +18,7 @@ const ActiveLink = ({ children, href }: Props) => {
     <a
       href={href}
       onClick={handleClick}
-      className={router.pathname === href ? 'text-primary' : ''}
+      className={router.pathname === href ? 'text-primary font-bold' : ''}
     >
       {children}
     </a>
