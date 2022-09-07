@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
-import TopNav from '../components/navigation/TopNav';
 
 const Home: NextPage = () => {
   const [mounted, setMounted] = useState(false);
@@ -12,12 +11,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <div className="w-full">
-        <TopNav />
-        <div className="page">
-          <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        </div>
-      </div>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
     </Layout>
   );
 };
