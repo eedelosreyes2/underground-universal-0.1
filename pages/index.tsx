@@ -9,11 +9,7 @@ const Home: NextPage = () => {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  return (
-    <Layout>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </Layout>
-  );
+  return <Layout />;
 };
 
 export default Home;
