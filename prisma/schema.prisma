@@ -1,0 +1,94 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Artist {
+  id        String @id @default(uuid())
+  createdAt DateTime @default(now())
+  udpatedAt DateTime @updatedAt
+  email     String @unique
+  dob       DateTime
+  status    String @default("Member")
+
+  name      String
+  location  String
+  badgeId   String? @default(uuid())  // TODO: figure out badges
+  trackId   String // uuid of "Signature" Track (trackSig)
+  trackSig  Track? @relation(fields: [trackId], references: [id], "Signature")
+  
+  role      Role
+  level     Level @default(ROOKIE)
+  genres    Genre[]
+  bio       String?
+  streaming String[]
+  tracks    Track[] @relation("CreatedTrack")
+  // albums    Album[]
+
+  features    Track[] @relation("Feature")    // Tracks this Artist is featured in
+  shared      Track[] @relation("Shared")     // Tracks shared with this Artist
+  sharedWith  Track[] @relation("SharedWith") // Tracks shared with this Artist
+
+  collabed   Artist[] @relation("collabs") // Other Artists this Artist collabed with
+  collabedBy Artist[] @relation("collabs") // Other Artists collabed with this Artist
+  // studios   Studio[]
+}
+
+model Track {
+  id          String @id @default(uuid())
+  createdAt   DateTime @default(now())
+  released    DateTime @default(now())
+  badgeId     String? // TODO: Badge
+  albumId     String? // TODO: Album
+  artistId    String
+  artist      Artist @relation(fields: [artistId], references: [id], "CreatedTrack")
+  features    Artist[] @relation("Feature")     // Artists featured in this Track
+  shared      Artist[] @relation("Shared")      // Arists that shared this Track
+  sharedWith  Artist[] @relation("SharedWith")  // Arists that this Track is shared with
+  trackSigs   Artist[] @relation("Signature")   // Artists who have this Track as their "Signature" Track
+
+  name      String
+  genres    Genre[]
+  length    Int
+  snippet   Int @default(0) // Starting time in seconds for 30 sec snippet
+  plays     Int @default(0) // Number of plays from App
+  src       String          // url from s3
+  imgSrc    String?         // img url from s3
+  streamSrc String?         // Spotify/Youtube url
+}
+
+enum Role {
+  RAPPER
+  SINGER
+  PRODUCER
+  DJ
+}
+
+enum Level {
+  ROOKIE
+  PLAYER
+  PRO
+  VETERAN
+}
+
+enum Genre {
+  HIPHOP
+  ALTERNATIVE
+  BOOMBAP
+  EASTCOAST
+  HARDCORE
+  LOFI
+  OLDSCHOOL
+  POP
+  RNB
+  SOUTHERN
+  TRAP
+  UNDERGROUND
+  MIDWEST
+  WESTCOAST
+  INSTRUMENTAL
+}
