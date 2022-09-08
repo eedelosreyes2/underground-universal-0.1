@@ -36,9 +36,9 @@ model Artist {
   sharedTrack      Track[] @relation("SharedTrack")     // Tracks this Artist shared
   sharedTrackWith  Track[] @relation("SharedTrackWith") // Tracks shared with this Artist
 
-  collabed   Artist[] @relation("collabs") // Other Artists this Artist collabed with
-  collabedBy Artist[] @relation("collabs") // Other Artists collabed with this Artist
-  // studios   Studio[]
+  collabed    Artist[] @relation("collabs") // Other Artists this Artist collabed with
+  collabedBy  Artist[] @relation("collabs") // Other Artists collabed with this Artist
+  studios     Studio[]
 }
 
 model Album {
@@ -51,6 +51,8 @@ model Album {
   artist    Artist @relation(fields: [artistId], references: [id])
   badgeId   String? @unique
   badge     Badge? @relation(fields: [badgeId], references: [id])
+  studioId  String?
+  studio    Studio? @relation(fields: [studioId], references: [id])
   
   shared      Artist[] @relation("SharedAlbum")     // Arists that shared this Album
   sharedWith  Artist[] @relation("SharedAlbumWith") // Arists that this Album is shared with
@@ -76,6 +78,8 @@ model Track {
   album     Album? @relation(fields: [albumId], references: [id])
   badgeId   String? @unique
   badge     Badge? @relation(fields: [badgeId], references: [id])
+  studioId  String?
+  studio    Studio? @relation(fields: [studioId], references: [id]) 
   
   features    Artist[] @relation("Feature")         // Artists featured in this Track
   shared      Artist[] @relation("SharedTrack")     // Arists that shared this Track
@@ -88,28 +92,34 @@ model Track {
   snippet   Int @default(0) // Starting time in seconds for 30 sec snippet
   plays     Int @default(0) // Number of plays from App
 
-  imgSrc    String?         // img url from s3
-  streamSrc String?         // Spotify/Youtube url
+  imgSrc    String? // img url from s3
+  streamSrc String? @unique // Spotify/Youtube url
 }
 
-// TODO
 model Studio {
   id        String @id @default(uuid())
   createdAt DateTime @default(now())
   udpatedAt DateTime @updatedAt
-  email     String @unique
+  url       String @unique
+  email     String? @unique
   name      String
-  location  String
+  location  String?
+  bio       String?
 
-  badgeId   String? @unique
-  badge     Badge? @relation(fields: [badgeId], references: [id])
+  badgeId String? @unique
+  badge   Badge? @relation(fields: [badgeId], references: [id])
+  artists Artist[]
+  albums  Album[]
+  tracks  Track[]
 
+  // TODO
+  hours String?
+  rates String?
+
+  // TODO
   hasEngineer Boolean @default(false)
   hasMixing   Boolean @default(false)
   hasVideo    Boolean @default(false)
-  
-  hours String
-  rates String
 }
 
 model Badge {
