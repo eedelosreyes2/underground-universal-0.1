@@ -28,32 +28,59 @@ model Artist {
   bio       String?
   streaming String[]
   tracks    Track[] @relation("CreatedTrack")
-  // albums    Album[]
+  albums    Album[] @relation("CreatedAlbum")
 
-  features    Track[] @relation("Feature")    // Tracks this Artist is featured in
-  shared      Track[] @relation("Shared")     // Tracks shared with this Artist
-  sharedWith  Track[] @relation("SharedWith") // Tracks shared with this Artist
+  features         Track[] @relation("Feature")         // Tracks this Artist is featured in
+  sharedAlbum      Album[] @relation("SharedAlbum")     // Albums this Artist shared
+  sharedAlbumWith  Album[] @relation("SharedAlbumWith") // Albums shared with this Artist
+  sharedTrack      Track[] @relation("SharedTrack")     // Tracks this Artist shared
+  sharedTrackWith  Track[] @relation("SharedTrackWith") // Tracks shared with this Artist
 
   collabed   Artist[] @relation("collabs") // Other Artists this Artist collabed with
   collabedBy Artist[] @relation("collabs") // Other Artists collabed with this Artist
   // studios   Studio[]
 }
 
+model Album {
+  id        String @id @default(uuid())
+  createdAt DateTime @default(now())
+  released  DateTime
+
+  artistId  String
+  artist    Artist @relation(fields: [artistId], references: [id], "CreatedAlbum")
+  badgeId   String? @unique
+  badge     Badge? @relation(fields: [badgeId], references: [id], "BadgeAlbums")
+  
+  shared      Artist[] @relation("SharedAlbum")     // Arists that shared this Album
+  sharedWith  Artist[] @relation("SharedAlbumWith") // Arists that this Album is shared with
+
+  name      String
+  genres    Genre[]
+  length    Int
+  numTracks Int
+  tracks    Track[]
+  
+  src       String  // url from s3
+  imgSrc    String? // img url from s3
+  streamSrc String? // Spotify/Youtube url
+}
+
 model Track {
-  id          String @id @default(uuid())
-  createdAt   DateTime @default(now())
-  released    DateTime @default(now())
+  id        String @id @default(uuid())
+  createdAt DateTime @default(now())
+  released  DateTime?
 
   artistId  String
   artist    Artist @relation(fields: [artistId], references: [id], "CreatedTrack")
-  albumId   String? // TODO: Album
+  albumId   String?
+  album     Album? @relation(fields: [albumId], references: [id])
   badgeId   String? @unique
   badge     Badge? @relation(fields: [badgeId], references: [id], "BadgeTracks")
   
-  features    Artist[] @relation("Feature")     // Artists featured in this Track
-  shared      Artist[] @relation("Shared")      // Arists that shared this Track
-  sharedWith  Artist[] @relation("SharedWith")  // Arists that this Track is shared with
-  trackSigs   Artist[] @relation("Signature")   // Artists who have this Track as their "Signature" Track
+  features    Artist[] @relation("Feature")         // Artists featured in this Track
+  shared      Artist[] @relation("SharedTrack")     // Arists that shared this Track
+  sharedWith  Artist[] @relation("SharedTrackWith") // Arists that this Track is shared with
+  trackSigs   Artist[] @relation("Signature")       // Artists who have this Track as their "Signature" Track
 
   name      String
   genres    Genre[]
@@ -66,12 +93,12 @@ model Track {
 }
 
 model Badge {
-  id          String @id @default(uuid())
-  createdAt   DateTime @default(now())
-  ownerId     String @unique
-  owner       Artist @relation(fields: [ownerId], references: [id], "Badge")
-  // album
-  track       Track[] @relation("BadgeTracks")
+  id        String @id @default(uuid())
+  createdAt DateTime @default(now())
+  ownerId   String @unique
+  owner     Artist @relation(fields: [ownerId], references: [id], "Badge")
+  album     Album[] @relation("BadgeAlbums")
+  track     Track[] @relation("BadgeTracks")
 }
 
 enum Role {
