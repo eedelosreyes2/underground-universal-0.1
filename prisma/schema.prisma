@@ -13,7 +13,6 @@ model Artist {
   udpatedAt       DateTime  @updatedAt
   email           String    @unique
   dob             DateTime?
-  status          String    @default("Member")
   name            String
   location        String?
   badgeId         String?   @unique
@@ -23,6 +22,7 @@ model Artist {
   genres          Genre[]
   bio             String?
   streaming       String[]
+  status          Status    @default(GUEST)
   trackSig        Track?    @relation("Signature", fields: [trackId], references: [id])
   albums          Album[]
   badge           Badge?
@@ -113,6 +113,12 @@ model Badge {
   albums    Album?
   studios   Studio?
   tracks    Track?
+}
+
+enum Status {
+  GUEST
+  MEMBER
+  BADGED
 }
 
 enum Role {
