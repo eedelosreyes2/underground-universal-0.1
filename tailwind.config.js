@@ -6,6 +6,7 @@ module.exports = {
   darkMode: 'class',
   theme: {
     colors: {
+      h3: '#555555',
       primary: '#FF0000',
       secondary: '#C0C0C0',
       white: 'white',
@@ -21,7 +22,10 @@ module.exports = {
         dark: '#111111',
         light: '#FAFAFA',
       },
-      h3: '#555555',
+      spotify: '#1DB954',
+      appleMusic: '#FC3C44',
+      soundcloud: '#F27100',
+      bandcamp: '#4AC4E4',
     },
   },
   plugins: [],

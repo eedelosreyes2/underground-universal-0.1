@@ -4,6 +4,13 @@ import { VscDebugPause } from 'react-icons/vsc';
 import { HiCheckCircle } from 'react-icons/hi';
 import { IoIosPin } from 'react-icons/io';
 import { FaPlay, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import {
+  SiSpotify,
+  SiApplemusic,
+  SiSoundcloud,
+  SiYoutube,
+  SiBandcamp,
+} from 'react-icons/si';
 
 const Carousel = () => {
   const [playing, setPlaying] = useState(true);
@@ -27,40 +34,46 @@ const Carousel = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div
-        className="w-full flex flex-col rounded-3xl px-3 py-8 mb-10 
+        className="w-full sm:max-w-3xl flex flex-col rounded-3xl px-3 py-8 mb-10 
         bg-component-light dark:bg-component-dark"
       >
         {/* Top container */}
         <div className="flex mb-5">
-          <div
-            onClick={playHandler}
-            className="border border-primary rounded-full cursor-pointer  
-              flex justify-center items-center w-24 h-24"
-          >
-            {playing ? (
-              <IconContext.Provider
-                value={{
-                  size: '2.85em',
-                  color: 'red',
-                }}
-              >
-                <VscDebugPause />
-              </IconContext.Provider>
-            ) : (
-              <IconContext.Provider
-                value={{
-                  size: '2em',
-                  color: 'red',
-                  className: 'ml-1',
-                }}
-              >
-                <FaPlay />
-              </IconContext.Provider>
-            )}
+          <div className="w-24 h-24 sm:w-60 sm:h-60">
+            <div
+              onClick={playHandler}
+              className="border border-primary rounded-full cursor-pointer  
+              flex justify-center items-center w-24 h-24 sm:w-60 sm:h-60"
+            >
+              {/* TODO: Play/Pause button sm: size */}
+              {playing ? (
+                <IconContext.Provider
+                  value={{
+                    size: '2.85em',
+                    color: 'red',
+                  }}
+                >
+                  <VscDebugPause />
+                </IconContext.Provider>
+              ) : (
+                <IconContext.Provider
+                  value={{
+                    size: '2em',
+                    color: 'red',
+                    className: 'ml-1',
+                  }}
+                >
+                  <FaPlay />
+                </IconContext.Provider>
+              )}
+            </div>
           </div>
           <div className="flex flex-col justify-start items-start ml-5">
             <div className="flex items-center">
-              <h1>Zaction Bronson</h1>
+              {/* TODO: Check inline with h1 */}
+              <h1 className="text-left">
+                Zaction Bronson Bronson<p>Y</p>
+              </h1>
               <IconContext.Provider
                 value={{ size: '1.25em', color: 'red', className: 'ml-2 mt-2' }}
               >
@@ -80,22 +93,57 @@ const Carousel = () => {
                 Hip-hop
               </div>
             </div>
+            <div className="hidden sm:block w-full text-left mt-5">
+              A sentence or two on who I am and who I am looking to collab with.
+              This will take up the space that the embedded player would, but
+              now I moved that.
+            </div>
           </div>
         </div>
 
-        <div className="w-full text-left mb-5">
+        <div className="sm:hidden w-full text-left mb-5">
           A sentence or two on who I am and who I am looking to collab with.
           This will take up the space that the embedded player would, but now I
-          moved that.{' '}
+          moved that.
         </div>
 
         {/* Streamings container */}
         <div className="w-full flex flex-wrap">
-          <div className="font-bold mr-3">Spotify</div>
-          <div className="font-bold mr-3">Apple Music</div>
-          <div className="font-bold mr-3">Soundcloud</div>
-          <div className="font-bold mr-3">Youtube</div>
-          <div className="font-bold mr-3">Bandcamp</div>
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{ size: '1.75em', className: 'text-spotify mr-2' }}
+            >
+              <SiSpotify /> Zaction Bronson
+            </IconContext.Provider>
+          </div>
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{ size: '1.75em', className: 'text-appleMusic mr-2' }}
+            >
+              <SiApplemusic /> Zaction Bronson
+            </IconContext.Provider>
+          </div>
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{ size: '1.75em', className: 'text-soundcloud mr-2' }}
+            >
+              <SiSoundcloud /> Zaction Bronson
+            </IconContext.Provider>
+          </div>
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{ size: '1.75em', className: 'text-primary mr-2' }}
+            >
+              <SiYoutube /> Zaction Bronson
+            </IconContext.Provider>
+          </div>
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{ size: '1.75em', className: 'text-bandcamp mr-2' }}
+            >
+              <SiBandcamp /> Zaction Bronson
+            </IconContext.Provider>
+          </div>
         </div>
       </div>
 
