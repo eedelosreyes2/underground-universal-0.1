@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { VscDebugPause } from 'react-icons/vsc';
-import { HiCheckCircle } from 'react-icons/hi';
+import { MdVerified } from 'react-icons/md';
 import { IoIosPin } from 'react-icons/io';
 import { FaPlay, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import {
@@ -70,15 +70,17 @@ const Carousel = () => {
           </div>
           <div className="flex flex-col justify-start items-start ml-5">
             <div className="flex items-center">
-              {/* TODO: Check inline with h1 */}
-              <h1 className="text-left">
-                Zaction Bronson Bronson<p>Y</p>
+              <h1 className="inline text-left">
+                Zaction Bronson Bronson{' '}
+                <IconContext.Provider
+                  value={{
+                    color: 'red',
+                    className: 'inline',
+                  }}
+                >
+                  <MdVerified />
+                </IconContext.Provider>
               </h1>
-              <IconContext.Provider
-                value={{ size: '1.25em', color: 'red', className: 'ml-2 mt-2' }}
-              >
-                <HiCheckCircle />
-              </IconContext.Provider>
             </div>
             <div className="flex gap-1 mt-1 mb-2 items-center">
               <IoIosPin />
