@@ -4,10 +4,10 @@
 
 @layer base {
   h1 {
-    @apply text-2xl;
+    @apply text-2xl font-bold;
   }
   h2 {
-    @apply text-xl;
+    @apply text-xl font-bold;
   }
   h3 {
     @apply text-base text-h3 font-bold;
@@ -17,5 +17,8 @@
 @layer components {
   .col-main {
     @apply bg-primary max-w-3xl border sm:ml-64;
+  }
+  .page-container {
+    @apply w-full h-screen flex flex-col items-center pt-12 sm:pt-20;
   }
 }

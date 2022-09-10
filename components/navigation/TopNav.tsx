@@ -6,7 +6,7 @@ const TopNav = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex justify-between py-3 px-5 sm:justify-end sm:py-7 sm:px-12">
+    <div className="absolute right-0 flex justify-between py-3 px-5 sm:justify-end sm:py-7 sm:px-12">
       <div className="sm:hidden">*Logo*</div>
       <div className="flex gap-6">
         <button

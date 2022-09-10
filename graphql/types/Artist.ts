@@ -181,6 +181,3 @@ export const ArtistsQuery = extendType({
     });
   },
 });
-function asNexusMethod(GraphQLDate: string, arg1: unknown) {
-  throw new Error('Function not implemented.');
-}

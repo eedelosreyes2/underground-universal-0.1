@@ -18,7 +18,7 @@ export default function Layout({ children, ...props }: Props) {
         {...props}
       >
         <LeftNav />
-        <div className="w-full">
+        <div className="relative w-full">
           <TopNav />
           <div className="px-5 sm:px-0 w-full">{children}</div>
           <BottomNav />
