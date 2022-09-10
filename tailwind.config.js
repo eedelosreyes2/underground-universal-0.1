@@ -10,7 +10,7 @@ module.exports = {
       secondary: '#C0C0C0',
       fill: {
         dark: '#0C0C0C',
-        light: '#F0F0F0',
+        light: '#F2F2F2',
       },
       nav: {
         dark: '#1A1A1A',
@@ -18,7 +18,7 @@ module.exports = {
       },
       component: {
         dark: '#111111',
-        light: '#EFEFEF',
+        light: '#FAFAFA',
       },
       h3: '#555555',
     },

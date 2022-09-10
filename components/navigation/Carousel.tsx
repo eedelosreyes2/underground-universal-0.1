@@ -28,10 +28,19 @@ const Carousel = () => {
           </div>
         </div>
 
-        <div className="w-full text-left">
+        <div className="w-full text-left mb-5">
           A sentence or two on who I am and who I am looking to collab with.
           This will take up the space that the embedded player would, but now I
           moved that.{' '}
+        </div>
+
+        {/* Streamings container */}
+        <div className="w-full flex flex-wrap">
+          <div className="font-bold mr-3">Spotify</div>
+          <div className="font-bold mr-3">Apple Music</div>
+          <div className="font-bold mr-3">Soundcloud</div>
+          <div className="font-bold mr-3">Youtube</div>
+          <div className="font-bold mr-3">Bandcamp</div>
         </div>
       </div>
       <div>Control</div>
