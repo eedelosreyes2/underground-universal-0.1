@@ -13,7 +13,7 @@ const TopNav = () => {
           className="mt-1"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
-          {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
+          {/* {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />} */}
         </button>
         <div>Log in</div>
         <div>Join</div>
