@@ -8,6 +8,8 @@ type Album {
 }
 
 type Artist {
+  Artist_A: [Artist]
+  Artist_B: [Artist]
   albums: [Album]
   badge: Badge
   badgeId: String
@@ -22,10 +24,10 @@ type Artist {
   location: String
   name: String
   role: Role
-  sharedAlbum: [Album]
-  sharedAlbumWith: [Studio]
-  sharedTrack: [Track]
-  sharedTrackWith: [Track]
+  sharedAlbums: [Album]
+  sharedAlbumsWith: [Album]
+  sharedTracks: [Track]
+  sharedTracksWith: [Track]
   status: Status
   streaming: [String]
   studios: [Studio]
@@ -68,7 +70,7 @@ enum Level {
 }
 
 type Query {
-  ok: Boolean!
+  artists: [Artist]!
 }
 
 """Role of Artist"""

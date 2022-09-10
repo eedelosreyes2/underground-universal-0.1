@@ -1,4 +1,4 @@
-import { objectType } from 'nexus';
+import { objectType, extendType } from 'nexus';
 import { Status, Role, Level, Genre } from './Enums';
 import { Album } from './Album';
 import { Badge } from './Badge';
@@ -108,7 +108,7 @@ export const Artist = objectType({
       },
     });
     t.list.field('sharedAlbumsWith', {
-      type: Studio,
+      type: Album,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
           .findUnique({
@@ -169,3 +169,18 @@ export const Artist = objectType({
     });
   },
 });
+
+export const ArtistsQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('artists', {
+      type: Artist,
+      resolve(_parent, _args, ctx) {
+        return ctx.prisma.artist.findMany();
+      },
+    });
+  },
+});
+function asNexusMethod(GraphQLDate: string, arg1: unknown) {
+  throw new Error('Function not implemented.');
+}
