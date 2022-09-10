@@ -1,8 +1,29 @@
+import { useState } from 'react';
 import { IconContext } from 'react-icons';
+import { VscDebugPause } from 'react-icons/vsc';
 import { HiCheckCircle } from 'react-icons/hi';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { IoIosPin } from 'react-icons/io';
+import { FaPlay, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const Carousel = () => {
+  const [playing, setPlaying] = useState(true);
+
+  const playHandler = () => {
+    setPlaying((playing) => !playing);
+  };
+
+  const collabHandler = () => {
+    console.log('Collab with <Artist.name>');
+  };
+
+  const leftHandler = () => {
+    console.log('Left');
+  };
+
+  const rightHandler = () => {
+    console.log('Right');
+  };
+
   return (
     <div className="w-full flex flex-col items-center">
       <div
@@ -10,8 +31,33 @@ const Carousel = () => {
         bg-component-light dark:bg-component-dark"
       >
         {/* Top container */}
-        <div className="flex mb-3">
-          <div className="border rounded-full w-24 h-24"></div>
+        <div className="flex mb-5">
+          <div
+            onClick={playHandler}
+            className="border border-primary rounded-full cursor-pointer  
+              flex justify-center items-center w-24 h-24"
+          >
+            {playing ? (
+              <IconContext.Provider
+                value={{
+                  size: '2.85em',
+                  color: 'red',
+                }}
+              >
+                <VscDebugPause />
+              </IconContext.Provider>
+            ) : (
+              <IconContext.Provider
+                value={{
+                  size: '2em',
+                  color: 'red',
+                  className: 'ml-1',
+                }}
+              >
+                <FaPlay />
+              </IconContext.Provider>
+            )}
+          </div>
           <div className="flex flex-col justify-start items-start ml-5">
             <div className="flex items-center">
               <h1>Zaction Bronson</h1>
@@ -21,8 +67,9 @@ const Carousel = () => {
                 <HiCheckCircle />
               </IconContext.Provider>
             </div>
-            <div className="flex">
-              <div className="pr-2 mb-2">I</div>Martinez, Ca
+            <div className="flex gap-1 mt-1 mb-2 items-center">
+              <IoIosPin />
+              Martinez, Ca
             </div>
             <div className="w-full flex">
               {/* Tags */}
@@ -54,18 +101,19 @@ const Carousel = () => {
 
       {/* Control */}
       <div className="flex items-center">
-        <div className="rounded-full cursor-pointer p-3">
+        <div onClick={leftHandler} className="rounded-full cursor-pointer p-3">
           <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
             <FaArrowLeft />
           </IconContext.Provider>
         </div>
         <div
+          onClick={collabHandler}
           className="max-w-sm rounded-full cursor-pointer font-bold text-white 
             bg-primary px-5 py-3 mx-12"
         >
           Collab with Zaction
         </div>
-        <div className="rounded-full cursor-pointer p-3">
+        <div onClick={rightHandler} className="rounded-full cursor-pointer p-3">
           <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
             <FaArrowRight />
           </IconContext.Provider>
