@@ -8,9 +8,10 @@ module.exports = {
     colors: {
       primary: '#FF0000',
       secondary: '#C0C0C0',
+      white: 'white',
       fill: {
         dark: '#0C0C0C',
-        light: '#F2F2F2',
+        light: '#EEEEEE',
       },
       nav: {
         dark: '#1A1A1A',

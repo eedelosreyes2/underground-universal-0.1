@@ -1,8 +1,12 @@
+import { IconContext } from 'react-icons';
+import { HiCheckCircle } from 'react-icons/hi';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+
 const Carousel = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <div
-        className="w-full flex flex-col rounded-md px-3 py-8 mb-10 
+        className="w-full flex flex-col rounded-3xl px-3 py-8 mb-10 
         bg-component-light dark:bg-component-dark"
       >
         {/* Top container */}
@@ -11,7 +15,11 @@ const Carousel = () => {
           <div className="flex flex-col justify-start items-start ml-5">
             <div className="flex items-center">
               <h1>Zaction Bronson</h1>
-              <div className="border rounded-xl ml-3">V</div>
+              <IconContext.Provider
+                value={{ size: '1.25em', color: 'red', className: 'ml-2 mt-2' }}
+              >
+                <HiCheckCircle />
+              </IconContext.Provider>
             </div>
             <div className="flex">
               <div className="pr-2 mb-2">I</div>Martinez, Ca
@@ -43,7 +51,26 @@ const Carousel = () => {
           <div className="font-bold mr-3">Bandcamp</div>
         </div>
       </div>
-      <div>Control</div>
+
+      {/* Control */}
+      <div className="flex items-center">
+        <div className="rounded-full cursor-pointer p-3">
+          <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
+            <FaArrowLeft />
+          </IconContext.Provider>
+        </div>
+        <div
+          className="max-w-sm rounded-full cursor-pointer font-bold text-white 
+            bg-primary px-5 py-3 mx-12"
+        >
+          Collab with Zaction
+        </div>
+        <div className="rounded-full cursor-pointer p-3">
+          <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
+            <FaArrowRight />
+          </IconContext.Provider>
+        </div>
+      </div>
     </div>
   );
 };
