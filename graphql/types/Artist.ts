@@ -29,10 +29,10 @@ export const Artist = objectType({
         return await ctx.prisma.artist
           .findUnique({
             where: {
-              id: _parent.trackId,
+              id: _parent.trackId!,
             },
           })
-          .albums();
+          .trackSig();
       },
     });
     t.list.field('albums', {
@@ -47,16 +47,16 @@ export const Artist = objectType({
           .albums();
       },
     });
-    t.list.field('badges', {
+    t.field('badge', {
       type: Badge,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
           .findUnique({
             where: {
-              id: _parent.badgeId,
+              id: _parent.badgeId!,
             },
           })
-          .badges();
+          .badge();
       },
     });
     t.list.field('tracks', {
@@ -84,7 +84,7 @@ export const Artist = objectType({
       },
     });
     t.list.field('features', {
-      type: Artist,
+      type: Track,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
           .findUnique({
@@ -95,7 +95,7 @@ export const Artist = objectType({
           .features();
       },
     });
-    t.list.field('sharedAlbum', {
+    t.list.field('sharedAlbums', {
       type: Album,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
@@ -104,10 +104,10 @@ export const Artist = objectType({
               id: _parent.id!,
             },
           })
-          .sharedAlbum();
+          .sharedAlbums();
       },
     });
-    t.list.field('sharedAlbumWith', {
+    t.list.field('sharedAlbumsWith', {
       type: Studio,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
@@ -116,10 +116,10 @@ export const Artist = objectType({
               id: _parent.id!,
             },
           })
-          .sharedAlbumWith();
+          .sharedAlbumsWith();
       },
     });
-    t.list.field('sharedTrack', {
+    t.list.field('sharedTracks', {
       type: Track,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
@@ -128,10 +128,10 @@ export const Artist = objectType({
               id: _parent.id!,
             },
           })
-          .sharedTrack();
+          .sharedTracks();
       },
     });
-    t.list.field('sharedTrackWith', {
+    t.list.field('sharedTracksWith', {
       type: Track,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
@@ -140,10 +140,10 @@ export const Artist = objectType({
               id: _parent.id!,
             },
           })
-          .sharedTrackWith();
+          .sharedTracksWith();
       },
     });
-    t.list.field('collabed', {
+    t.list.field('Artist_B', {
       type: Artist,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
@@ -152,10 +152,10 @@ export const Artist = objectType({
               id: _parent.id!,
             },
           })
-          .collabed();
+          .Artist_B();
       },
     });
-    t.list.field('collabedWith', {
+    t.list.field('Artist_A', {
       type: Artist,
       async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist
@@ -164,7 +164,7 @@ export const Artist = objectType({
               id: _parent.id!,
             },
           })
-          .collabedWith();
+          .Artist_A();
       },
     });
   },

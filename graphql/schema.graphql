@@ -8,14 +8,31 @@ type Album {
 }
 
 type Artist {
+  albums: [Album]
+  badge: Badge
   badgeId: String
   bio: String
+  createdAt: String
+  dob: String
   email: String
+  features: [Track]
+  genres: [Genre]
   id: String
+  level: Level
   location: String
   name: String
+  role: Role
+  sharedAlbum: [Album]
+  sharedAlbumWith: [Studio]
+  sharedTrack: [Track]
+  sharedTrackWith: [Track]
+  status: Status
+  streaming: [String]
+  studios: [Studio]
   trackId: String
+  trackSig: Track
   tracks: [Track]
+  udpatedAt: String
 }
 
 type Badge {
@@ -23,8 +40,50 @@ type Badge {
   name: String
 }
 
+"""Genres"""
+enum Genre {
+  ALTERNATIVE
+  BOOMBAP
+  EASTCOAST
+  HARDCORE
+  HIPHOP
+  INSTRUMENTAL
+  LOFI
+  MIDWEST
+  OLDSCHOOL
+  POP
+  RNB
+  SOUTHERN
+  TRAP
+  UNDERGROUND
+  WESTCOAST
+}
+
+"""Level of Artist"""
+enum Level {
+  PLAYER
+  PRO
+  ROOKIE
+  VETERAN
+}
+
 type Query {
   ok: Boolean!
+}
+
+"""Role of Artist"""
+enum Role {
+  DJ
+  PRODUCER
+  RAPPER
+  SINGER
+}
+
+"""Status of Artist account"""
+enum Status {
+  BADGED
+  GUEST
+  MEMBER
 }
 
 type Studio {

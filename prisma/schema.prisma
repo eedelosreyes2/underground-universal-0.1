@@ -8,33 +8,33 @@ datasource db {
 }
 
 model Artist {
-  id              String    @id @default(uuid())
-  createdAt       DateTime  @default(now())
-  udpatedAt       DateTime  @updatedAt
-  email           String    @unique
-  dob             DateTime?
-  name            String
-  location        String?
-  badgeId         String?   @unique
-  trackId         String?
-  role            Role      @default(RAPPER)
-  level           Level     @default(ROOKIE)
-  genres          Genre[]
-  bio             String?
-  streaming       String[]
-  status          Status    @default(GUEST)
-  trackSig        Track?    @relation("Signature", fields: [trackId], references: [id])
-  albums          Album[]
-  badge           Badge?
-  tracks          Track[]
-  studios         Studio[]
-  features        Track[]   @relation("Feature")
-  sharedAlbum     Album[]   @relation("SharedAlbum")
-  sharedAlbumWith Album[]   @relation("SharedAlbumWith")
-  sharedTrack     Track[]   @relation("SharedTrack")
-  sharedTrackWith Track[]   @relation("SharedTrackWith")
-  Artist_B        Artist[]  @relation("collabs")
-  Artist_A        Artist[]  @relation("collabs")
+  id               String    @id @default(uuid())
+  createdAt        DateTime  @default(now())
+  udpatedAt        DateTime  @updatedAt
+  email            String    @unique
+  dob              DateTime?
+  name             String
+  location         String?
+  badgeId          String?   @unique
+  trackId          String?
+  role             Role      @default(RAPPER)
+  level            Level     @default(ROOKIE)
+  genres           Genre[]
+  bio              String?
+  status           Status    @default(GUEST)
+  streamings       String[]
+  trackSig         Track?    @relation("Signature", fields: [trackId], references: [id])
+  albums           Album[]
+  badge            Badge?
+  tracks           Track[]
+  studios          Studio[]
+  features         Track[]   @relation("Features")
+  sharedAlbums     Album[]   @relation("SharedAlbums")
+  sharedAlbumsWith Album[]   @relation("SharedAlbumsWith")
+  sharedTracks     Track[]   @relation("SharedTracks")
+  sharedTracksWith Track[]   @relation("SharedTracksWith")
+  Artist_B         Artist[]  @relation("collabs")
+  Artist_A         Artist[]  @relation("collabs")
 }
 
 model Album {
@@ -55,8 +55,8 @@ model Album {
   badge      Badge?   @relation(fields: [badgeId], references: [id])
   studio     Studio?  @relation(fields: [studioId], references: [id])
   tracks     Track[]
-  shared     Artist[] @relation("SharedAlbum")
-  sharedWith Artist[] @relation("SharedAlbumWith")
+  shared     Artist[] @relation("SharedAlbums")
+  sharedWith Artist[] @relation("SharedAlbumsWith")
 }
 
 model Track {
@@ -79,9 +79,9 @@ model Track {
   badge      Badge?    @relation(fields: [badgeId], references: [id])
   studio     Studio?   @relation(fields: [studioId], references: [id])
   trackSigs  Artist[]  @relation("Signature")
-  features   Artist[]  @relation("Feature")
-  shared     Artist[]  @relation("SharedTrack")
-  sharedWith Artist[]  @relation("SharedTrackWith")
+  features   Artist[]  @relation("Features")
+  shared     Artist[]  @relation("SharedTracks")
+  sharedWith Artist[]  @relation("SharedTracksWith")
 }
 
 model Studio {
