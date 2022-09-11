@@ -12,7 +12,7 @@ module.exports = {
       white: 'white',
       fill: {
         dark: '#0C0C0C',
-        light: '#EEEEEE',
+        light: '#F6F6F6',
       },
       nav: {
         dark: '#1A1A1A',
@@ -20,7 +20,7 @@ module.exports = {
       },
       component: {
         dark: '#111111',
-        light: '#FAFAFA',
+        light: '#FEFEFE',
       },
       spotify: '#1DB954',
       appleMusic: '#FC3C44',

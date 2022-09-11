@@ -37,7 +37,7 @@ const Carousel = () => {
         <div
           onClick={playHandler}
           className="cursor-pointer w-24 h-24 rounded-full flex justify-center items-center 
-            sm:w-60 sm:h-60 transition-all hover:scale-110"
+            sm:w-60 sm:h-60 transition-all hover:scale-125"
         >
           {playing ? (
             <>
@@ -54,8 +54,7 @@ const Carousel = () => {
                 value={{
                   size: '2.85em',
                   color: 'red',
-                  className:
-                    'sm:hidden opacity-50 transition-all hover:scale-110',
+                  className: 'sm:hidden opacity-50',
                 }}
               >
                 <VscDebugPause />
@@ -67,8 +66,7 @@ const Carousel = () => {
                 value={{
                   size: '4em',
                   color: 'red',
-                  className:
-                    'ml-4 hidden sm:block opacity-50 transition-all hover:scale-110',
+                  className: 'ml-4 hidden sm:block opacity-50',
                 }}
               >
                 <FaPlay />
@@ -77,8 +75,7 @@ const Carousel = () => {
                 value={{
                   size: '2em',
                   color: 'red',
-                  className:
-                    'ml-1 sm:hidden opacity-50 transition-all hover:scale-110',
+                  className: 'ml-1 sm:hidden opacity-50',
                 }}
               >
                 <FaPlay />
