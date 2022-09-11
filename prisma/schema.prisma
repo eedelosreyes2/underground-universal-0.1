@@ -25,7 +25,7 @@ model Artist {
   streamings       String[]
   trackSig         Track?    @relation("Signature", fields: [trackId], references: [id])
   albums           Album[]
-  badge            Badge?     
+  badge            Badge?
   tracks           Track[]
   studios          Studio[]
   features         Track[]   @relation("Features")
@@ -108,8 +108,8 @@ model Studio {
 model Badge {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  artistId   String   @unique
-  artist     Artist   @relation(fields: [artistId], references: [id])
+  artistId  String   @unique
+  artist    Artist   @relation(fields: [artistId], references: [id])
   albums    Album?
   studios   Studio?
   tracks    Track?

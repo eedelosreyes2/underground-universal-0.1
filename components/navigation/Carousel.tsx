@@ -33,11 +33,11 @@ const Carousel = () => {
 
   const renderAvatar = () => {
     return (
-      <div className="w-24 h-24 sm:w-60 sm:h-60">
+      <div className="w-24 h-24 border border-primary rounded-full sm:w-60 sm:h-60">
         <div
           onClick={playHandler}
-          className="border border-primary rounded-full cursor-pointer  
-        flex justify-center items-center w-24 h-24 sm:w-60 sm:h-60"
+          className="cursor-pointer w-24 h-24 rounded-full flex justify-center items-center 
+            sm:w-60 sm:h-60 transition-all hover:scale-110"
         >
           {playing ? (
             <>
@@ -45,7 +45,7 @@ const Carousel = () => {
                 value={{
                   size: '6em',
                   color: 'red',
-                  className: 'hidden sm:block',
+                  className: 'hidden sm:block opacity-50',
                 }}
               >
                 <VscDebugPause />
@@ -54,7 +54,8 @@ const Carousel = () => {
                 value={{
                   size: '2.85em',
                   color: 'red',
-                  className: 'sm:hidden',
+                  className:
+                    'sm:hidden opacity-50 transition-all hover:scale-110',
                 }}
               >
                 <VscDebugPause />
@@ -66,7 +67,8 @@ const Carousel = () => {
                 value={{
                   size: '4em',
                   color: 'red',
-                  className: 'ml-4 hidden sm:block',
+                  className:
+                    'ml-4 hidden sm:block opacity-50 transition-all hover:scale-110',
                 }}
               >
                 <FaPlay />
@@ -75,7 +77,8 @@ const Carousel = () => {
                 value={{
                   size: '2em',
                   color: 'red',
-                  className: 'ml-1 sm:hidden',
+                  className:
+                    'ml-1 sm:hidden opacity-50 transition-all hover:scale-110',
                 }}
               >
                 <FaPlay />
@@ -169,7 +172,10 @@ const Carousel = () => {
   const renderControl = () => {
     return (
       <div className="flex items-center">
-        <div onClick={leftHandler} className="rounded-full cursor-pointer p-3">
+        <div
+          onClick={leftHandler}
+          className="rounded-full cursor-pointer p-3 transition-all hover:scale-150"
+        >
           <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
             <FaArrowLeft />
           </IconContext.Provider>
@@ -177,11 +183,14 @@ const Carousel = () => {
         <div
           onClick={collabHandler}
           className="max-w-sm rounded-full cursor-pointer font-bold text-white 
-            bg-primary px-5 py-3 mx-12"
+            bg-primary px-5 py-3 mx-12 transition-all hover:scale-110"
         >
           Collab with Zaction
         </div>
-        <div onClick={rightHandler} className="rounded-full cursor-pointer p-3">
+        <div
+          onClick={rightHandler}
+          className="rounded-full cursor-pointer p-3 transition-all hover:scale-150"
+        >
           <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
             <FaArrowRight />
           </IconContext.Provider>
