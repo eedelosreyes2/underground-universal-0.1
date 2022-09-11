@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import Layout from '../components/Layout';
-import Carousel from '../components/navigation/Carousel';
+import Carousel from '../components/Carousel';
 import SearchBar from '../components/search/SearchBar';
 
 const AllArtistsQuery = gql`
