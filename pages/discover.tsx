@@ -10,12 +10,24 @@ const AllArtistsQuery = gql`
       email
       name
       createdAt
+      location
+      status
+      role
+      level
+      genres
+      trackId
+      trackSig {
+        id
+        name
+      }
     }
   }
 `;
 
 const discover = () => {
   const { data, loading, error } = useQuery(AllArtistsQuery);
+
+  console.log(data);
 
   return (
     <Layout>
