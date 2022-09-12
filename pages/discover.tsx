@@ -7,19 +7,6 @@ const AllArtistsQuery = gql`
   query {
     artists {
       id
-      email
-      name
-      createdAt
-      location
-      status
-      role
-      level
-      genres
-      trackId
-      trackSig {
-        id
-        name
-      }
     }
   }
 `;
