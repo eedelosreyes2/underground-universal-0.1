@@ -9,6 +9,10 @@ module.exports = {
       h3: '#555555',
       primary: '#FF0000',
       secondary: '#C0C0C0',
+      rookie: '#FF6200',
+      player: '#FFA200',
+      pro: '#FFC800',
+      veteran: '#FFEA00',
       white: 'white',
       fill: {
         dark: '#0C0C0C',

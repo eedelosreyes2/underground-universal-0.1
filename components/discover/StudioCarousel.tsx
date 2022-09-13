@@ -21,7 +21,7 @@ const Carousel = () => {
   };
 
   const collabHandler = () => {
-    console.log('Collab with <Artist.name>');
+    console.log('Collab with <Studio.name>');
   };
 
   const leftHandler = () => {
@@ -175,28 +175,13 @@ const Carousel = () => {
       <div
         className="w-full sm:max-w-3xl flex flex-col rounded-3xl px-3 py-8 mb-10 
         lg:px-10 bg-component-light dark:bg-component-dark h-[425px] sm:h-96"
-      >
-        {/* Top container */}
-        <div className="flex items-center mb-5">
-          {renderAvatar()}
-          {renderInfo()}
-        </div>
-
-        {/* bio mobile viewport */}
-        <div className="sm:hidden w-full text-left mb-5">
-          A sentence or two on who I am and who I am looking to collab with.
-          This will take up the space that the embedded player would, but now I
-          moved that.
-        </div>
-
-        {renderStreamings()}
-      </div>
+      ></div>
 
       <Control
         ctaHandler={collabHandler}
         leftHandler={leftHandler}
         rightHandler={rightHandler}
-        label="Collab with Zaction"
+        label="Rent Action Studio"
       />
     </div>
   );
