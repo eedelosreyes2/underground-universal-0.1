@@ -13,7 +13,7 @@ model Artist {
   udpatedAt        DateTime  @updatedAt
   email            String    @unique
   dob              DateTime?
-  name             String
+  name             String?
   location         String?
   badgeId          String?   @unique
   trackId          String?

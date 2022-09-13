@@ -7,6 +7,7 @@ const AllArtistsQuery = gql`
   query {
     artists {
       id
+      email
     }
   }
 `;
