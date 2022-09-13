@@ -1,5 +1,6 @@
+import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 
 interface Props {
   children?: ReactNode;
@@ -7,11 +8,17 @@ interface Props {
 }
 
 const ActiveLink = ({ children, href }: Props) => {
+  const { user } = useUser();
   const router = useRouter();
 
   const handleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    router.push(href);
+
+    if (href === '/discover' || user) {
+      router.push(href);
+    } else {
+      alert('This page is for members only, JOIN to have access.');
+    }
   };
 
   return (
