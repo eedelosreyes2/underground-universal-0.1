@@ -3,7 +3,9 @@
 module.exports = {
   reactStrictMode: true,
   swcMinify: true,
-
+  images: {
+    domains: ['s.gravatar.com'],
+  },
   async redirects() {
     return [
       {
