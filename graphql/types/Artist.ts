@@ -1,4 +1,4 @@
-import { objectType, extendType } from 'nexus';
+import { objectType, extendType, intArg, queryType } from 'nexus';
 import { Status, Role, Level, Genre } from './Enums';
 import { Album } from './Album';
 import { Badge } from './Badge';
@@ -29,7 +29,7 @@ export const Artist = objectType({
         return await ctx.prisma.artist
           .findUnique({
             where: {
-              id: _parent.trackId!,
+              id: _parent.id!,
             },
           })
           .trackSig();
@@ -53,7 +53,7 @@ export const Artist = objectType({
         return await ctx.prisma.artist
           .findUnique({
             where: {
-              id: _parent.badgeId!,
+              id: _parent.id!,
             },
           })
           .badge();
@@ -143,30 +143,8 @@ export const Artist = objectType({
           .sharedTracksWith();
       },
     });
-    t.list.field('Artist_B', {
-      type: Artist,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.artist
-          .findUnique({
-            where: {
-              id: _parent.id!,
-            },
-          })
-          .Artist_B();
-      },
-    });
-    t.list.field('Artist_A', {
-      type: Artist,
-      async resolve(_parent, _args, ctx) {
-        return await ctx.prisma.artist
-          .findUnique({
-            where: {
-              id: _parent.id!,
-            },
-          })
-          .Artist_A();
-      },
-    });
+    t.list.field('Artist_B', { type: Artist });
+    t.list.field('Artist_A', { type: Artist });
   },
 });
 
