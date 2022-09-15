@@ -1,11 +1,22 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { HiMoon, HiOutlineMoon } from 'react-icons/hi';
 
 const TopNav = () => {
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
+  const router = useRouter();
+
+  const profileBorder =
+    'h-8 cursor-pointer border rounded-full overflow-hidden '.concat(
+      router.pathname === '/profile' ? 'border-primary' : 'border-secondary'
+    );
+
+  const handleProfileClick = () => {
+    router.push('/profile');
+  };
 
   return (
     <div className="absolute right-0 left-0 flex justify-between py-3 px-5 sm:justify-end sm:py-7 sm:px-12">
@@ -16,12 +27,9 @@ const TopNav = () => {
         </button>
 
         {user ? (
-          <a
-            href="profile"
-            className="h-8 border border-secondary rounded-full overflow-hidden"
-          >
+          <div onClick={handleProfileClick} className={profileBorder}>
             <Image src={user.picture!} width={32} height={32} alt="Profile" />
-          </a>
+          </div>
         ) : (
           <>
             <a href="/api/auth/login">

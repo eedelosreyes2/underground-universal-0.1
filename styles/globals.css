@@ -21,4 +21,7 @@
   .page-container {
     @apply w-full h-screen flex flex-col items-center pt-12 sm:pt-20;
   }
+  .text-button {
+    @apply text-primary font-bold cursor-pointer w-fit;
+  }
 }
