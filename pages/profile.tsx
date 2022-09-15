@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaPlay } from 'react-icons/fa';
@@ -97,6 +98,9 @@ const profile = () => {
       if (userProfile.name == null) {
         userProfile.name = user?.nickname;
       }
+      if (userProfile.imgSrc == null) {
+        userProfile.imgSrc = user?.picture;
+      }
       setUserProfile(userProfile);
     }
   }, [data]);
@@ -109,12 +113,19 @@ const profile = () => {
 
   const renderAvatar = () => {
     return (
-      <div className="w-24 h-24 border border-primary rounded-full sm:w-60 sm:h-60">
+      <div className="w-24 h-24 relative border border-primary rounded-full sm:w-60 sm:h-60">
+        <Image
+          src={userProfile.imgSrc!}
+          layout="fill"
+          alt="Profile"
+          className="rounded-full"
+        />
         <div
           onClick={playHandler}
           className="cursor-pointer w-24 h-24 rounded-full flex justify-center items-center 
             sm:w-60 sm:h-60 transition-all hover:scale-125"
         >
+          {/* TODO: Fix trackSig player UX */}
           {playing ? (
             <>
               <IconContext.Provider
@@ -168,20 +179,22 @@ const profile = () => {
       <div className="flex flex-col justify-start items-start ml-5">
         <div className="flex items-center">
           <h1 className="inline text-left">
-            Zaction Bronson Bronson{' '}
-            <IconContext.Provider
-              value={{
-                color: 'red',
-                className: 'inline',
-              }}
-            >
-              <MdVerified />
-            </IconContext.Provider>
+            {name + ' '}
+            {badge && (
+              <IconContext.Provider
+                value={{
+                  color: 'red',
+                  className: 'inline',
+                }}
+              >
+                <MdVerified />
+              </IconContext.Provider>
+            )}
           </h1>
         </div>
         <div className="flex gap-1 mt-1 mb-2 items-center">
           <IoIosPin />
-          Martinez, Ca
+          {location}
         </div>
         <div className="w-full flex">
           <div className="border border-primary rounded-full px-3 mr-2">
@@ -194,11 +207,7 @@ const profile = () => {
             Player
           </div>
         </div>
-        <div className="hidden sm:block w-full text-left mt-5">
-          A sentence or two on who I am and who I am looking to collab with.
-          This will take up the space that the embedded player would, but now I
-          moved that.
-        </div>
+        <div className="hidden sm:block w-full text-left mt-5">{bio}</div>
       </div>
     );
   };

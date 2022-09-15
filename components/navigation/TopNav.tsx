@@ -22,10 +22,14 @@ const TopNav = () => {
     <div className="absolute right-0 left-0 flex justify-between py-3 px-5 sm:justify-end sm:py-7 sm:px-12">
       <div className="sm:hidden">*Logo*</div>
       <div className="flex gap-6">
-        <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        <div
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className="flex items-center"
+        >
           {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
-        </button>
+        </div>
 
+        {/* TODO: Get profile picture from userProfile */}
         {user ? (
           <div onClick={handleProfileClick} className={profileBorder}>
             <Image src={user.picture!} width={32} height={32} alt="Profile" />
