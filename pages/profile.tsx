@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaPlay } from 'react-icons/fa';
 import { IoIosPin } from 'react-icons/io';
@@ -15,11 +15,13 @@ import {
 import { VscDebugPause } from 'react-icons/vsc';
 import Layout from '../components/Layout';
 
-const MeQuery = gql`
+// TODO: Optimize query to only get current artist
+const GET_ALL_ARTISTS = gql`
   query {
     artists {
       id
       email
+      name
     }
   }
 `;
@@ -49,11 +51,27 @@ export const getServerSideProps = async ({
 };
 
 const profile = () => {
-  const { data, loading, error } = useQuery(MeQuery);
+  const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
+  const { user } = useUser();
   const [playing, setPlaying] = useState(true);
-  const user = useUser();
+  const [userProfile, setUserProfile] = useState({});
 
-  console.log(data);
+  // TODO: Remove once query is optimized
+  const getUserProfile = data?.artists.filter((artist: any) => {
+    return artist.email == user?.email;
+  });
+
+  useEffect(() => {
+    if (getUserProfile?.length) {
+      let userProfile = { ...getUserProfile[0] };
+      if (userProfile.name == null) {
+        userProfile.name = user?.name;
+      }
+      setUserProfile(userProfile);
+    }
+  }, [data]);
+
+  console.log(userProfile);
 
   const playHandler = () => {
     setPlaying((playing) => !playing);
