@@ -10,9 +10,8 @@ const TopNav = () => {
   const router = useRouter();
 
   const profileBorder =
-    'h-8 cursor-pointer border rounded-full overflow-hidden '.concat(
-      router.pathname === '/profile' ? 'border-primary' : 'border-secondary'
-    );
+    'h-8 cursor-pointer border rounded-full overflow-hidden ' +
+    (router.pathname === '/profile' ? 'border-primary' : 'border-secondary');
 
   const handleProfileClick = () => {
     router.push('/profile');

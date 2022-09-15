@@ -15,6 +15,9 @@ import {
 } from 'react-icons/si';
 import { VscDebugPause } from 'react-icons/vsc';
 import Layout from '../components/Layout';
+import Genre from '../components/tags/Genre';
+import Level from '../components/tags/Level';
+import Role from '../components/tags/Role';
 
 // TODO: Optimize query to only get current artist
 // TODO: Add imgSrc, trackSig, and badge to query
@@ -197,15 +200,14 @@ const profile = () => {
           {location}
         </div>
         <div className="w-full flex">
-          <div className="border border-primary rounded-full px-3 mr-2">
-            Rapper
-          </div>
-          <div className="border border-secondary rounded-full px-3 mr-2">
+          <Role role={role} />
+          {/* <div className="border border-secondary rounded-full px-3 mr-2">
             Hiphop
-          </div>
-          <div className="border border-player rounded-full px-3 mr-2">
-            Player
-          </div>
+          </div> */}
+          {genres.map((genre) => (
+            <Genre genre={genre} />
+          ))}
+          <Level level={level} />
         </div>
         <div className="hidden sm:block w-full text-left mt-5">{bio}</div>
       </div>
