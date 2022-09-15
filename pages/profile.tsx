@@ -16,12 +16,19 @@ import { VscDebugPause } from 'react-icons/vsc';
 import Layout from '../components/Layout';
 
 // TODO: Optimize query to only get current artist
+// TODO: Add imgSrc, trackSig, and badge to query
 const GET_ALL_ARTISTS = gql`
   query {
     artists {
       id
       email
       name
+      location
+      bio
+      role
+      genres
+      level
+      streaming
     }
   }
 `;
@@ -54,7 +61,30 @@ const profile = () => {
   const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
   const { user } = useUser();
   const [playing, setPlaying] = useState(true);
-  const [userProfile, setUserProfile] = useState({});
+  const [userProfile, setUserProfile] = useState({
+    name: '',
+    location: '',
+    bio: '',
+    imgSrc: '',
+    trackSig: null,
+    badge: null,
+    role: '',
+    genres: [],
+    level: '',
+    streamings: [],
+  });
+  const {
+    name,
+    location,
+    bio,
+    imgSrc,
+    trackSig,
+    badge,
+    role,
+    genres,
+    level,
+    streamings,
+  } = userProfile;
 
   // TODO: Remove once query is optimized
   const getUserProfile = data?.artists.filter((artist: any) => {
@@ -65,7 +95,7 @@ const profile = () => {
     if (getUserProfile?.length) {
       let userProfile = { ...getUserProfile[0] };
       if (userProfile.name == null) {
-        userProfile.name = user?.name;
+        userProfile.name = user?.nickname;
       }
       setUserProfile(userProfile);
     }
