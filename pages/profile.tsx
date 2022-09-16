@@ -1,6 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
+import { composeMiddlewareFns } from 'nexus/dist/plugin';
 import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaPlay } from 'react-icons/fa';
@@ -32,7 +33,7 @@ const GET_ALL_ARTISTS = gql`
       role
       genres
       level
-      streaming
+      streamings
     }
   }
 `;
@@ -199,59 +200,121 @@ const profile = () => {
           <IoIosPin />
           {location}
         </div>
-        <div className="w-full flex">
+        <div className="w-full flex flex-wrap">
           <Role role={role} />
-          {/* <div className="border border-secondary rounded-full px-3 mr-2">
-            Hiphop
-          </div> */}
-          {genres.map((genre) => (
-            <Genre genre={genre} />
-          ))}
           <Level level={level} />
+          {genres.map((genre, id) => (
+            <Genre key={id} genre={genre} />
+          ))}
         </div>
-        <div className="hidden sm:block w-full text-left mt-5">{bio}</div>
+        <div className="hidden sm:block w-full text-left mt-5">
+          {bio}
+          {renderStreamings()}
+        </div>
       </div>
     );
   };
 
   const renderStreamings = () => {
+    let spotify, appleMusic, soundcloud, youtube, bandcamp;
+
+    streamings.map((platform: string) => {
+      const url = new URL(platform);
+      const { hostname } = url;
+
+      if (hostname.includes('spotify')) {
+        spotify = platform;
+      }
+      if (hostname.includes('apple')) {
+        appleMusic = platform;
+      }
+      if (hostname.includes('soundcloud')) {
+        soundcloud = platform;
+      }
+      if (hostname.includes('youtube')) {
+        youtube = platform;
+      }
+      if (hostname.includes('bandcamp')) {
+        bandcamp = platform;
+      }
+    });
+
     return (
-      <div className="w-full flex flex-wrap">
-        <div className="flex cursor-pointer font-bold mr-3">
-          <IconContext.Provider
-            value={{ size: '1.75em', className: 'text-spotify mr-2' }}
-          >
-            <SiSpotify /> Zaction Bronson
-          </IconContext.Provider>
-        </div>
-        <div className="flex cursor-pointer font-bold mr-3">
-          <IconContext.Provider
-            value={{ size: '1.75em', className: 'text-appleMusic mr-2' }}
-          >
-            <SiApplemusic /> Zaction Bronson
-          </IconContext.Provider>
-        </div>
-        <div className="flex cursor-pointer font-bold mr-3">
-          <IconContext.Provider
-            value={{ size: '1.75em', className: 'text-soundcloud mr-2' }}
-          >
-            <SiSoundcloud /> Zaction Bronson
-          </IconContext.Provider>
-        </div>
-        <div className="flex cursor-pointer font-bold mr-3">
-          <IconContext.Provider
-            value={{ size: '1.75em', className: 'text-primary mr-2' }}
-          >
-            <SiYoutube /> Zaction Bronson
-          </IconContext.Provider>
-        </div>
-        <div className="flex cursor-pointer font-bold mr-3">
-          <IconContext.Provider
-            value={{ size: '1.75em', className: 'text-bandcamp mr-2' }}
-          >
-            <SiBandcamp /> Zaction Bronson
-          </IconContext.Provider>
-        </div>
+      <div className="w-full flex flex-wrap mt-10">
+        {spotify && (
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{
+                size: '1.75em',
+                className: 'hover:scale-125 text-spotify mr-2',
+              }}
+            >
+              <a href={spotify} target="__blank">
+                <SiSpotify />
+              </a>
+            </IconContext.Provider>
+          </div>
+        )}
+
+        {appleMusic && (
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{
+                size: '1.75em',
+                className: 'hover:scale-125 text-appleMusic mr-2',
+              }}
+            >
+              <a href={appleMusic} target="__blank">
+                <SiApplemusic />
+              </a>
+            </IconContext.Provider>
+          </div>
+        )}
+
+        {soundcloud && (
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{
+                size: '1.75em',
+                className: 'hover:scale-125 text-soundcloud mr-2',
+              }}
+            >
+              <a href={soundcloud} target="__blank">
+                <SiSoundcloud />
+              </a>
+            </IconContext.Provider>
+          </div>
+        )}
+
+        {youtube && (
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{
+                size: '1.75em',
+                className: 'hover:scale-125 text-primary mr-2',
+              }}
+            >
+              <a href={youtube} target="__blank">
+                <SiYoutube />
+              </a>
+            </IconContext.Provider>
+          </div>
+        )}
+
+        {bandcamp && (
+          <div className="flex cursor-pointer font-bold mr-3">
+            <IconContext.Provider
+              value={{
+                size: '1.75em',
+                className: 'hover:scale-125 text-bandcamp mr-2',
+              }}
+            >
+              <a href={bandcamp} target="__blank">
+                <SiBandcamp />
+              </a>
+            </IconContext.Provider>
+          </div>
+        )}
       </div>
     );
   };
@@ -273,12 +336,9 @@ const profile = () => {
 
               {/* bio mobile viewport */}
               <div className="sm:hidden w-full text-left mb-5">
-                A sentence or two on who I am and who I am looking to collab
-                with. This will take up the space that the embedded player
-                would, but now I moved that.
+                {bio}
+                {renderStreamings()}
               </div>
-
-              {renderStreamings()}
             </div>
           </div>
         </div>

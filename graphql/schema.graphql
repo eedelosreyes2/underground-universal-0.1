@@ -29,7 +29,7 @@ type Artist {
   sharedTracks: [Track]
   sharedTracksWith: [Track]
   status: Status
-  streaming: [String]
+  streamings: [String]
   studios: [Studio]
   trackId: String
   trackSig: Track

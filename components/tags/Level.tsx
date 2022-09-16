@@ -15,7 +15,7 @@ const Level = ({ level }: any) => {
   return (
     <div
       className={
-        'border rounded-full px-3 mr-2 ' +
+        'border rounded-full px-3 mr-2 mb-2 ' +
         ('border-' + getLabel(level)?.toLowerCase())
       }
     >

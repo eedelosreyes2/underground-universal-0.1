@@ -13,7 +13,7 @@ const Role = ({ role }: any) => {
   };
 
   return (
-    <div className="border border-primary rounded-full px-3 mr-2">
+    <div className="border border-primary rounded-full px-3 mr-2 mb-2">
       {getLabel(role)}
     </div>
   );

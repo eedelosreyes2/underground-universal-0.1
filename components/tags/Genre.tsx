@@ -35,7 +35,7 @@ const Genre = ({ genre }: any) => {
   };
 
   return (
-    <div className="border border-secondary rounded-full px-3 mr-2">
+    <div className="border border-secondary rounded-full px-3 mr-2 mb-2">
       {getLabel(genre)}
     </div>
   );
