@@ -200,18 +200,28 @@ const profile = () => {
           <IoIosPin />
           {location}
         </div>
-        <div className="w-full flex flex-wrap">
+
+        {/* Desktop only */}
+        <div className="hidden sm:block w-full text-left mt-3">
+          {renderMoreInfo()}
+        </div>
+      </div>
+    );
+  };
+
+  const renderMoreInfo = () => {
+    return (
+      <>
+        <div className="w-full flex flex-wrap mb-3">
           <Role role={role} />
           <Level level={level} />
           {genres.map((genre, id) => (
             <Genre key={id} genre={genre} />
           ))}
         </div>
-        <div className="hidden sm:block w-full text-left mt-5">
-          {bio}
-          {renderStreamings()}
-        </div>
-      </div>
+        {bio}
+        {renderStreamings()}
+      </>
     );
   };
 
@@ -219,28 +229,30 @@ const profile = () => {
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
 
     streamings.map((platform: string) => {
-      const url = new URL(platform);
-      const { hostname } = url;
+      if (platform) {
+        const url = new URL(platform);
+        const { hostname } = url;
 
-      if (hostname.includes('spotify')) {
-        spotify = platform;
-      }
-      if (hostname.includes('apple')) {
-        appleMusic = platform;
-      }
-      if (hostname.includes('soundcloud')) {
-        soundcloud = platform;
-      }
-      if (hostname.includes('youtube')) {
-        youtube = platform;
-      }
-      if (hostname.includes('bandcamp')) {
-        bandcamp = platform;
+        if (hostname.includes('spotify')) {
+          spotify = platform;
+        }
+        if (hostname.includes('apple')) {
+          appleMusic = platform;
+        }
+        if (hostname.includes('soundcloud')) {
+          soundcloud = platform;
+        }
+        if (hostname.includes('youtube')) {
+          youtube = platform;
+        }
+        if (hostname.includes('bandcamp')) {
+          bandcamp = platform;
+        }
       }
     });
 
     return (
-      <div className="w-full flex flex-wrap mt-10">
+      <div className="w-full flex flex-wrap mt-5">
         {spotify && (
           <div className="flex cursor-pointer font-bold mr-3">
             <IconContext.Provider
@@ -334,10 +346,9 @@ const profile = () => {
                 {renderInfo()}
               </div>
 
-              {/* bio mobile viewport */}
-              <div className="sm:hidden w-full text-left mb-5">
-                {bio}
-                {renderStreamings()}
+              {/* Mobile only */}
+              <div className="sm:hidden sm:block w-full text-left">
+                {renderMoreInfo()}
               </div>
             </div>
           </div>
