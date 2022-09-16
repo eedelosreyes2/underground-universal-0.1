@@ -9,9 +9,12 @@ const TopNav = () => {
   const { user } = useUser();
   const router = useRouter();
 
+  // TODO: Update this since edit profile page
   const profileBorder =
     'h-8 cursor-pointer border rounded-full overflow-hidden ' +
-    (router.pathname === '/profile' ? 'border-primary' : 'border-secondary');
+    (router.pathname === '/profile' || router.pathname === '/settings/profile'
+      ? 'border-primary'
+      : 'border-secondary');
 
   const handleProfileClick = () => {
     router.push('/profile');

@@ -1,11 +1,11 @@
 import { gql, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
-import { composeMiddlewareFns } from 'nexus/dist/plugin';
+import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaPlay } from 'react-icons/fa';
-import { IoIosPin } from 'react-icons/io';
+import { TbMapPin } from 'react-icons/tb';
 import { MdVerified } from 'react-icons/md';
 import {
   SiSpotify,
@@ -19,6 +19,7 @@ import Layout from '../components/Layout';
 import Genre from '../components/tags/Genre';
 import Level from '../components/tags/Level';
 import Role from '../components/tags/Role';
+import { HiOutlineAtSymbol } from 'react-icons/hi';
 
 // TODO: Optimize query to only get current artist
 // TODO: Add imgSrc, trackSig, and badge to query
@@ -196,13 +197,19 @@ const profile = () => {
             )}
           </h1>
         </div>
-        <div className="flex gap-1 mt-1 mb-2 items-center">
-          <IoIosPin />
-          {location}
-        </div>
-
+        <h3 className="flex font-medium items-start mt-1">
+          <div className="flex items-center">
+            <HiOutlineAtSymbol />
+            Joey
+          </div>
+          <div className="mx-2 font-bold"> · </div>
+          <div className="flex items-center">
+            {/* <TbMapPin /> */}
+            {location}
+          </div>
+        </h3>
         {/* Desktop only */}
-        <div className="hidden sm:block w-full text-left mt-3">
+        <div className="hidden sm:block w-full text-left mt-5">
           {renderMoreInfo()}
         </div>
       </div>
@@ -338,7 +345,12 @@ const profile = () => {
           <div className="w-full flex flex-col items-center">
             <div className="w-full sm:max-w-3xl flex flex-col rounded-3xl px-3 mb-10 lg:px-10">
               <div className="text-left pb-16">
-                <p className="text-button">Edit profile</p>
+                <div
+                  onClick={() => router.push('/settings/profile')}
+                  className="text-button"
+                >
+                  Edit profile
+                </div>
               </div>
               {/* Top container */}
               <div className="flex items-center mb-5">
