@@ -119,7 +119,7 @@ const profile = () => {
     return (
       <div className="w-24 h-24 relative border border-primary rounded-full sm:w-60 sm:h-60">
         <Image
-          src={userProfile.imgSrc!}
+          src={imgSrc!}
           layout="fill"
           alt="Profile"
           className="rounded-full"
