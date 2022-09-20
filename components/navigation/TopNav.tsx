@@ -26,7 +26,7 @@ const TopNav = () => {
       <div className="flex gap-6">
         <div
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="flex items-center"
+          className="flex items-center cursor-pointer mt-1"
         >
           {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
         </div>
@@ -38,8 +38,11 @@ const TopNav = () => {
           </div>
         ) : (
           <>
-            <a href="/api/auth/login">
-              <div className="cursor-pointer">Log in</div>
+            <a
+              href="/api/auth/login"
+              className="flex items-center cursor-pointer"
+            >
+              Log in
             </a>
             <a href="/join">
               <div className="rounded-2xl cursor-pointer bg-primary font-bold text-white px-4 py-2">
