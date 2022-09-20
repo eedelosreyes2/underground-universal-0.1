@@ -341,28 +341,24 @@ const profile = () => {
   return (
     <Layout>
       <div className="page-container">
-        <div className="flex flex-col items-center text-center w-full pt-10">
-          <div className="w-full flex flex-col items-center">
-            <div className="w-full sm:max-w-3xl flex flex-col rounded-3xl px-3 mb-10 lg:px-10">
-              <div className="text-left pb-16">
-                <div
-                  onClick={() => router.push('/settings/profile')}
-                  className="text-button"
-                >
-                  Edit profile
-                </div>
-              </div>
-              {/* Top container */}
-              <div className="flex items-center mb-5">
-                {renderAvatar()}
-                {renderInfo()}
-              </div>
-
-              {/* Mobile only */}
-              <div className="sm:hidden sm:block w-full text-left">
-                {renderMoreInfo()}
-              </div>
+        <div className="page-inner-container">
+          <div className="text-left pb-16">
+            <div
+              onClick={() => router.push('/settings/profile')}
+              className="text-button"
+            >
+              Edit profile
             </div>
+          </div>
+          {/* Top container */}
+          <div className="flex items-center mb-5">
+            {renderAvatar()}
+            {renderInfo()}
+          </div>
+
+          {/* Mobile only */}
+          <div className="sm:hidden sm:block w-full text-left">
+            {renderMoreInfo()}
           </div>
         </div>
       </div>

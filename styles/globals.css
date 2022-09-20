@@ -21,7 +21,13 @@
   .page-container {
     @apply w-full h-screen flex flex-col items-center pt-12 sm:pt-20;
   }
+  .page-inner-container {
+    @apply w-full sm:max-w-3xl flex flex-col rounded-3xl my-10 lg:px-10;
+  }
+  .cta-button {
+    @apply rounded-2xl cursor-pointer bg-primary font-bold text-white px-4 py-2;
+  }
   .text-button {
-    @apply text-primary font-bold cursor-pointer w-fit hover:scale-110;
+    @apply text-primary font-bold cursor-pointer w-fit;
   }
 }

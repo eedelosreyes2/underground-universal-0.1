@@ -45,9 +45,7 @@ const TopNav = () => {
               Log in
             </a>
             <a href="/join">
-              <div className="rounded-2xl cursor-pointer bg-primary font-bold text-white px-4 py-2">
-                Join
-              </div>
+              <div className="cta-button">Join</div>
             </a>
           </>
         )}

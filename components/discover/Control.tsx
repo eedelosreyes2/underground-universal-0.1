@@ -13,7 +13,7 @@ const Control = ({ leftHandler, ctaHandler, rightHandler, label }: Props) => {
     <div className="flex items-center">
       <div
         onClick={leftHandler}
-        className="rounded-full cursor-pointer p-3 transition-all hover:scale-150"
+        className="rounded-full cursor-pointer p-3 transition-all"
       >
         <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
           <FaArrowLeft />
@@ -28,7 +28,7 @@ const Control = ({ leftHandler, ctaHandler, rightHandler, label }: Props) => {
       </div>
       <div
         onClick={rightHandler}
-        className="rounded-full cursor-pointer p-3 transition-all hover:scale-150"
+        className="rounded-full cursor-pointer p-3 transition-all"
       >
         <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
           <FaArrowRight />
