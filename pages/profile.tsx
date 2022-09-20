@@ -78,7 +78,7 @@ const profile = () => {
     genres: [],
     level: '',
     streamings: [],
-  });
+  }); // TODO: Get from API
   const {
     name,
     location,
@@ -110,7 +110,10 @@ const profile = () => {
     }
   }, [data]);
 
-  console.log(userProfile);
+  useEffect(() => {
+    // TODO: Also send to API along with updatedAt
+    console.log(userProfile);
+  }, [userProfile]);
 
   const playHandler = () => {
     setPlaying((playing) => !playing);
@@ -265,7 +268,7 @@ const profile = () => {
             <IconContext.Provider
               value={{
                 size: '1.75em',
-                className: 'hover:scale-125 text-spotify mr-2',
+                className: 'text-spotify mr-2',
               }}
             >
               <a href={spotify} target="__blank">
@@ -280,7 +283,7 @@ const profile = () => {
             <IconContext.Provider
               value={{
                 size: '1.75em',
-                className: 'hover:scale-125 text-appleMusic mr-2',
+                className: 'text-appleMusic mr-2',
               }}
             >
               <a href={appleMusic} target="__blank">
@@ -295,7 +298,7 @@ const profile = () => {
             <IconContext.Provider
               value={{
                 size: '1.75em',
-                className: 'hover:scale-125 text-soundcloud mr-2',
+                className: 'text-soundcloud mr-2',
               }}
             >
               <a href={soundcloud} target="__blank">
@@ -310,7 +313,7 @@ const profile = () => {
             <IconContext.Provider
               value={{
                 size: '1.75em',
-                className: 'hover:scale-125 text-primary mr-2',
+                className: 'text-primary mr-2',
               }}
             >
               <a href={youtube} target="__blank">
@@ -325,7 +328,7 @@ const profile = () => {
             <IconContext.Provider
               value={{
                 size: '1.75em',
-                className: 'hover:scale-125 text-bandcamp mr-2',
+                className: 'text-bandcamp mr-2',
               }}
             >
               <a href={bandcamp} target="__blank">

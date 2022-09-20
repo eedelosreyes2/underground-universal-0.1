@@ -30,4 +30,10 @@
   .text-button {
     @apply text-primary font-bold cursor-pointer w-fit;
   }
+  .input-name {
+    @apply font-bold text-h3 text-sm;
+  }
+  .text {
+    @apply font-normal text-base text-black dark:text-white;
+  }
 }

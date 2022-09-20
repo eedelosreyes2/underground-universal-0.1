@@ -21,6 +21,7 @@ export const Artist = objectType({
     t.field('level', { type: Level });
     t.list.field('genres', { type: Genre });
     t.string('bio');
+    t.string('imgSrc');
     t.list.string('streamings');
     t.field('status', { type: Status });
     t.field('trackSig', {
