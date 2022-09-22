@@ -3,7 +3,7 @@ import { getSession } from '@auth0/nextjs-auth0';
 import { gql } from 'apollo-server-micro';
 import Carousel from '../components/discover/StudioCarousel';
 import Layout from '../components/Layout';
-import SearchBar from '../components/search/SearchBar';
+import SearchBar from '../components/SearchBar';
 
 export const getServerSideProps = async ({
   req,
