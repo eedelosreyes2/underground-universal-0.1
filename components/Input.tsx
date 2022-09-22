@@ -19,7 +19,7 @@ const Input = ({ name, length, value, setValue }: Props) => {
         />
         <div className="w-full flex justify-between">
           <label htmlFor={name}>{name}</label>
-          {value.length > 0 && (
+          {value?.length > 0 && (
             <div className={value.length >= length ? 'text-primary' : ''}>
               {value.length + '/' + length}
             </div>
