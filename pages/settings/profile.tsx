@@ -1,6 +1,6 @@
 import { getSession } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -33,6 +33,7 @@ export const getServerSideProps = async ({
 
 const editProfile = () => {
   const [name, setName] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     console.log(name);

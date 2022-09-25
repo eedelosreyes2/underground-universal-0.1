@@ -1,7 +1,7 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaPlay } from 'react-icons/fa';
@@ -29,6 +29,7 @@ const GET_ALL_ARTISTS = gql`
       id
       email
       name
+      handle
       location
       bio
       role
@@ -36,6 +37,32 @@ const GET_ALL_ARTISTS = gql`
       level
       streamings
     }
+  }
+`;
+
+const UPDATE_ARTIST = gql`
+  mutation UpdateArtist(
+    $id: String!
+    $email: String!
+    $name: String!
+    $handle: String!
+    $location: String!
+    $bio: String!
+    $role: String!
+    $genres: String!
+    $level: String!
+    $streamings: String!
+  ) {
+    id
+    email
+    name
+    handle
+    location
+    bio
+    role
+    genres
+    level
+    streamings
   }
 `;
 
@@ -64,11 +91,12 @@ export const getServerSideProps = async ({
 };
 
 const profile = () => {
-  const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
-  const { user } = useUser();
+  const router = useRouter();
   const [playing, setPlaying] = useState(true);
+  const { user } = useUser();
   const [userProfile, setUserProfile] = useState({
     name: '',
+    handle: '',
     location: '',
     bio: '',
     imgSrc: '',
@@ -78,9 +106,10 @@ const profile = () => {
     genres: [],
     level: '',
     streamings: [],
-  }); // TODO: Get from API
+  }); // TODO: Get from API once query is optimized
   const {
     name,
+    handle,
     location,
     bio,
     imgSrc,
@@ -91,6 +120,33 @@ const profile = () => {
     level,
     streamings,
   } = userProfile;
+  const { data, loading, error } = useQuery(GET_ALL_ARTISTS, {
+    pollInterval: 500,
+  });
+  const [
+    updateArtist,
+    { data: dataMutation, loading: loadingMutation, error: errorMutation },
+  ] = useMutation(UPDATE_ARTIST, {
+    variables: {
+      name,
+      handle,
+      location,
+      bio,
+      imgSrc,
+      trackSig,
+      badge,
+      role,
+      genres,
+      level,
+      streamings,
+    },
+  });
+
+  if (errorMutation) {
+    console.log(errorMutation);
+  }
+
+  console.log(data);
 
   // TODO: Remove once query is optimized
   const getUserProfile = data?.artists.filter((artist: any) => {
@@ -103,6 +159,9 @@ const profile = () => {
       if (userProfile.name == null) {
         userProfile.name = user?.nickname;
       }
+      if (userProfile.handle == null) {
+        userProfile.handle = user?.nickname;
+      }
       if (userProfile.imgSrc == null) {
         userProfile.imgSrc = user?.picture;
       }
@@ -111,11 +170,25 @@ const profile = () => {
   }, [data]);
 
   useEffect(() => {
-    // TODO: Also send to API along with updatedAt
     console.log(userProfile);
-  }, [userProfile]);
+    // TODO: Also send to API along with updatedAt
 
-  console.log(user);
+    // updateArtist({
+    //   variables: {
+    //     name,
+    //     handle,
+    //     location,
+    //     bio,
+    //     imgSrc,
+    //     trackSig,
+    //     badge,
+    //     role,
+    //     genres,
+    //     level,
+    //     streamings,
+    //   },
+    // });
+  }, [userProfile]);
 
   const playHandler = () => {
     setPlaying((playing) => !playing);
@@ -205,13 +278,17 @@ const profile = () => {
         <h3 className="flex font-medium items-start mt-1">
           <div className="flex items-center">
             <HiOutlineAtSymbol />
-            Joey
+            {handle}
           </div>
-          <div className="mx-2 font-bold"> · </div>
-          <div className="flex items-center">
-            {/* <TbMapPin /> */}
-            {location}
-          </div>
+          {location && (
+            <>
+              <div className="mx-2 font-bold"> · </div>
+              <div className="flex items-center">
+                {/* <TbMapPin /> */}
+                {location}
+              </div>
+            </>
+          )}
         </h3>
         {/* Desktop only */}
         <div className="hidden sm:block w-full text-left mt-5">

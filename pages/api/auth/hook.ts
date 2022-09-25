@@ -13,9 +13,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     await prisma.artist.create({
       data: {
         email: email,
-        handle: nickname,
-        imgSrc: picture,
-        udpatedAt: updated_at,
       },
     });
     return res.status(200).json({
