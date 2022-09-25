@@ -36,15 +36,17 @@ const TopNav = () => {
           {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
         </div>
 
-        <div
-          onClick={handleSettingsClick}
-          className={
-            'flex items-center cursor-pointer ' +
-            (router.pathname === '/settings' ? 'text-primary' : '')
-          }
-        >
-          <FiSettings />
-        </div>
+        {user && (
+          <div
+            onClick={handleSettingsClick}
+            className={
+              'flex items-center cursor-pointer ' +
+              (router.pathname === '/settings' ? 'text-primary' : '')
+            }
+          >
+            <FiSettings />
+          </div>
+        )}
 
         {/* TODO: Get profile picture from userProfile */}
         {user ? (

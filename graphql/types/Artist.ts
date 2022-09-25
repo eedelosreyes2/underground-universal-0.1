@@ -14,6 +14,7 @@ export const Artist = objectType({
     t.string('email');
     t.string('dob');
     t.string('name');
+    t.string('handle');
     t.string('location');
     t.string('badgeId');
     t.string('trackId');

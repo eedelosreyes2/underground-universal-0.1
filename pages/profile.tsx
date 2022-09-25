@@ -115,6 +115,8 @@ const profile = () => {
     console.log(userProfile);
   }, [userProfile]);
 
+  console.log(user);
+
   const playHandler = () => {
     setPlaying((playing) => !playing);
   };

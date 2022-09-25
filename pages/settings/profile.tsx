@@ -31,8 +31,8 @@ export const getServerSideProps = async ({
   };
 };
 
-const profile = () => {
-  const [name, setName] = useState('asd');
+const editProfile = () => {
+  const [name, setName] = useState('');
 
   useEffect(() => {
     console.log(name);
@@ -98,4 +98,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default editProfile;

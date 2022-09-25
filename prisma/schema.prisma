@@ -21,9 +21,10 @@ model Artist {
   level            Level     @default(ROOKIE)
   genres           Genre[]
   bio              String?
-  imgSrc           String?
   status           Status    @default(GUEST)
   streamings       String[]
+  imgSrc           String?
+  handle           String?
   trackSig         Track?    @relation("Signature", fields: [trackId], references: [id])
   albums           Album[]
   badge            Badge?

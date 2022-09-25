@@ -19,6 +19,7 @@ type Artist {
   email: String
   features: [Track]
   genres: [Genre]
+  handle: String
   id: String
   imgSrc: String
   level: Level

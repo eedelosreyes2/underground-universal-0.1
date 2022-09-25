@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../lib/prisma';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { email, secret } = req.body;
+  const { email, nickname, picture, updated_at, secret } = req.body;
   if (req.method !== 'POST') {
     return res.status(403).json({ message: 'Method not allowed' });
   }
@@ -11,7 +11,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   if (email) {
     await prisma.artist.create({
-      data: { email },
+      data: {
+        email: email,
+        handle: nickname,
+        imgSrc: picture,
+        udpatedAt: updated_at,
+      },
     });
     return res.status(200).json({
       message: `User with email: ${email} has been created successfully!`,
