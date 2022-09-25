@@ -3,6 +3,7 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { HiMoon, HiOutlineMoon } from 'react-icons/hi';
+import { FiSettings } from 'react-icons/fi';
 
 const TopNav = () => {
   const { theme, setTheme } = useTheme();
@@ -16,6 +17,10 @@ const TopNav = () => {
       ? 'border-primary'
       : 'border-secondary');
 
+  const handleSettingsClick = () => {
+    router.push('/settings');
+  };
+
   const handleProfileClick = () => {
     router.push('/profile');
   };
@@ -26,9 +31,19 @@ const TopNav = () => {
       <div className="flex gap-6">
         <div
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="flex items-center cursor-pointer mt-1"
+          className="flex items-center cursor-pointer"
         >
           {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
+        </div>
+
+        <div
+          onClick={handleSettingsClick}
+          className={
+            'flex items-center cursor-pointer ' +
+            (router.pathname === '/settings' ? 'text-primary' : '')
+          }
+        >
+          <FiSettings />
         </div>
 
         {/* TODO: Get profile picture from userProfile */}
