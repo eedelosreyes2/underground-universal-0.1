@@ -136,6 +136,7 @@ const profile = () => {
   });
 
   // TODO: Remove once query is optimized
+  // Pass parameters?
   const getUserProfile = data?.artists.filter((artist: any) => {
     return artist.email == user?.email;
   });
