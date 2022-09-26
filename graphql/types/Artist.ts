@@ -1,4 +1,14 @@
-import { objectType, extendType, intArg, queryType } from 'nexus';
+import {
+  objectType,
+  extendType,
+  intArg,
+  queryType,
+  nonNull,
+  stringArg,
+  arg,
+  mutationField,
+  mutationType,
+} from 'nexus';
 import { Status, Role, Level, Genre } from './Enums';
 import { Album } from './Album';
 import { Badge } from './Badge';
@@ -157,6 +167,44 @@ export const ArtistsQuery = extendType({
       type: Artist,
       resolve(_parent, _args, ctx) {
         return ctx.prisma.artist.findMany();
+      },
+    });
+  },
+});
+
+export const UpdateArtist = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.nonNull.field('updateArtist', {
+      type: Artist,
+      args: {
+        id: nonNull(stringArg()),
+        name: stringArg(),
+        handle: stringArg(),
+        location: stringArg(),
+        bio: stringArg(),
+        imgSrc: stringArg(),
+        trackSig: stringArg(), // TODO: Object args
+      },
+      async resolve(_parent, args, ctx) {
+        return await ctx.prisma.artist.update({
+          where: {
+            id: args.id,
+          },
+          data: {
+            name: args.name,
+            handle: args.handle,
+            location: args.location,
+            bio: args.bio,
+            imgSrc: args.imgSrc,
+            trackSig: args.trackSig,
+            badge: args.badge,
+            role: args.role,
+            genres: args.genres,
+            level: args.level,
+            streamings: args.streamings,
+          },
+        });
       },
     });
   },

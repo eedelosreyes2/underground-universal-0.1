@@ -71,6 +71,10 @@ enum Level {
   VETERAN
 }
 
+type Mutation {
+  updateArtist(bio: String, handle: String, id: String!, imgSrc: String, location: String, name: String, trackSig: String): Artist!
+}
+
 type Query {
   artists: [Artist]!
 }

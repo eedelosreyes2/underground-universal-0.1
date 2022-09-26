@@ -41,28 +41,18 @@ const GET_ALL_ARTISTS = gql`
 `;
 
 const UPDATE_ARTIST = gql`
-  mutation UpdateArtist(
-    $id: String!
-    $email: String!
-    $name: String!
-    $handle: String!
-    $location: String!
-    $bio: String!
-    $role: String!
-    $genres: String!
-    $level: String!
-    $streamings: String!
-  ) {
-    id
-    email
-    name
-    handle
-    location
-    bio
-    role
-    genres
-    level
-    streamings
+  mutation ($id: String!) {
+    updateArtist(id: $id) {
+      email
+      name
+      handle
+      location
+      bio
+      role
+      genres
+      level
+      streamings
+    }
   }
 `;
 
@@ -95,6 +85,7 @@ const profile = () => {
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
   const [userProfile, setUserProfile] = useState({
+    id: '',
     name: '',
     handle: '',
     location: '',
@@ -108,6 +99,7 @@ const profile = () => {
     streamings: [],
   }); // TODO: Get from API once query is optimized
   const {
+    id,
     name,
     handle,
     location,
@@ -128,6 +120,7 @@ const profile = () => {
     { data: dataMutation, loading: loadingMutation, error: errorMutation },
   ] = useMutation(UPDATE_ARTIST, {
     variables: {
+      id,
       name,
       handle,
       location,
@@ -141,12 +134,6 @@ const profile = () => {
       streamings,
     },
   });
-
-  if (errorMutation) {
-    console.log(errorMutation);
-  }
-
-  console.log(data);
 
   // TODO: Remove once query is optimized
   const getUserProfile = data?.artists.filter((artist: any) => {
@@ -171,23 +158,25 @@ const profile = () => {
 
   useEffect(() => {
     console.log(userProfile);
-    // TODO: Also send to API along with updatedAt
 
-    // updateArtist({
-    //   variables: {
-    //     name,
-    //     handle,
-    //     location,
-    //     bio,
-    //     imgSrc,
-    //     trackSig,
-    //     badge,
-    //     role,
-    //     genres,
-    //     level,
-    //     streamings,
-    //   },
-    // });
+    if (id.length) {
+      const variables = {
+        id,
+        name,
+        handle,
+        location,
+        bio,
+        imgSrc,
+        trackSig,
+        badge,
+        role,
+        genres,
+        level,
+        streamings,
+      };
+
+      updateArtist({ variables });
+    }
   }, [userProfile]);
 
   const playHandler = () => {
