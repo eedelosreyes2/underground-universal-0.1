@@ -41,8 +41,20 @@ const GET_ALL_ARTISTS = gql`
 `;
 
 const UPDATE_ARTIST = gql`
-  mutation ($id: String!) {
-    updateArtist(id: $id) {
+  mutation (
+    $id: String!
+    $name: String
+    $handle: String
+    $location: String
+    $bio: String
+  ) {
+    updateArtist(
+      id: $id
+      name: $name
+      handle: $handle
+      location: $location
+      bio: $bio
+    ) {
       email
       name
       handle
