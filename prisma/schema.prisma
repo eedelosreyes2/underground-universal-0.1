@@ -24,7 +24,7 @@ model Artist {
   status           Status    @default(GUEST)
   streamings       String[]
   imgSrc           String?
-  handle           String?
+  handle           String?   @unique
   trackSig         Track?    @relation("Signature", fields: [trackId], references: [id])
   albums           Album[]
   badge            Badge?

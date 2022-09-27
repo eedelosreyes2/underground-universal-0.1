@@ -76,8 +76,9 @@ type Mutation {
 }
 
 type Query {
-  artist(email: String!): Artist!
   artists: [Artist]!
+  getArtistByEmail(email: String!): Artist!
+  getArtistByHandle(handle: String!): Artist!
 }
 
 """Role of Artist"""

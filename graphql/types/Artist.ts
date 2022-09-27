@@ -175,13 +175,31 @@ export const ArtistsQuery = extendType({
 export const ArtistByEmailQuery = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.field('artist', {
+    t.nonNull.field('getArtistByEmail', {
       type: 'Artist',
       args: { email: nonNull(stringArg()) },
       resolve(_parent, _args, ctx) {
         const artist = ctx.prisma.artist.findUnique({
           where: {
             email: _args.email,
+          },
+        });
+        return artist;
+      },
+    });
+  },
+});
+
+export const ArtistByHandleQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getArtistByHandle', {
+      type: 'Artist',
+      args: { handle: nonNull(stringArg()) },
+      resolve(_parent, _args, ctx) {
+        const artist = ctx.prisma.artist.findUnique({
+          where: {
+            handle: _args.handle,
           },
         });
         return artist;

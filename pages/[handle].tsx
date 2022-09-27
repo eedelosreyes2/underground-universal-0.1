@@ -1,5 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { getSession, useUser } from '@auth0/nextjs-auth0';
+import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -20,11 +20,12 @@ import Genre from '../components/tags/Genre';
 import Level from '../components/tags/Level';
 import Role from '../components/tags/Role';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
+import prisma from '../lib/prisma';
 
 // TODO: Add imgSrc, trackSig, and badge to query
 const GET_ARTIST = gql`
   query ($email: String!) {
-    artist(email: $email) {
+    getArtistByEmail(email: $email) {
       id
       email
       name
@@ -67,39 +68,55 @@ const UPDATE_ARTIST = gql`
   }
 `;
 
-export const getServerSideProps = async ({
-  req,
-  res,
-}: {
-  req: any;
-  res: any;
-}) => {
-  const session = getSession(req, res);
+export const getServerSideProps = async ({ params }: any) => {
+  const handle = params.handle;
+  const artist = await prisma.artist.findUnique({
+    where: { handle },
+  });
 
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/api/auth/login',
-      },
-      props: {},
-    };
+  const { createdAt, udpatedAt } = artist!;
+  if (createdAt) {
+    artist!.createdAt = JSON.parse(JSON.stringify(createdAt));
+  }
+  if (udpatedAt) {
+    artist!.udpatedAt = JSON.parse(JSON.stringify(udpatedAt));
   }
 
   return {
-    props: {},
+    props: {
+      artist,
+    },
   };
 };
 
-// export const getServerSideProps = async ({ params }: { params: any }) => {
-//   const id = params.id;
-//   const artist = await prisma.artist.findUnique({
-//     where: { id },
+// export const getStaticPaths = async () => {
+//   const artists = await prisma.artist.findMany();
+//   const paths = artists.map(({ handle }) => {
+//     return {
+//       params: { handle },
+//     };
 //   });
+
 //   return {
-//     props: {
-//       artist,
-//     },
+//     paths,
+//     fallback: false,
+//   };
+// };
+
+// export const getStaticProps = async ({ params }: any) => {
+//   const { handle } = params;
+//   const artist = await prisma.artist.findUnique({ where: { handle } });
+
+//   const { createdAt, udpatedAt } = artist!;
+//   if (createdAt) {
+//     artist!.createdAt = JSON.parse(JSON.stringify(createdAt));
+//   }
+//   if (udpatedAt) {
+//     artist!.udpatedAt = JSON.parse(JSON.stringify(udpatedAt));
+//   }
+
+//   return {
+//     props: { artist },
 //   };
 // };
 
@@ -159,6 +176,8 @@ const profile = ({ artist }: any) => {
     },
   });
 
+  console.log(artist);
+
   useEffect(() => {
     if (data) {
       let userProfile = { ...data.artist };
@@ -176,7 +195,7 @@ const profile = ({ artist }: any) => {
   }, [data]);
 
   useEffect(() => {
-    if (id.length) {
+    if (id) {
       const variables = {
         id,
         name,
@@ -323,7 +342,7 @@ const profile = ({ artist }: any) => {
         <div className="w-full flex flex-wrap mb-3">
           <Role role={role} />
           <Level level={level} />
-          {genres.map((genre, id) => (
+          {genres?.map((genre, id) => (
             <Genre key={id} genre={genre} />
           ))}
         </div>
@@ -336,7 +355,7 @@ const profile = ({ artist }: any) => {
   const renderStreamings = () => {
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
 
-    streamings.map((platform: string) => {
+    streamings?.map((platform: string) => {
       if (platform) {
         const url = new URL(platform);
         const { hostname } = url;

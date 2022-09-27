@@ -9,7 +9,7 @@ import { useQuery } from '@apollo/client';
 
 const GET_ARTIST = gql`
   query ($email: String!) {
-    artist(email: $email) {
+    getArtistByEmail(email: $email) {
       id
       email
       name
@@ -29,8 +29,7 @@ const TopNav = () => {
 
   const profileBorder =
     'h-8 cursor-pointer border rounded-full overflow-hidden ' +
-    (router.pathname === '/[artist.handle]' ||
-    router.pathname === '/settings/profile'
+    (router.pathname === '/[handle]' || router.pathname === '/settings/profile'
       ? 'border-primary'
       : 'border-secondary');
 
@@ -39,7 +38,7 @@ const TopNav = () => {
   };
 
   const handleProfileClick = () => {
-    router.push('/' + data?.artist.handle);
+    router.push('/' + data?.artist?.handle);
   };
 
   return (
