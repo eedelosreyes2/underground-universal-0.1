@@ -76,6 +76,7 @@ type Mutation {
 }
 
 type Query {
+  artist(email: String!): Artist!
   artists: [Artist]!
 }
 

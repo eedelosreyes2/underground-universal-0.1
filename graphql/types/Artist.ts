@@ -172,6 +172,24 @@ export const ArtistsQuery = extendType({
   },
 });
 
+export const ArtistByEmailQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('artist', {
+      type: 'Artist',
+      args: { email: nonNull(stringArg()) },
+      resolve(_parent, _args, ctx) {
+        const artist = ctx.prisma.artist.findUnique({
+          where: {
+            email: _args.email,
+          },
+        });
+        return artist;
+      },
+    });
+  },
+});
+
 export const UpdateArtist = extendType({
   type: 'Mutation',
   definition(t) {
@@ -186,23 +204,23 @@ export const UpdateArtist = extendType({
         imgSrc: stringArg(),
         trackSig: stringArg(), // TODO: Object args
       },
-      async resolve(_parent, args, ctx) {
+      async resolve(_parent, _args, ctx) {
         return await ctx.prisma.artist.update({
           where: {
-            id: args.id,
+            id: _args.id,
           },
           data: {
-            name: args.name,
-            handle: args.handle,
-            location: args.location,
-            bio: args.bio,
-            imgSrc: args.imgSrc,
-            trackSig: args.trackSig,
-            badge: args.badge,
-            role: args.role,
-            genres: args.genres,
-            level: args.level,
-            streamings: args.streamings,
+            name: _args.name,
+            handle: _args.handle,
+            location: _args.location,
+            bio: _args.bio,
+            imgSrc: _args.imgSrc,
+            trackSig: _args.trackSig,
+            badge: _args.badge,
+            role: _args.role,
+            genres: _args.genres,
+            level: _args.level,
+            streamings: _args.streamings,
           },
         });
       },

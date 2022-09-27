@@ -3,17 +3,26 @@ import Layout from '../components/Layout';
 import Carousel from '../components/discover/ArtistCarousel';
 import SearchBar from '../components/SearchBar';
 
-const AllArtistsQuery = gql`
+// TODO: Optimize query to only get current artist
+const GET_ALL_ARTISTS = gql`
   query {
     artists {
       id
       email
+      name
+      handle
+      location
+      bio
+      role
+      genres
+      level
+      streamings
     }
   }
 `;
 
 const discover = () => {
-  const { data, loading, error } = useQuery(AllArtistsQuery);
+  const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
 
   console.log(data);
 

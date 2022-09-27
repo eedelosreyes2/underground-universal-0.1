@@ -2,8 +2,6 @@ import { getSession } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { IconContext } from 'react-icons';
-import { FaArrowLeft } from 'react-icons/fa';
 import Input from '../../components/Input';
 import Layout from '../../components/Layout';
 
@@ -41,15 +39,12 @@ const editProfile = () => {
 
   const renderPageHeader = () => {
     return (
-      <div className="flex justify-between w-full mb-10">
+      <div className="flex justify-between h-10 w-full mb-10">
         <div
           // TODO: Change dor name reroute
           onClick={() => router.push('/profile')}
           className="flex items-center gap-2 text-button"
         >
-          <IconContext.Provider value={{ size: '1.25em', color: 'red' }}>
-            <FaArrowLeft />
-          </IconContext.Provider>
           Back to profile
         </div>
         {/* TODO: Show on form diff */}

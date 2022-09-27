@@ -21,11 +21,10 @@ import Level from '../components/tags/Level';
 import Role from '../components/tags/Role';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 
-// TODO: Optimize query to only get current artist
 // TODO: Add imgSrc, trackSig, and badge to query
-const GET_ALL_ARTISTS = gql`
-  query {
-    artists {
+const GET_ARTIST = gql`
+  query ($email: String!) {
+    artist(email: $email) {
       id
       email
       name
@@ -92,7 +91,19 @@ export const getServerSideProps = async ({
   };
 };
 
-const profile = () => {
+// export const getServerSideProps = async ({ params }: { params: any }) => {
+//   const id = params.id;
+//   const artist = await prisma.artist.findUnique({
+//     where: { id },
+//   });
+//   return {
+//     props: {
+//       artist,
+//     },
+//   };
+// };
+
+const profile = ({ artist }: any) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
@@ -124,7 +135,8 @@ const profile = () => {
     level,
     streamings,
   } = userProfile;
-  const { data, loading, error } = useQuery(GET_ALL_ARTISTS, {
+  const { data, loading, error } = useQuery(GET_ARTIST, {
+    variables: { email: user?.email },
     pollInterval: 500,
   });
   const [
@@ -147,15 +159,9 @@ const profile = () => {
     },
   });
 
-  // TODO: Remove once query is optimized
-  // Pass parameters?
-  const getUserProfile = data?.artists.filter((artist: any) => {
-    return artist.email == user?.email;
-  });
-
   useEffect(() => {
-    if (getUserProfile?.length) {
-      let userProfile = { ...getUserProfile[0] };
+    if (data) {
+      let userProfile = { ...data.artist };
       if (userProfile.name == null) {
         userProfile.name = user?.nickname;
       }
@@ -170,8 +176,6 @@ const profile = () => {
   }, [data]);
 
   useEffect(() => {
-    console.log(userProfile);
-
     if (id.length) {
       const variables = {
         id,
@@ -194,6 +198,19 @@ const profile = () => {
 
   const playHandler = () => {
     setPlaying((playing) => !playing);
+  };
+
+  const renderPageHeader = () => {
+    return (
+      <div className="flex justify-between h-10 w-full mb-10">
+        <div
+          onClick={() => router.push('/settings/profile')}
+          className="flex items-center gap-2 text-button"
+        >
+          Edit profile
+        </div>
+      </div>
+    );
   };
 
   const renderAvatar = () => {
@@ -426,14 +443,8 @@ const profile = () => {
     <Layout>
       <div className="page-container">
         <div className="page-inner-container">
-          <div className="text-left pb-16">
-            <div
-              onClick={() => router.push('/settings/profile')}
-              className="text-button"
-            >
-              Edit profile
-            </div>
-          </div>
+          {renderPageHeader()}
+
           {/* Top container */}
           <div className="flex items-center mb-5">
             {renderAvatar()}
