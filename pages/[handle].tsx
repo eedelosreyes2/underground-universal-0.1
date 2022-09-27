@@ -22,24 +22,6 @@ import Role from '../components/tags/Role';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import prisma from '../lib/prisma';
 
-// TODO: Add imgSrc, trackSig, and badge to query
-const GET_ARTIST = gql`
-  query ($email: String!) {
-    getArtistByEmail(email: $email) {
-      id
-      email
-      name
-      handle
-      location
-      bio
-      role
-      genres
-      level
-      streamings
-    }
-  }
-`;
-
 const UPDATE_ARTIST = gql`
   mutation (
     $id: String!
@@ -74,6 +56,8 @@ export const getServerSideProps = async ({ params }: any) => {
     where: { handle },
   });
 
+  if (artist == null) return { notFound: true };
+
   const { createdAt, udpatedAt } = artist!;
   if (createdAt) {
     artist!.createdAt = JSON.parse(JSON.stringify(createdAt));
@@ -93,21 +77,7 @@ const profile = ({ artist }: any) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
-  const [userProfile, setUserProfile] = useState({
-    id: '',
-    name: '',
-    handle: '',
-    location: '',
-    bio: '',
-    imgSrc: '',
-    trackSig: null,
-    badge: null,
-    role: '',
-    genres: [],
-    level: '',
-    streamings: [],
-  }); // TODO: Get from API once query is optimized
-  const {
+  let {
     id,
     name,
     handle,
@@ -120,69 +90,93 @@ const profile = ({ artist }: any) => {
     genres,
     level,
     streamings,
-  } = userProfile;
-  const { data, loading, error } = useQuery(GET_ARTIST, {
-    variables: { email: user?.email },
-    pollInterval: 500,
-  });
-  const [
-    updateArtist,
-    { data: dataMutation, loading: loadingMutation, error: errorMutation },
-  ] = useMutation(UPDATE_ARTIST, {
-    variables: {
-      id,
-      name,
-      handle,
-      location,
-      bio,
-      imgSrc,
-      trackSig,
-      badge,
-      role,
-      genres,
-      level,
-      streamings,
-    },
-  });
+  } = artist;
+  // const [updateArtist, { data, loading, error }] = useMutation(UPDATE_ARTIST, {
+  //   variables: {
+  //     id,
+  //     name,
+  //     handle,
+  //     location,
+  //     bio,
+  //     imgSrc,
+  //     trackSig,
+  //     badge,
+  //     role,
+  //     genres,
+  //     level,
+  //     streamings,
+  //   },
+  // });
 
-  console.log(artist);
+  console.log('user', user);
+  console.log('artist', artist);
 
-  useEffect(() => {
-    if (data) {
-      let userProfile = { ...data.artist };
-      if (userProfile.name == null) {
-        userProfile.name = user?.nickname;
-      }
-      if (userProfile.handle == null) {
-        userProfile.handle = user?.nickname;
-      }
-      if (userProfile.imgSrc == null) {
-        userProfile.imgSrc = user?.picture;
-      }
-      setUserProfile(userProfile);
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   console.log('hey');
+  //   if (!name) {
+  //     name = user?.nickname;
+  //   }
+  //   if (!handle) {
+  //     handle = user?.nickname;
+  //   }
+  //   if (!imgSrc) {
+  //     imgSrc = user?.picture;
+  //   }
 
-  useEffect(() => {
-    if (id) {
-      const variables = {
-        id,
-        name,
-        handle,
-        location,
-        bio,
-        imgSrc,
-        trackSig,
-        badge,
-        role,
-        genres,
-        level,
-        streamings,
-      };
+  //   const variables = {
+  //     id,
+  //     name,
+  //     handle,
+  //     location,
+  //     bio,
+  //     imgSrc,
+  //     trackSig,
+  //     badge,
+  //     role,
+  //     genres,
+  //     level,
+  //     streamings,
+  //   };
 
-      updateArtist({ variables });
-    }
-  }, [userProfile]);
+  //   updateArtist({ variables });
+  // }, [user]);
+
+  // useEffect(() => {
+  //   if (artist) {
+  //     let userProfile = { ...data.artist };
+  //     if (userProfile.name == null) {
+  //       userProfile.name = user?.nickname;
+  //     }
+  //     if (userProfile.handle == null) {
+  //       userProfile.handle = user?.nickname;
+  //     }
+  //     if (userProfile.imgSrc == null) {
+  //       userProfile.imgSrc = user?.picture;
+  //     }
+  //     setUserProfile(userProfile);
+  //   }
+  // }, [artist]);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     const variables = {
+  //       id,
+  //       name,
+  //       handle,
+  //       location,
+  //       bio,
+  //       imgSrc,
+  //       trackSig,
+  //       badge,
+  //       role,
+  //       genres,
+  //       level,
+  //       streamings,
+  //     };
+
+  //     updateArtist({ variables });
+  //   }
+  // }, [artist]);
 
   const playHandler = () => {
     setPlaying((playing) => !playing);
@@ -204,12 +198,12 @@ const profile = ({ artist }: any) => {
   const renderAvatar = () => {
     return (
       <div className="w-24 h-24 relative border border-primary rounded-full sm:w-60 sm:h-60">
-        <Image
-          src={imgSrc!}
+        {/* <Image
+          src={imgSrc}
           layout="fill"
           alt="Profile"
           className="rounded-full"
-        />
+        /> */}
         <div
           onClick={playHandler}
           className="cursor-pointer w-24 h-24 rounded-full flex justify-center items-center 
@@ -311,7 +305,7 @@ const profile = ({ artist }: any) => {
         <div className="w-full flex flex-wrap mb-3">
           <Role role={role} />
           <Level level={level} />
-          {genres?.map((genre, id) => (
+          {genres?.map((genre: any, id: any) => (
             <Genre key={id} genre={genre} />
           ))}
         </div>
