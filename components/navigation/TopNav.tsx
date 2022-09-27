@@ -14,6 +14,7 @@ const GET_ARTIST = gql`
       email
       name
       handle
+      imgSrc
     }
   }
 `;
@@ -24,7 +25,7 @@ const TopNav = () => {
   const router = useRouter();
   const { data, loading, error } = useQuery(GET_ARTIST, {
     variables: { email: user?.email },
-    pollInterval: 500,
+    pollInterval: 1000,
   });
 
   const profileBorder =
@@ -38,7 +39,8 @@ const TopNav = () => {
   };
 
   const handleProfileClick = () => {
-    router.push('/' + data?.artist?.handle);
+    // console.log(data);
+    router.push('/' + data.getArtistByEmail.handle);
   };
 
   return (

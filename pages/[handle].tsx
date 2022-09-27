@@ -89,37 +89,6 @@ export const getServerSideProps = async ({ params }: any) => {
   };
 };
 
-// export const getStaticPaths = async () => {
-//   const artists = await prisma.artist.findMany();
-//   const paths = artists.map(({ handle }) => {
-//     return {
-//       params: { handle },
-//     };
-//   });
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
-
-// export const getStaticProps = async ({ params }: any) => {
-//   const { handle } = params;
-//   const artist = await prisma.artist.findUnique({ where: { handle } });
-
-//   const { createdAt, udpatedAt } = artist!;
-//   if (createdAt) {
-//     artist!.createdAt = JSON.parse(JSON.stringify(createdAt));
-//   }
-//   if (udpatedAt) {
-//     artist!.udpatedAt = JSON.parse(JSON.stringify(udpatedAt));
-//   }
-
-//   return {
-//     props: { artist },
-//   };
-// };
-
 const profile = ({ artist }: any) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
