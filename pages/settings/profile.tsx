@@ -1,9 +1,38 @@
+import { gql } from '@apollo/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Input from '../../components/Input';
 import Layout from '../../components/Layout';
+
+const UPDATE_ARTIST = gql`
+  mutation (
+    $id: String!
+    $name: String
+    $handle: String
+    $location: String
+    $bio: String
+  ) {
+    updateArtist(
+      id: $id
+      name: $name
+      handle: $handle
+      location: $location
+      bio: $bio
+    ) {
+      email
+      name
+      handle
+      location
+      bio
+      role
+      genres
+      level
+      streamings
+    }
+  }
+`;
 
 export const getServerSideProps = async ({
   req,
@@ -32,12 +61,29 @@ export const getServerSideProps = async ({
 const editProfile = () => {
   const [name, setName] = useState('');
   const router = useRouter();
+  // const [updateArtist, { data, loading, error }] = useMutation(UPDATE_ARTIST, {
+  //   variables: {
+  //     id,
+  //     name,
+  //     handle,
+  //     location,
+  //     bio,
+  //     imgSrc,
+  //     trackSig,
+  //     badge,
+  //     role,
+  //     genres,
+  //     level,
+  //     streamings,
+  //   },
+  // });
 
   useEffect(() => {
     console.log(name);
   }, [name]);
 
   const renderPageHeader = () => {
+    // TODO: Show only if member has enough filled in info
     return (
       <div className="flex justify-between h-10 w-full mb-10">
         <div

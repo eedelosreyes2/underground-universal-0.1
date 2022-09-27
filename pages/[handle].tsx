@@ -1,8 +1,7 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { FaPlay } from 'react-icons/fa';
 import { TbMapPin } from 'react-icons/tb';
@@ -21,34 +20,6 @@ import Level from '../components/tags/Level';
 import Role from '../components/tags/Role';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import prisma from '../lib/prisma';
-
-const UPDATE_ARTIST = gql`
-  mutation (
-    $id: String!
-    $name: String
-    $handle: String
-    $location: String
-    $bio: String
-  ) {
-    updateArtist(
-      id: $id
-      name: $name
-      handle: $handle
-      location: $location
-      bio: $bio
-    ) {
-      email
-      name
-      handle
-      location
-      bio
-      role
-      genres
-      level
-      streamings
-    }
-  }
-`;
 
 export const getServerSideProps = async ({ params }: any) => {
   const handle = params.handle;
@@ -80,6 +51,7 @@ const profile = ({ artist }: any) => {
   let {
     id,
     name,
+    email,
     handle,
     location,
     bio,
@@ -91,108 +63,32 @@ const profile = ({ artist }: any) => {
     level,
     streamings,
   } = artist;
-  // const [updateArtist, { data, loading, error }] = useMutation(UPDATE_ARTIST, {
-  //   variables: {
-  //     id,
-  //     name,
-  //     handle,
-  //     location,
-  //     bio,
-  //     imgSrc,
-  //     trackSig,
-  //     badge,
-  //     role,
-  //     genres,
-  //     level,
-  //     streamings,
-  //   },
-  // });
 
-  console.log('user', user);
-  console.log('artist', artist);
+  const isUserProfile = () => {
+    return user?.email == artist.email;
+  };
 
-  // useEffect(() => {
-  //   console.log('hey');
-  //   if (!name) {
-  //     name = user?.nickname;
-  //   }
-  //   if (!handle) {
-  //     handle = user?.nickname;
-  //   }
-  //   if (!imgSrc) {
-  //     imgSrc = user?.picture;
-  //   }
-
-  //   const variables = {
-  //     id,
-  //     name,
-  //     handle,
-  //     location,
-  //     bio,
-  //     imgSrc,
-  //     trackSig,
-  //     badge,
-  //     role,
-  //     genres,
-  //     level,
-  //     streamings,
-  //   };
-
-  //   updateArtist({ variables });
-  // }, [user]);
-
-  // useEffect(() => {
-  //   if (artist) {
-  //     let userProfile = { ...data.artist };
-  //     if (userProfile.name == null) {
-  //       userProfile.name = user?.nickname;
-  //     }
-  //     if (userProfile.handle == null) {
-  //       userProfile.handle = user?.nickname;
-  //     }
-  //     if (userProfile.imgSrc == null) {
-  //       userProfile.imgSrc = user?.picture;
-  //     }
-  //     setUserProfile(userProfile);
-  //   }
-  // }, [artist]);
-
-  // useEffect(() => {
-  //   if (id) {
-  //     const variables = {
-  //       id,
-  //       name,
-  //       handle,
-  //       location,
-  //       bio,
-  //       imgSrc,
-  //       trackSig,
-  //       badge,
-  //       role,
-  //       genres,
-  //       level,
-  //       streamings,
-  //     };
-
-  //     updateArtist({ variables });
-  //   }
-  // }, [artist]);
+  const isProfileComplete = () => {
+    return handle && name && imgSrc && bio && location;
+  };
 
   const playHandler = () => {
     setPlaying((playing) => !playing);
   };
 
   const renderPageHeader = () => {
-    return (
-      <div className="flex justify-between h-10 w-full mb-10">
-        <div
-          onClick={() => router.push('/settings/profile')}
-          className="flex items-center gap-2 text-button"
-        >
-          Edit profile
+    if (isUserProfile()) {
+      return (
+        <div className="flex justify-between h-10 w-full mb-10">
+          <div
+            onClick={() => router.push('/settings/profile')}
+            className="flex items-center gap-2 text-button"
+          >
+            {isProfileComplete() ? 'Edit profile' : 'Complete profile'}
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   };
 
   const renderAvatar = () => {
@@ -263,7 +159,7 @@ const profile = ({ artist }: any) => {
       <div className="flex flex-col justify-start items-start ml-5">
         <div className="flex items-center">
           <h1 className="inline text-left">
-            {name + ' '}
+            {name || user?.nickname + ' '}
             {badge && (
               <IconContext.Provider
                 value={{

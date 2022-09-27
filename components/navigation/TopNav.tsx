@@ -40,7 +40,12 @@ const TopNav = () => {
 
   const handleProfileClick = () => {
     // console.log(data);
-    router.push('/' + data.getArtistByEmail.handle);
+    if (data.getArtistByEmail.handle) {
+      router.push('/' + data.getArtistByEmail.handle);
+    } else {
+      // TODO: Send toast message - You need to complete your profile to continue
+      router.push('/settings/profile');
+    }
   };
 
   return (
