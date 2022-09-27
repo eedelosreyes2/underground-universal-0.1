@@ -3,7 +3,6 @@ import Layout from '../components/Layout';
 import Carousel from '../components/discover/ArtistCarousel';
 import SearchBar from '../components/SearchBar';
 
-// TODO: Optimize query to only get current artist
 const GET_ALL_ARTISTS = gql`
   query {
     artists {

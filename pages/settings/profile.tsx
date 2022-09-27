@@ -41,7 +41,7 @@ const editProfile = () => {
     return (
       <div className="flex justify-between h-10 w-full mb-10">
         <div
-          // TODO: Change dor name reroute
+          // TODO: Change for name reroute
           onClick={() => router.push('/profile')}
           className="flex items-center gap-2 text-button"
         >

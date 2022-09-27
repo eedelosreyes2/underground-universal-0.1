@@ -4,16 +4,33 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { HiMoon, HiOutlineMoon } from 'react-icons/hi';
 import { FiSettings } from 'react-icons/fi';
+import { gql } from 'apollo-server-micro';
+import { useQuery } from '@apollo/client';
+
+const GET_ARTIST = gql`
+  query ($email: String!) {
+    artist(email: $email) {
+      id
+      email
+      name
+      handle
+    }
+  }
+`;
 
 const TopNav = () => {
   const { theme, setTheme } = useTheme();
   const { user } = useUser();
   const router = useRouter();
+  const { data, loading, error } = useQuery(GET_ARTIST, {
+    variables: { email: user?.email },
+    pollInterval: 500,
+  });
 
-  // TODO: Update this since edit profile page
   const profileBorder =
     'h-8 cursor-pointer border rounded-full overflow-hidden ' +
-    (router.pathname === '/profile' || router.pathname === '/settings/profile'
+    (router.pathname === '/[artist.handle]' ||
+    router.pathname === '/settings/profile'
       ? 'border-primary'
       : 'border-secondary');
 
@@ -22,7 +39,7 @@ const TopNav = () => {
   };
 
   const handleProfileClick = () => {
-    router.push('/profile');
+    router.push('/' + data?.artist.handle);
   };
 
   return (
