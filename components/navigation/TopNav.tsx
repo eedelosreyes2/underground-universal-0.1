@@ -30,7 +30,7 @@ const TopNav = () => {
 
   const profileBorder =
     'h-8 cursor-pointer border rounded-full overflow-hidden ' +
-    (router.pathname === '/[handle]' || router.pathname === '/settings/profile'
+    (router.pathname === user?.handle || router.pathname === '/settings/profile'
       ? 'border-primary'
       : 'border-secondary');
 

@@ -38,9 +38,7 @@ export const getServerSideProps = async ({ params }: any) => {
   }
 
   return {
-    props: {
-      artist,
-    },
+    props: { artist },
   };
 };
 
@@ -94,19 +92,23 @@ const profile = ({ artist }: any) => {
   const renderAvatar = () => {
     return (
       <div className="w-24 h-24 relative border border-primary rounded-full sm:w-60 sm:h-60">
-        {/* <Image
-          src={imgSrc}
+        <Image
+          // TODO: Default img
+          src={
+            imgSrc ||
+            'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
+          }
           layout="fill"
           alt="Profile"
           className="rounded-full"
-        /> */}
+        />
         <div
           onClick={playHandler}
           className="cursor-pointer w-24 h-24 rounded-full flex justify-center items-center 
             sm:w-60 sm:h-60 transition-all hover:scale-125"
         >
           {/* TODO: Fix trackSig player UX */}
-          {playing ? (
+          {/* {playing ? (
             <>
               <IconContext.Provider
                 value={{
@@ -148,7 +150,7 @@ const profile = ({ artist }: any) => {
                 <FaPlay />
               </IconContext.Provider>
             </>
-          )}
+          )} */}
         </div>
       </div>
     );

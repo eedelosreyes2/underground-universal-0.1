@@ -4,7 +4,7 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['s.gravatar.com', 'lh3.googleusercontent.com'],
+    domains: ['s.gravatar.com', 'lh3.googleusercontent.com', 'hatrabbits.com'],
   },
   async redirects() {
     return [

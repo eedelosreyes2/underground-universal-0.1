@@ -82,21 +82,27 @@ const editProfile = () => {
     console.log(name);
   }, [name]);
 
+  const isProfileComplete = () => {
+    // return handle && name && imgSrc && bio && location;
+    return false;
+  };
+
   const renderPageHeader = () => {
-    // TODO: Show only if member has enough filled in info
-    return (
-      <div className="flex justify-between h-10 w-full mb-10">
-        <div
-          // TODO: Change for name reroute
-          onClick={() => router.push('/profile')}
-          className="flex items-center gap-2 text-button"
-        >
-          Back to profile
+    if (isProfileComplete()) {
+      return (
+        <div className="flex justify-between h-10 w-full mb-10 max-w-sm">
+          <div
+            // TODO: Change for name reroute
+            onClick={() => router.push('/profile')}
+            className="flex items-center gap-2 text-button"
+          >
+            Back to profile
+          </div>
+          {/* TODO: Show on form diff */}
+          <div className="cta-button">Save</div>
         </div>
-        {/* TODO: Show on form diff */}
-        <div className="cta-button">Save</div>
-      </div>
-    );
+      );
+    }
   };
 
   const renderEditInfo = () => {
@@ -128,9 +134,8 @@ const editProfile = () => {
     <Layout>
       <div className="page-container">
         <div className="page-inner-container">
-          {renderPageHeader()}
-
           <div className="flex flex-col items-center">
+            {renderPageHeader()}
             {renderEditInfo()}
             {renderForm()}
           </div>
