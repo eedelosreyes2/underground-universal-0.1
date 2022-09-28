@@ -67,7 +67,7 @@ const profile = ({ artist }: any) => {
   };
 
   const isProfileComplete = () => {
-    return handle && name && imgSrc && bio && location;
+    return handle && name && location;
   };
 
   const playHandler = () => {
@@ -91,13 +91,9 @@ const profile = ({ artist }: any) => {
 
   const renderAvatar = () => {
     return (
-      <div className="w-24 h-24 relative border border-primary rounded-full sm:w-60 sm:h-60">
+      <div className="w-24 h-24 relative border border-secondary rounded-full sm:w-60 sm:h-60">
         <Image
-          // TODO: Default img
-          src={
-            imgSrc ||
-            'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
-          }
+          src={imgSrc || '/default_artist_img.jpg'}
           layout="fill"
           alt="Profile"
           className="rounded-full"

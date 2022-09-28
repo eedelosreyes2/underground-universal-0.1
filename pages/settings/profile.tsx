@@ -141,7 +141,7 @@ const editProfile = () => {
   console.log(profile);
 
   const isProfileComplete = () => {
-    return handle && name && imgSrc && bio && location;
+    return handle && name && location;
   };
 
   const renderPageHeader = () => {
@@ -149,8 +149,7 @@ const editProfile = () => {
       return (
         <div className="flex justify-between h-10 w-full mb-10 max-w-sm">
           <div
-            // TODO: Change for name reroute
-            onClick={() => router.push('/profile')}
+            onClick={() => router.push('/' + handle)}
             className="flex items-center gap-2 text-button"
           >
             Back to profile
@@ -165,9 +164,9 @@ const editProfile = () => {
   const renderEditInfo = () => {
     return (
       <>
-        <div className="w-24 h-24 relative border border-primary rounded-full sm:w-60 sm:h-60">
+        <div className="w-24 h-24 relative border border-secondary rounded-full sm:w-60 sm:h-60">
           <Image
-            src={'/imgSrc!'}
+            src={imgSrc || user?.picture || '/default_artist_img.jpg'}
             layout="fill"
             alt="Profile"
             className="rounded-full"

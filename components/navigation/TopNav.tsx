@@ -39,7 +39,6 @@ const TopNav = () => {
   };
 
   const handleProfileClick = () => {
-    // console.log(data);
     if (data.getArtistByEmail.handle) {
       router.push('/' + data.getArtistByEmail.handle);
     } else {
@@ -62,10 +61,7 @@ const TopNav = () => {
         {user && (
           <div
             onClick={handleSettingsClick}
-            className={
-              'flex items-center cursor-pointer ' +
-              (router.pathname === '/settings' ? 'text-primary' : '')
-            }
+            className={'flex items-center cursor-pointer'}
           >
             <FiSettings />
           </div>
@@ -74,7 +70,12 @@ const TopNav = () => {
         {/* TODO: Get profile picture from userProfile */}
         {user ? (
           <div onClick={handleProfileClick} className={profileBorder}>
-            <Image src={user.picture!} width={32} height={32} alt="Profile" />
+            <Image
+              src={user?.picture || '/default_artist_img.jpg'}
+              width={32}
+              height={32}
+              alt="Profile"
+            />
           </div>
         ) : (
           <>
