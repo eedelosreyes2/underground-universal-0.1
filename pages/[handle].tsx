@@ -46,7 +46,7 @@ const profile = ({ artist }: any) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
-  let {
+  const {
     id,
     name,
     email,
@@ -104,8 +104,7 @@ const profile = ({ artist }: any) => {
         />
         <div
           onClick={playHandler}
-          className="cursor-pointer w-24 h-24 rounded-full flex justify-center items-center 
-            sm:w-60 sm:h-60 transition-all hover:scale-125"
+          className="rounded-full flex justify-center items-center sm:w-60 sm:h-60"
         >
           {/* TODO: Fix trackSig player UX */}
           {/* {playing ? (

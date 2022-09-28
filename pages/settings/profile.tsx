@@ -1,10 +1,29 @@
-import { gql } from '@apollo/client';
-import { getSession } from '@auth0/nextjs-auth0';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Input from '../../components/Input';
 import Layout from '../../components/Layout';
+
+// TODO: Add trackSig, and badge to query
+const GET_ARTIST = gql`
+  query ($email: String!) {
+    getArtistByEmail(email: $email) {
+      id
+      name
+      email
+      handle
+      location
+      bio
+      imgSrc
+      role
+      genres
+      level
+      streamings
+    }
+  }
+`;
 
 const UPDATE_ARTIST = gql`
   mutation (
@@ -59,32 +78,70 @@ export const getServerSideProps = async ({
 };
 
 const editProfile = () => {
-  const [name, setName] = useState('');
+  const { user } = useUser();
   const router = useRouter();
-  // const [updateArtist, { data, loading, error }] = useMutation(UPDATE_ARTIST, {
-  //   variables: {
-  //     id,
-  //     name,
-  //     handle,
-  //     location,
-  //     bio,
-  //     imgSrc,
-  //     trackSig,
-  //     badge,
-  //     role,
-  //     genres,
-  //     level,
-  //     streamings,
-  //   },
-  // });
+  const [profile, setProfile] = useState({
+    id: '',
+    name: '',
+    email: '',
+    handle: '',
+    location: '',
+    bio: '',
+    imgSrc: '',
+    trackSig: {},
+    badge: {},
+    role: '',
+    genres: [],
+    level: '',
+    streamings: '',
+  });
+  const {
+    id,
+    name,
+    email,
+    handle,
+    location,
+    bio,
+    imgSrc,
+    trackSig,
+    badge,
+    role,
+    genres,
+    level,
+    streamings,
+  } = profile;
+
+  const { data, loading, error } = useQuery(GET_ARTIST, {
+    variables: { email: user?.email },
+    pollInterval: 500,
+  });
+  const [updateArtist] = useMutation(UPDATE_ARTIST, {
+    variables: {
+      id,
+      name,
+      handle,
+      location,
+      bio,
+      imgSrc,
+      trackSig,
+      badge,
+      role,
+      genres,
+      level,
+      streamings,
+    },
+  });
 
   useEffect(() => {
-    console.log(name);
-  }, [name]);
+    if (data) {
+      setProfile(data.getArtistByEmail);
+    }
+  }, [data]);
+
+  console.log(profile);
 
   const isProfileComplete = () => {
-    // return handle && name && imgSrc && bio && location;
-    return false;
+    return handle && name && imgSrc && bio && location;
   };
 
   const renderPageHeader = () => {
@@ -125,7 +182,7 @@ const editProfile = () => {
   const renderForm = () => {
     return (
       <div className="w-full flex justify-center mt-10">
-        <Input name="Name" length={10} value={name} setValue={setName} />
+        {/* <Input name="Name" length={10} value={name} setValue={setName} /> */}
       </div>
     );
   };
