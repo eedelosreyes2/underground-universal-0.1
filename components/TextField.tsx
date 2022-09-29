@@ -1,13 +1,13 @@
 interface Props {
   register: any;
   errors: any;
-  name: String;
+  name: string;
   currentLength: number;
   minLength: number;
   maxLength: number;
 }
 
-const Input = ({
+const TextField = ({
   register,
   errors,
   name,
@@ -15,10 +15,8 @@ const Input = ({
   minLength,
   maxLength,
 }: Props) => {
-  console.log(currentLength);
-
   return (
-    <>
+    <div className="py-5">
       <input
         {...register(name, {
           required: 'Required',
@@ -28,13 +26,13 @@ const Input = ({
           },
           maxLength,
         })}
-        placeholder="Name"
+        placeholder={name}
         className={
-          'input ' + (errors.Name ? 'border-primary' : 'border-secondary')
+          'input ' + (errors[name] ? 'border-primary' : 'border-secondary')
         }
       />
       <div className=" min-h-[20px] flex justify-between">
-        <p className="input-error">{errors.Name?.message}</p>
+        <p className="input-error">{errors[name]?.message}</p>
         <p
           className={
             'input-error ' +
@@ -44,8 +42,8 @@ const Input = ({
           {currentLength}/{maxLength}
         </p>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Input;
+export default TextField;

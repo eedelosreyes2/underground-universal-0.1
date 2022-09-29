@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Input from '../../components/Input';
+import TextField from '../../components/TextField';
 import Layout from '../../components/Layout';
 
 // TODO: Add trackSig, and badge to query
@@ -186,14 +186,13 @@ const editProfile = () => {
   const renderForm = () => {
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
-        {/* <Input name="Name" length={10} value={name} setValue={setName} /> */}
         <form
           onSubmit={handleSubmit((data) => {
             console.log(data);
           })}
           className="w-full"
         >
-          <Input
+          <TextField
             register={register}
             errors={errors}
             name="Name"
@@ -201,6 +200,15 @@ const editProfile = () => {
             minLength={2}
             maxLength={50}
           />
+          <TextField
+            register={register}
+            errors={errors}
+            name="Location"
+            currentLength={watch().Location?.length}
+            minLength={2}
+            maxLength={50}
+          />
+
           <input type="submit" />
         </form>
       </div>
