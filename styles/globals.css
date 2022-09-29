@@ -30,6 +30,12 @@
   .text-button {
     @apply text-primary font-bold cursor-pointer w-fit;
   }
+  .input {
+    @apply outline-none text border-b border-secondary pb-1 mb-1 bg-fill-light dark:bg-fill-dark w-full;
+  }
+  .input-error {
+    @apply text-primary font-bold text-sm;
+  }
   .input-name {
     @apply font-bold text-h3 text-sm;
   }

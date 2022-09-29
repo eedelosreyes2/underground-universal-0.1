@@ -3,6 +3,7 @@ import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Input from '../../components/Input';
 import Layout from '../../components/Layout';
 
@@ -80,6 +81,12 @@ export const getServerSideProps = async ({
 const editProfile = () => {
   const { user } = useUser();
   const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
   const [profile, setProfile] = useState({
     id: '',
     name: '',
@@ -138,8 +145,6 @@ const editProfile = () => {
     }
   }, [data]);
 
-  console.log(profile);
-
   const isProfileComplete = () => {
     return handle && name && location;
   };
@@ -180,8 +185,24 @@ const editProfile = () => {
 
   const renderForm = () => {
     return (
-      <div className="w-full flex justify-center mt-10">
+      <div className="w-full max-w-sm flex justify-center mt-10">
         {/* <Input name="Name" length={10} value={name} setValue={setName} /> */}
+        <form
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+          })}
+          className="w-full"
+        >
+          <Input
+            register={register}
+            errors={errors}
+            name="Name"
+            currentLength={watch().Name?.length}
+            minLength={2}
+            maxLength={50}
+          />
+          <input type="submit" />
+        </form>
       </div>
     );
   };

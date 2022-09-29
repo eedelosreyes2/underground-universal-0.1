@@ -1,32 +1,50 @@
 interface Props {
-  name: string;
-  length: number;
-  value: string;
-  setValue: any;
+  register: any;
+  errors: any;
+  name: String;
+  currentLength: number;
+  minLength: number;
+  maxLength: number;
 }
 
-const Input = ({ name, length, value, setValue }: Props) => {
+const Input = ({
+  register,
+  errors,
+  name,
+  currentLength,
+  minLength,
+  maxLength,
+}: Props) => {
+  console.log(currentLength);
+
   return (
-    <div className="flex flex-col w-full max-w-sm">
-      <div className="input-name flex flex-col">
-        <input
-          id={name}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          maxLength={length}
-          className="outline-none text border-b border-secondary pb-1 mb-1 
-            bg-fill-light dark:bg-fill-dark"
-        />
-        <div className="w-full flex justify-between">
-          <label htmlFor={name}>{name}</label>
-          {value?.length > 0 && (
-            <div className={value.length >= length ? 'text-primary' : ''}>
-              {value.length + '/' + length}
-            </div>
-          )}
-        </div>
+    <>
+      <input
+        {...register(name, {
+          required: 'Required',
+          minLength: {
+            value: minLength,
+            message: name + ' must be at least ' + minLength + ' characters',
+          },
+          maxLength,
+        })}
+        placeholder="Name"
+        className={
+          'input ' + (errors.Name ? 'border-primary' : 'border-secondary')
+        }
+      />
+      <div className=" min-h-[20px] flex justify-between">
+        <p className="input-error">{errors.Name?.message}</p>
+        <p
+          className={
+            'input-error ' +
+            (currentLength > maxLength ? 'text-primary' : 'text-secondary')
+          }
+        >
+          {currentLength}/{maxLength}
+        </p>
       </div>
-    </div>
+    </>
   );
 };
 
