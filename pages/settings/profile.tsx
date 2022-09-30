@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import TextField from '../../components/TextField';
+import MultiSelect from '../../components/form/MultiSelect';
+import TextField from '../../components/form/TextField';
 import Layout from '../../components/Layout';
 
 // TODO: Add trackSig, and badge to query
@@ -208,6 +209,7 @@ const editProfile = () => {
             minLength={2}
             maxLength={50}
           />
+          <MultiSelect />
 
           <input type="submit" />
         </form>
