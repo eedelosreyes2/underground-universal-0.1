@@ -3,8 +3,9 @@ import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import MultiSelect from '../../components/form/MultiSelect';
+import { Controller, useForm } from 'react-hook-form';
+import Multiselect from 'multiselect-react-dropdown';
+// import MultiSelect from '../../components/form/MultiSelect';
 import TextField from '../../components/form/TextField';
 import Layout from '../../components/Layout';
 
@@ -85,6 +86,7 @@ const editProfile = () => {
   const {
     register,
     handleSubmit,
+    control,
     watch,
     formState: { errors },
   } = useForm();
@@ -209,9 +211,38 @@ const editProfile = () => {
             minLength={2}
             maxLength={50}
           />
-          <MultiSelect />
+          <Controller
+            name="multiSelectField"
+            control={control}
+            render={({ field: { ref, ...field } }) => {
+              console.log(field);
+              return (
+                <Multiselect
+                  {...field}
+                  displayValue="name"
+                  onSelect={(selected, item) => {
+                    console.log('selectfield', selected);
+                  }}
+                  onRemove={(selected, item) => {
+                    console.log('selectfield', selected);
+                  }}
+                  options={[
+                    { value: 'Rapper', name: 'Rapper', id: 0 },
+                    { value: 'Singer', name: 'Singer', id: 1 },
+                    { value: 'Producer', name: 'Producer', id: 2 },
+                    { value: 'DJ', name: 'DJ', id: 3 },
+                  ]}
+                  emptyRecordMsg=""
+                  placeholder="Role"
+                  hidePlaceholder
+                  avoidHighlightFirstOption
+                />
+              );
+            }}
+          />
+          {/* TODO: Save value of artist roles */}
 
-          <input type="submit" />
+          <input type="submit" className="mt-10 text-button" />
         </form>
       </div>
     );

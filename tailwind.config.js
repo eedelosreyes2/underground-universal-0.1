@@ -14,6 +14,7 @@ module.exports = {
       pro: '#FFC800',
       veteran: '#FFEA00',
       white: 'white',
+      gray: 'gray',
       black: 'black',
       fill: {
         dark: '#0C0C0C',

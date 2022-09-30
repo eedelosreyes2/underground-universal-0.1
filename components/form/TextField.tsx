@@ -27,16 +27,14 @@ const TextField = ({
           maxLength,
         })}
         placeholder={name}
-        className={
-          'input ' + (errors[name] ? 'border-primary' : 'border-secondary')
-        }
+        className={'input ' + (errors[name] ? 'border-primary' : 'border-gray')}
       />
       <div className=" min-h-[20px] flex justify-between">
         <p className="input-error">{errors[name]?.message}</p>
         <p
           className={
             'input-error ' +
-            (currentLength > maxLength ? 'text-primary' : 'text-secondary')
+            (currentLength > maxLength ? 'text-primary' : 'text-gray')
           }
         >
           {currentLength}/{maxLength}
