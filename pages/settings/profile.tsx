@@ -198,6 +198,14 @@ const editProfile = () => {
           <TextField
             register={register}
             errors={errors}
+            name="Handle"
+            currentLength={watch().Handle?.length}
+            minLength={2}
+            maxLength={15}
+          />
+          <TextField
+            register={register}
+            errors={errors}
             name="Name"
             currentLength={watch().Name?.length}
             minLength={2}
@@ -236,6 +244,7 @@ const editProfile = () => {
                   placeholder="Role"
                   hidePlaceholder
                   avoidHighlightFirstOption
+                  className="py-5"
                 />
               );
             }}
