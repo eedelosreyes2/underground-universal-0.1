@@ -3,9 +3,8 @@ import { getSession, useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import Multiselect from 'multiselect-react-dropdown';
-// import MultiSelect from '../../components/form/MultiSelect';
+import { useForm } from 'react-hook-form';
+import MultiSelect from '../../components/form/MultiSelect';
 import TextField from '../../components/form/TextField';
 import Layout from '../../components/Layout';
 
@@ -219,37 +218,32 @@ const editProfile = () => {
             minLength={2}
             maxLength={50}
           />
-          <Controller
-            name="multiSelectField"
+          <MultiSelect
             control={control}
-            render={({ field: { ref, ...field } }) => {
-              console.log(field);
-              return (
-                <Multiselect
-                  {...field}
-                  displayValue="name"
-                  onSelect={(selected, item) => {
-                    console.log('selectfield', selected);
-                  }}
-                  onRemove={(selected, item) => {
-                    console.log('selectfield', selected);
-                  }}
-                  options={[
-                    { value: 'Rapper', name: 'Rapper', id: 0 },
-                    { value: 'Singer', name: 'Singer', id: 1 },
-                    { value: 'Producer', name: 'Producer', id: 2 },
-                    { value: 'DJ', name: 'DJ', id: 3 },
-                  ]}
-                  emptyRecordMsg=""
-                  placeholder="Role"
-                  hidePlaceholder
-                  avoidHighlightFirstOption
-                  className="py-5"
-                />
-              );
-            }}
+            placeholder="Role"
+            // onSelect={(selected, item) => {
+            //   console.log('selectfield', selected);
+            // }}
+            // onRemove={(selected, item) => {
+            //   console.log('selectfield', selected);
+            // }}
+            options={[
+              { value: 'Rapper', name: 'Rapper', id: 0 },
+              { value: 'Singer', name: 'Singer', id: 1 },
+              { value: 'Producer', name: 'Producer', id: 2 },
+              { value: 'DJ', name: 'DJ', id: 3 },
+            ]}
           />
-          {/* TODO: Save value of artist roles */}
+          <MultiSelect
+            control={control}
+            placeholder="Genres"
+            options={[
+              { value: 'Hip hop', name: 'Hip hop', id: 0 },
+              { value: 'Rap', name: 'Rap', id: 1 },
+              { value: 'Producer', name: 'Producer', id: 2 },
+              { value: 'DJ', name: 'DJ', id: 3 },
+            ]}
+          />
 
           <input type="submit" className="mt-10 text-button" />
         </form>
