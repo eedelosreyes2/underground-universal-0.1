@@ -22,9 +22,9 @@ import { HiOutlineAtSymbol } from 'react-icons/hi';
 import prisma from '../lib/prisma';
 
 export const getServerSideProps = async ({ params }: any) => {
-  const handle = params.handle;
+  const username = params.username;
   const artist = await prisma.artist.findUnique({
-    where: { handle },
+    where: { username },
   });
 
   if (artist == null) return { notFound: true };
@@ -50,7 +50,7 @@ const profile = ({ artist }: any) => {
     id,
     name,
     email,
-    handle,
+    username,
     location,
     bio,
     imgSrc,
@@ -67,7 +67,7 @@ const profile = ({ artist }: any) => {
   };
 
   const isProfileComplete = () => {
-    return handle && name && location;
+    return username && name && location;
   };
 
   const playHandler = () => {
@@ -172,7 +172,7 @@ const profile = ({ artist }: any) => {
         <h3 className="flex font-medium items-start mt-1">
           <div className="flex items-center">
             <HiOutlineAtSymbol />
-            {handle}
+            {username}
           </div>
           {location && (
             <>

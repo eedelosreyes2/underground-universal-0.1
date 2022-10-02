@@ -24,7 +24,7 @@ export const Artist = objectType({
     t.string('email');
     t.string('dob');
     t.string('name');
-    t.string('handle');
+    t.string('username');
     t.string('location');
     t.string('badgeId');
     t.string('trackId');
@@ -190,16 +190,16 @@ export const ArtistByEmailQuery = extendType({
   },
 });
 
-export const ArtistByHandleQuery = extendType({
+export const ArtistByUsernameQuery = extendType({
   type: 'Query',
   definition(t) {
-    t.nonNull.field('getArtistByHandle', {
+    t.nonNull.field('getArtistByUsername', {
       type: 'Artist',
-      args: { handle: nonNull(stringArg()) },
+      args: { username: nonNull(stringArg()) },
       resolve(_parent, _args, ctx) {
         const artist = ctx.prisma.artist.findUnique({
           where: {
-            handle: _args.handle,
+            username: _args.username,
           },
         });
         return artist;
@@ -216,7 +216,7 @@ export const UpdateArtist = extendType({
       args: {
         id: nonNull(stringArg()),
         name: stringArg(),
-        handle: stringArg(),
+        username: stringArg(),
         location: stringArg(),
         bio: stringArg(),
         imgSrc: stringArg(),
@@ -229,7 +229,7 @@ export const UpdateArtist = extendType({
           },
           data: {
             name: _args.name,
-            handle: _args.handle,
+            username: _args.username,
             location: _args.location,
             bio: _args.bio,
             imgSrc: _args.imgSrc,

@@ -13,7 +13,7 @@ const GET_ARTIST = gql`
       id
       email
       name
-      handle
+      username
       imgSrc
     }
   }
@@ -30,7 +30,8 @@ const TopNav = () => {
 
   const profileBorder =
     'h-8 cursor-pointer border rounded-full overflow-hidden ' +
-    (router.pathname === user?.handle || router.pathname === '/settings/profile'
+    (router.pathname === user?.username ||
+    router.pathname === '/settings/profile'
       ? 'border-primary'
       : 'border-secondary');
 
@@ -39,8 +40,8 @@ const TopNav = () => {
   };
 
   const handleProfileClick = () => {
-    if (data.getArtistByEmail.handle) {
-      router.push('/' + data.getArtistByEmail.handle);
+    if (data.getArtistByEmail.username) {
+      router.push('/' + data.getArtistByEmail.username);
     } else {
       // TODO: Send toast message - You need to complete your profile to continue
       router.push('/settings/profile');

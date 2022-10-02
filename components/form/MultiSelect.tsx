@@ -26,17 +26,17 @@ const MultiSelect = ({
       control={control}
       rules={{ required: required }}
       render={({ field: { ...field } }) => {
-        console.log(field);
+        // console.log(field);
         return (
           <div className="py-5">
             <MultiselectReact
               {...field}
               displayValue="name"
               onSelect={(selected, item) => {
-                console.log('selectfield', selected);
+                // console.log('selectfield', selected);
               }}
               onRemove={(selected, item) => {
-                console.log('selectfield', selected);
+                // console.log('selectfield', selected);
               }}
               selectionLimit={maxLength}
               options={options}

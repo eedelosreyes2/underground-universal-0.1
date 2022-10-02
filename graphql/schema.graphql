@@ -19,7 +19,6 @@ type Artist {
   email: String
   features: [Track]
   genres: [Genre]
-  handle: String
   id: String
   imgSrc: String
   level: Level
@@ -37,6 +36,7 @@ type Artist {
   trackSig: Track
   tracks: [Track]
   udpatedAt: String
+  username: String
 }
 
 type Badge {
@@ -72,13 +72,13 @@ enum Level {
 }
 
 type Mutation {
-  updateArtist(bio: String, handle: String, id: String!, imgSrc: String, location: String, name: String, trackSig: String): Artist!
+  updateArtist(bio: String, id: String!, imgSrc: String, location: String, name: String, trackSig: String, username: String): Artist!
 }
 
 type Query {
   artists: [Artist]!
   getArtistByEmail(email: String!): Artist!
-  getArtistByHandle(handle: String!): Artist!
+  getArtistByUsername(username: String!): Artist!
 }
 
 """Role of Artist"""

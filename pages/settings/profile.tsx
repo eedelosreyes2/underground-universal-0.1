@@ -15,7 +15,7 @@ const GET_ARTIST = gql`
       id
       name
       email
-      handle
+      username
       location
       bio
       imgSrc
@@ -31,20 +31,20 @@ const UPDATE_ARTIST = gql`
   mutation (
     $id: String!
     $name: String
-    $handle: String
+    $username: String
     $location: String
     $bio: String
   ) {
     updateArtist(
       id: $id
       name: $name
-      handle: $handle
+      username: $username
       location: $location
       bio: $bio
     ) {
       email
       name
-      handle
+      username
       location
       bio
       role
@@ -93,7 +93,7 @@ const editProfile = () => {
     id: '',
     name: '',
     email: '',
-    handle: '',
+    username: '',
     location: '',
     bio: '',
     imgSrc: '',
@@ -108,7 +108,7 @@ const editProfile = () => {
     id,
     name,
     email,
-    handle,
+    username,
     location,
     bio,
     imgSrc,
@@ -128,7 +128,7 @@ const editProfile = () => {
     variables: {
       id,
       name,
-      handle,
+      username,
       location,
       bio,
       imgSrc,
@@ -148,7 +148,7 @@ const editProfile = () => {
   }, [data]);
 
   const isProfileComplete = () => {
-    return handle && name && location;
+    return username && name && location;
   };
 
   const renderPageHeader = () => {
@@ -156,7 +156,7 @@ const editProfile = () => {
       return (
         <div className="flex justify-between h-10 w-full mb-10 max-w-sm">
           <div
-            onClick={() => router.push('/' + handle)}
+            onClick={() => router.push('/' + username)}
             className="flex items-center gap-2 text-button"
           >
             Back to profile
@@ -221,8 +221,8 @@ const editProfile = () => {
           <TextField
             register={register}
             errors={errors}
-            name="Handle"
-            currentLength={watch().Handle?.length}
+            name="Username"
+            currentLength={watch().Username?.length}
             minLength={2}
             maxLength={15}
           />

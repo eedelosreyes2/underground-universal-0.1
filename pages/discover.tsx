@@ -9,7 +9,7 @@ const GET_ALL_ARTISTS = gql`
       id
       email
       name
-      handle
+      username
       location
       bio
       role
