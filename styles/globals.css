@@ -45,12 +45,10 @@
 }
 
 .searchWrapper {
-  /* border-color: red !important; */
   border: none !important;
-  border-bottom: 1px solid gray !important;
   border-radius: 0px !important;
-  padding: 0 0 5px 0 !important;
-  margin-bottom: 3px;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .multiSelectContainer input {

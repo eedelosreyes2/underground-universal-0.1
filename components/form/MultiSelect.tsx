@@ -3,10 +3,15 @@ import { Controller } from 'react-hook-form';
 
 interface Props {
   control: any;
+  register: any;
+  errors: any;
   required: boolean;
+  name: string;
   placeholder: string;
+  currentLength: number;
   maxLength: number;
   options: any;
+  setValue: any;
 }
 
 // TODO: Save value of artist roles
@@ -15,28 +20,34 @@ interface Props {
 // TODO: Required
 const MultiSelect = ({
   control,
+  register,
+  errors,
   required,
+  name,
   placeholder,
+  currentLength,
   maxLength,
   options,
+  setValue,
 }: Props) => {
+  // TODO: Fix errors after submit
+  console.log(errors[name]);
   return (
     <Controller
-      name="multiSelectField"
+      name={name}
       control={control}
-      rules={{ required: required }}
+      {...register(name, { required: required && 'Required' })}
       render={({ field: { ...field } }) => {
-        // console.log(field);
         return (
           <div className="py-5">
             <MultiselectReact
               {...field}
               displayValue="name"
               onSelect={(selected, item) => {
-                // console.log('selectfield', selected);
+                setValue(name, selected);
               }}
               onRemove={(selected, item) => {
-                // console.log('selectfield', selected);
+                setValue(name, selected);
               }}
               selectionLimit={maxLength}
               options={options}
@@ -44,15 +55,19 @@ const MultiSelect = ({
               placeholder={placeholder}
               hidePlaceholder
               avoidHighlightFirstOption
+              className={
+                'input ' + (errors[name] ? 'border-primary' : 'border-gray')
+              }
             />
             <div className=" min-h-[20px] flex justify-between">
-              <p className="input-error">{'Required'}</p>
+              <p className="input-error">{errors[name]?.message}</p>
               <p
-                className={'input-error '}
-                //   (currentLength > maxLength ? 'text-primary' : 'text-gray')
-                // }
+                className={
+                  'input-error ' +
+                  (currentLength > maxLength ? 'text-primary' : 'text-gray')
+                }
               >
-                {/* {currentLength}/{maxLength} */}
+                {currentLength}/{maxLength}
               </p>
             </div>
           </div>

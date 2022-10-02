@@ -86,6 +86,7 @@ const editProfile = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     control,
     watch,
     formState: { errors },
@@ -211,6 +212,8 @@ const editProfile = () => {
       { value: 'Instrumental', name: 'Instrumental', id: 14 },
     ];
 
+    console.log(errors);
+
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
@@ -251,23 +254,27 @@ const editProfile = () => {
           />
           <MultiSelect
             control={control}
+            register={register}
+            errors={errors}
+            name="Role"
             placeholder="Role"
             required={true}
-            maxLength={-1}
-            // onSelect={(selected, item) => {
-            //   console.log('selectfield', selected);
-            // }}
-            // onRemove={(selected, item) => {
-            //   console.log('selectfield', selected);
-            // }}
+            currentLength={watch().Name?.length}
+            maxLength={3}
             options={roleOptions}
+            setValue={setValue}
           />
           <MultiSelect
             control={control}
-            required={false}
+            register={register}
+            errors={errors}
+            required={true}
+            name="Genres"
             placeholder="Genres"
-            maxLength={5}
+            currentLength={watch().Name?.length}
+            maxLength={6}
             options={genreOptions}
+            setValue={setValue}
           />
           <TextArea
             register={register}
@@ -279,7 +286,7 @@ const editProfile = () => {
             maxLength={280}
           />
 
-          {/* TODO: Make slidedown and hide by default */}
+          {/* TODO: Make slidedown and hide streamings by default */}
           <TextField
             register={register}
             errors={errors}
@@ -331,7 +338,7 @@ const editProfile = () => {
             maxLength={50}
           />
 
-          <input type="submit" className="mt-10 text-button" />
+          <input type="submit" className="my-10 text-button" />
         </form>
       </div>
     );
