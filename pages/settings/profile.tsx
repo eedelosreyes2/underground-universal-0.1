@@ -186,6 +186,30 @@ const editProfile = () => {
   };
 
   const renderForm = () => {
+    const roleOptions = [
+      { value: 'Rapper', name: 'Rapper', id: 0 },
+      { value: 'Singer', name: 'Singer', id: 1 },
+      { value: 'Producer', name: 'Producer', id: 2 },
+      { value: 'DJ', name: 'DJ', id: 3 },
+    ];
+    const genreOptions = [
+      { value: 'Hip hop', name: 'Hip hop', id: 0 },
+      { value: 'Alternative', name: 'Alternative', id: 1 },
+      { value: 'Boom Bap', name: 'Boom Bap', id: 2 },
+      { value: 'East Coast', name: 'East Coast', id: 3 },
+      { value: 'Hardcore', name: 'Hardcore', id: 4 },
+      { value: 'Lofi', name: 'Lofi', id: 5 },
+      { value: 'Old School', name: 'Old School', id: 6 },
+      { value: 'Pop', name: 'Pop', id: 7 },
+      { value: 'R&B', name: 'R&B', id: 8 },
+      { value: 'Southern', name: 'Southern', id: 9 },
+      { value: 'Trap', name: 'Trap', id: 10 },
+      { value: 'Underground', name: 'Underground', id: 11 },
+      { value: 'Midwest', name: 'Midwest', id: 12 },
+      { value: 'West Coast', name: 'West Coast', id: 13 },
+      { value: 'Instrumental', name: 'Instrumental', id: 14 },
+    ];
+
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
@@ -221,28 +245,22 @@ const editProfile = () => {
           <MultiSelect
             control={control}
             placeholder="Role"
+            required={true}
+            maxLength={-1}
             // onSelect={(selected, item) => {
             //   console.log('selectfield', selected);
             // }}
             // onRemove={(selected, item) => {
             //   console.log('selectfield', selected);
             // }}
-            options={[
-              { value: 'Rapper', name: 'Rapper', id: 0 },
-              { value: 'Singer', name: 'Singer', id: 1 },
-              { value: 'Producer', name: 'Producer', id: 2 },
-              { value: 'DJ', name: 'DJ', id: 3 },
-            ]}
+            options={roleOptions}
           />
           <MultiSelect
             control={control}
+            required={false}
             placeholder="Genres"
-            options={[
-              { value: 'Hip hop', name: 'Hip hop', id: 0 },
-              { value: 'Rap', name: 'Rap', id: 1 },
-              { value: 'Producer', name: 'Producer', id: 2 },
-              { value: 'DJ', name: 'DJ', id: 3 },
-            ]}
+            maxLength={5}
+            options={genreOptions}
           />
 
           <input type="submit" className="mt-10 text-button" />
