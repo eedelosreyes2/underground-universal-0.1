@@ -60,10 +60,12 @@
 .optionListContainer {
   background-color: #999999 !important;
   color: white;
+  font-weight: bold !important;
 }
 
 .chip {
   background-color: red !important;
+  font-weight: bold !important;
   font-size: 14px !important;
 }
 

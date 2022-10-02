@@ -278,6 +278,8 @@ const editProfile = () => {
             minLength={0}
             maxLength={280}
           />
+
+          {/* TODO: Make slidedown and hide by default */}
           <TextField
             register={register}
             errors={errors}
