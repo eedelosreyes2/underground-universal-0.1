@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import MultiSelect from '../../components/form/MultiSelect';
+import TextArea from '../../components/form/TextArea';
 import TextField from '../../components/form/TextField';
 import Layout from '../../components/Layout';
 
@@ -222,6 +223,8 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Username"
+            palceholder="Username"
+            required={true}
             currentLength={watch().Username?.length}
             minLength={2}
             maxLength={15}
@@ -230,6 +233,8 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Name"
+            palceholder="Name"
+            required={true}
             currentLength={watch().Name?.length}
             minLength={2}
             maxLength={50}
@@ -238,6 +243,8 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Location"
+            palceholder="Location"
+            required={true}
             currentLength={watch().Location?.length}
             minLength={2}
             maxLength={50}
@@ -261,6 +268,65 @@ const editProfile = () => {
             placeholder="Genres"
             maxLength={5}
             options={genreOptions}
+          />
+          <TextArea
+            register={register}
+            errors={errors}
+            name="Bio"
+            palceholder="Bio (a sentence or two on who you are and who you are looking to collab with)"
+            currentLength={watch().Bio?.length}
+            minLength={0}
+            maxLength={280}
+          />
+          <TextField
+            register={register}
+            errors={errors}
+            name="Spotify"
+            palceholder="Spotify"
+            required={false}
+            currentLength={watch().Spotify?.length}
+            minLength={2}
+            maxLength={50}
+          />
+          <TextField
+            register={register}
+            errors={errors}
+            name="AppleMusic"
+            palceholder="Apple Music"
+            required={false}
+            currentLength={watch().AppleMusic?.length}
+            minLength={2}
+            maxLength={50}
+          />
+          <TextField
+            register={register}
+            errors={errors}
+            name="Soundcloud"
+            palceholder="Soundcloud"
+            required={false}
+            currentLength={watch().Soundcloud?.length}
+            minLength={2}
+            maxLength={50}
+          />
+          <TextField
+            register={register}
+            errors={errors}
+            name="Youtube"
+            palceholder="Youtube"
+            required={false}
+            currentLength={watch().Youtube?.length}
+            minLength={2}
+            maxLength={50}
+          />
+          <TextField
+            register={register}
+            errors={errors}
+            name="Bandcamp"
+            palceholder="Bandcamp"
+            required={false}
+            currentLength={watch().Bandcamp?.length}
+            minLength={2}
+            maxLength={50}
           />
 
           <input type="submit" className="mt-10 text-button" />

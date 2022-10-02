@@ -3,27 +3,26 @@ interface Props {
   errors: any;
   name: string;
   palceholder: string;
-  required: boolean;
   currentLength: number;
   minLength: number;
   maxLength: number;
 }
 
-const TextField = ({
+// TODO: Fix Input starts where placeholder does
+const TextArea = ({
   register,
   errors,
   name,
   palceholder,
-  required,
   currentLength,
   minLength,
   maxLength,
 }: Props) => {
   return (
     <div className="py-5">
-      <input
+      <textarea
         {...register(name, {
-          required: required && 'Required',
+          required: false,
           minLength: {
             value: minLength,
             message: name + ' must be at least ' + minLength + ' characters',
@@ -31,7 +30,10 @@ const TextField = ({
           maxLength,
         })}
         placeholder={palceholder}
-        className={'input ' + (errors[name] ? 'border-primary' : 'border-gray')}
+        className={
+          'pb-2 resize-none input ' +
+          (errors[name] ? 'border-primary' : 'border-gray')
+        }
       />
       <div className=" min-h-[20px] flex justify-between">
         <p className="input-error">{errors[name]?.message}</p>
@@ -48,4 +50,4 @@ const TextField = ({
   );
 };
 
-export default TextField;
+export default TextArea;
