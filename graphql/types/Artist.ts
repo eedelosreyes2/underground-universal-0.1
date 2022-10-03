@@ -220,6 +220,7 @@ export const UpdateArtist = extendType({
         username: stringArg(),
         location: stringArg(),
         bio: stringArg(),
+        experience: stringArg(),
         roles: list(stringArg()),
         genres: list(stringArg()),
         imgSrc: stringArg(),

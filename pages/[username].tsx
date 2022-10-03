@@ -16,7 +16,7 @@ import {
 import { VscDebugPause } from 'react-icons/vsc';
 import Layout from '../components/Layout';
 import Genre from '../components/tags/Genre';
-import Level from '../components/tags/Level';
+import Experience from '../components/tags/Experience';
 import Role from '../components/tags/Role';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import prisma from '../lib/prisma';
@@ -56,9 +56,9 @@ const profile = ({ artist }: any) => {
     imgSrc,
     trackSig,
     badge,
-    role,
+    roles,
     genres,
-    level,
+    experience,
     streamings,
   } = artist;
 
@@ -196,8 +196,10 @@ const profile = ({ artist }: any) => {
     return (
       <>
         <div className="w-full flex flex-wrap mb-3">
-          <Role role={role} />
-          <Level level={level} />
+          {roles?.map((role: any, id: any) => (
+            <Role key={id} role={role} />
+          ))}
+          <Experience experience={experience} />
           {genres?.map((genre: any, id: any) => (
             <Genre key={id} genre={genre} />
           ))}

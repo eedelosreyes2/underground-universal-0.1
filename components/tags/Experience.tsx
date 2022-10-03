@@ -1,6 +1,6 @@
-const Level = ({ level }: any) => {
-  const getLabel = (level: string) => {
-    switch (level) {
+const Experience = ({ experience }: any) => {
+  const getLabel = (experience: string) => {
+    switch (experience) {
       case 'ROOKIE': // <yr
         return 'Rookie';
       case 'PLAYER': // 1-4 yrs
@@ -16,12 +16,12 @@ const Level = ({ level }: any) => {
     <div
       className={
         'border rounded-full px-3 mr-2 mb-2 ' +
-        ('border-' + getLabel(level)?.toLowerCase())
+        ('border-' + getLabel(experience)?.toLowerCase())
       }
     >
-      {getLabel(level)}
+      {getLabel(experience)}
     </div>
   );
 };
 
-export default Level;
+export default Experience;

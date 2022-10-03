@@ -34,6 +34,7 @@ const UPDATE_ARTIST = gql`
     $name: String
     $username: String
     $location: String
+    $experience: String
     $roles: [String]
     $genres: [String]
     $bio: String
@@ -43,6 +44,7 @@ const UPDATE_ARTIST = gql`
       name: $name
       username: $username
       location: $location
+      experience: $experience
       roles: $roles
       genres: $genres
       bio: $bio
@@ -191,6 +193,12 @@ const editProfile = () => {
   };
 
   const renderForm = () => {
+    const experienceOptions = [
+      { value: 'ROOKIE', name: 'Rookie (<yr)', id: 0 },
+      { value: 'PLAYER', name: 'Player (1-4 yrs)', id: 1 },
+      { value: 'PRO', name: 'Pro (5-9 yrs)', id: 2 },
+      { value: 'VETERAN', name: 'Veteran (10+ yrs)', id: 3 },
+    ];
     const roleOptions = [
       { value: 'RAPPER', name: 'Rapper', id: 0 },
       { value: 'SINGER', name: 'Singer', id: 1 },
@@ -219,6 +227,7 @@ const editProfile = () => {
       // TODO: Send toast message - profile saved
       const parsedRoles = data.Roles.map((role: any) => role.value);
       const parsedGenres = data.Genres.map((genre: any) => genre.value);
+      const parsedExperience = data.Experience[0].value;
 
       const variables = {
         id,
@@ -231,7 +240,7 @@ const editProfile = () => {
         badge, // TODO
         roles: parsedRoles || roles,
         genres: parsedGenres || genres,
-        experience: data.Experience || experience,
+        experience: parsedExperience || experience,
         streamings, // TODO: finish
       };
 
@@ -239,7 +248,6 @@ const editProfile = () => {
     };
 
     // TODO: Prepopulation
-    // TODO: Streamings validation
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
@@ -280,6 +288,18 @@ const editProfile = () => {
             control={control}
             register={register}
             errors={errors}
+            name="Experience"
+            placeholder="Experience"
+            required={true}
+            currentLength={watch().Experience?.length}
+            maxLength={1}
+            options={experienceOptions}
+            setValue={setValue}
+          />
+          <MultiSelect
+            control={control}
+            register={register}
+            errors={errors}
             name="Roles"
             placeholder="Roles"
             required={true}
@@ -311,6 +331,7 @@ const editProfile = () => {
           />
 
           {/* TODO: Make slidedown and hide streamings by default */}
+          {/* TODO: Streamings validation */}
           <TextField
             register={register}
             errors={errors}
