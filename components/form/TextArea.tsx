@@ -1,11 +1,15 @@
+import { useEffect } from 'react';
+
 interface Props {
   register: any;
   errors: any;
   name: string;
+  initialValue?: string;
   palceholder: string;
   currentLength: number;
   minLength: number;
   maxLength: number;
+  setValue: any;
 }
 
 // TODO: Fix Input starts where placeholder does
@@ -13,11 +17,17 @@ const TextArea = ({
   register,
   errors,
   name,
+  initialValue,
   palceholder,
   currentLength,
   minLength,
   maxLength,
+  setValue,
 }: Props) => {
+  useEffect(() => {
+    setValue(name, initialValue);
+  }, [initialValue]);
+
   return (
     <div className="py-5">
       <textarea
@@ -29,6 +39,7 @@ const TextArea = ({
           },
           maxLength,
         })}
+        initialValue={initialValue}
         placeholder={palceholder}
         className={
           'pb-2 resize-none input ' +

@@ -247,7 +247,6 @@ const editProfile = () => {
       updateArtist({ variables });
     };
 
-    // TODO: Prepopulation
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
@@ -258,37 +257,44 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Username"
+            initialValue={username}
             palceholder="Username"
             required={true}
             currentLength={watch().Username?.length}
             minLength={2}
             maxLength={15}
+            setValue={setValue}
           />
           <TextField
             register={register}
             errors={errors}
             name="Name"
+            initialValue={name}
             palceholder="Name"
             required={true}
             currentLength={watch().Name?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
           <TextField
             register={register}
             errors={errors}
             name="Location"
+            initialValue={location}
             palceholder="Location"
             required={true}
             currentLength={watch().Location?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
           <MultiSelect
             control={control}
             register={register}
             errors={errors}
             name="Experience"
+            initialValue={[experience]}
             placeholder="Experience"
             required={true}
             currentLength={watch().Experience?.length}
@@ -301,6 +307,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Roles"
+            initialValue={roles}
             placeholder="Roles"
             required={true}
             currentLength={watch().Roles?.length}
@@ -314,6 +321,7 @@ const editProfile = () => {
             errors={errors}
             required={true}
             name="Genres"
+            initialValue={genres}
             placeholder="Genres"
             currentLength={watch().Genres?.length}
             maxLength={6}
@@ -324,10 +332,12 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Bio"
+            initialValue={bio}
             palceholder="Bio (a sentence or two on who you are and who you are looking to collab with)"
             currentLength={watch().Bio?.length}
             minLength={0}
             maxLength={280}
+            setValue={setValue}
           />
 
           {/* TODO: Make slidedown and hide streamings by default */}
@@ -341,6 +351,7 @@ const editProfile = () => {
             currentLength={watch().Spotify?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
           <TextField
             register={register}
@@ -351,6 +362,7 @@ const editProfile = () => {
             currentLength={watch().AppleMusic?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
           <TextField
             register={register}
@@ -361,6 +373,7 @@ const editProfile = () => {
             currentLength={watch().Soundcloud?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
           <TextField
             register={register}
@@ -371,6 +384,7 @@ const editProfile = () => {
             currentLength={watch().Youtube?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
           <TextField
             register={register}
@@ -381,6 +395,7 @@ const editProfile = () => {
             currentLength={watch().Bandcamp?.length}
             minLength={2}
             maxLength={50}
+            setValue={setValue}
           />
 
           <input type="submit" className="my-10 mb-24 text-button" />

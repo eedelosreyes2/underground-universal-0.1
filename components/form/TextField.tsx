@@ -1,24 +1,34 @@
+import { useEffect } from 'react';
+
 interface Props {
   register: any;
   errors: any;
   name: string;
+  initialValue?: string;
   palceholder: string;
   required: boolean;
   currentLength: number;
   minLength: number;
   maxLength: number;
+  setValue: any;
 }
 
 const TextField = ({
   register,
   errors,
   name,
+  initialValue,
   palceholder,
   required,
   currentLength,
   minLength,
   maxLength,
+  setValue,
 }: Props) => {
+  useEffect(() => {
+    setValue(name, initialValue);
+  }, [initialValue]);
+
   return (
     <div className="py-5">
       <input
@@ -30,6 +40,7 @@ const TextField = ({
           },
           maxLength,
         })}
+        defaultValue={initialValue}
         placeholder={palceholder}
         className={'input ' + (errors[name] ? 'border-primary' : 'border-gray')}
       />

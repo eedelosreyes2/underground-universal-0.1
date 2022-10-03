@@ -1,4 +1,5 @@
 import { Multiselect as MultiselectReact } from 'multiselect-react-dropdown';
+import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
   errors: any;
   required: boolean;
   name: string;
+  initialValue?: string[];
   placeholder: string;
   currentLength: number;
   maxLength: number;
@@ -24,6 +26,7 @@ const MultiSelect = ({
   errors,
   required,
   name,
+  initialValue,
   placeholder,
   currentLength,
   maxLength,
@@ -31,7 +34,14 @@ const MultiSelect = ({
   setValue,
 }: Props) => {
   // TODO: Fix errors after submit
-  // console.log(errors[name]);
+  // TODO: Finish prepopulation
+
+  console.log(options.map((option: any) => option.value));
+  console.log(initialValue);
+  useEffect(() => {
+    // setValue(name, { value: 'HIPHOP', name: 'Hip hop', id: 0 });
+  }, []);
+
   return (
     <Controller
       name={name}
@@ -43,6 +53,7 @@ const MultiSelect = ({
             <MultiselectReact
               {...field}
               displayValue="name"
+              selectedValues={initialValue}
               onSelect={(selected, item) => {
                 setValue(name, selected);
               }}
