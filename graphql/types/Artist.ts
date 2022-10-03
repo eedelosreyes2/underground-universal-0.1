@@ -8,6 +8,7 @@ import {
   arg,
   mutationField,
   mutationType,
+  list,
 } from 'nexus';
 import { Status, Role, Experience, Genre } from './Enums';
 import { Album } from './Album';
@@ -219,6 +220,8 @@ export const UpdateArtist = extendType({
         username: stringArg(),
         location: stringArg(),
         bio: stringArg(),
+        roles: list(stringArg()),
+        genres: list(stringArg()),
         imgSrc: stringArg(),
         trackSig: stringArg(), // TODO: Object args
       },

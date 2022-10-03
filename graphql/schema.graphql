@@ -72,7 +72,7 @@ enum Genre {
 }
 
 type Mutation {
-  updateArtist(bio: String, id: String!, imgSrc: String, location: String, name: String, trackSig: String, username: String): Artist!
+  updateArtist(bio: String, genres: [String], id: String!, imgSrc: String, location: String, name: String, roles: [String], trackSig: String, username: String): Artist!
 }
 
 type Query {

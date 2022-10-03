@@ -34,6 +34,8 @@ const UPDATE_ARTIST = gql`
     $name: String
     $username: String
     $location: String
+    $roles: [String]
+    $genres: [String]
     $bio: String
   ) {
     updateArtist(
@@ -41,6 +43,8 @@ const UPDATE_ARTIST = gql`
       name: $name
       username: $username
       location: $location
+      roles: $roles
+      genres: $genres
       bio: $bio
     ) {
       email
@@ -164,8 +168,6 @@ const editProfile = () => {
           >
             Back to profile
           </div>
-          {/* TODO: Show on form diff */}
-          <div className="cta-button">Save</div>
         </div>
       );
     }
@@ -190,52 +192,54 @@ const editProfile = () => {
 
   const renderForm = () => {
     const roleOptions = [
-      { value: 'Rapper', name: 'Rapper', id: 0 },
-      { value: 'Singer', name: 'Singer', id: 1 },
-      { value: 'Producer', name: 'Producer', id: 2 },
+      { value: 'RAPPER', name: 'Rapper', id: 0 },
+      { value: 'SINGER', name: 'Singer', id: 1 },
+      { value: 'PRODUCER', name: 'Producer', id: 2 },
       { value: 'DJ', name: 'DJ', id: 3 },
     ];
     const genreOptions = [
-      { value: 'Hip hop', name: 'Hip hop', id: 0 },
-      { value: 'Alternative', name: 'Alternative', id: 1 },
-      { value: 'Boom Bap', name: 'Boom Bap', id: 2 },
-      { value: 'East Coast', name: 'East Coast', id: 3 },
-      { value: 'Hardcore', name: 'Hardcore', id: 4 },
-      { value: 'Lofi', name: 'Lofi', id: 5 },
-      { value: 'Old School', name: 'Old School', id: 6 },
-      { value: 'Pop', name: 'Pop', id: 7 },
-      { value: 'R&B', name: 'R&B', id: 8 },
-      { value: 'Southern', name: 'Southern', id: 9 },
-      { value: 'Trap', name: 'Trap', id: 10 },
-      { value: 'Underground', name: 'Underground', id: 11 },
-      { value: 'Midwest', name: 'Midwest', id: 12 },
-      { value: 'West Coast', name: 'West Coast', id: 13 },
-      { value: 'Instrumental', name: 'Instrumental', id: 14 },
+      { value: 'HIPHOP', name: 'Hip hop', id: 0 },
+      { value: 'ALTERNATIVE', name: 'Alternative', id: 1 },
+      { value: 'BOOMBAP', name: 'Boom Bap', id: 2 },
+      { value: 'EASTCOAST', name: 'East Coast', id: 3 },
+      { value: 'HARDCORE', name: 'Hardcore', id: 4 },
+      { value: 'LOFI', name: 'Lofi', id: 5 },
+      { value: 'OLDSCHOOL', name: 'Old School', id: 6 },
+      { value: 'POP', name: 'Pop', id: 7 },
+      { value: 'RNB', name: 'R&B', id: 8 },
+      { value: 'SOUTHERN', name: 'Southern', id: 9 },
+      { value: 'TRAP', name: 'Trap', id: 10 },
+      { value: 'UNDERGROUND', name: 'Underground', id: 11 },
+      { value: 'MIDWEST', name: 'Midwest', id: 12 },
+      { value: 'WESTCOAST', name: 'West Coast', id: 13 },
+      { value: 'INSTRUMENTAL', name: 'Instrumental', id: 14 },
     ];
 
     const handleFormSubmit = (data: any) => {
       // TODO: Send toast message - profile saved
-      console.log(data);
+      const parsedRoles = data.Roles.map((role: any) => role.value);
+      const parsedGenres = data.Genres.map((genre: any) => genre.value);
 
       const variables = {
         id,
         name: data.Name || name,
         username: data.Username || username,
-        location: data.Locations || location,
+        location: data.Location || location,
         bio: data.Bio || bio,
         imgSrc, // TODO
         trackSig, // TODO
         badge, // TODO
-        roles,
-        genres,
-        experience,
-        streamings,
+        roles: parsedRoles || roles,
+        genres: parsedGenres || genres,
+        experience: data.Experience || experience,
+        streamings, // TODO: finish
       };
 
-      // updateArtist({ variables });
+      updateArtist({ variables });
     };
 
     // TODO: Prepopulation
+    // TODO: Streamings validation
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
