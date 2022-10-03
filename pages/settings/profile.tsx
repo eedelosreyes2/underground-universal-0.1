@@ -279,7 +279,7 @@ const editProfile = () => {
             name="Roles"
             placeholder="Roles"
             required={true}
-            currentLength={watch().Roles?.length || 0}
+            currentLength={watch().Roles?.length}
             maxLength={3}
             options={roleOptions}
             setValue={setValue}
@@ -291,7 +291,7 @@ const editProfile = () => {
             required={true}
             name="Genres"
             placeholder="Genres"
-            currentLength={watch().Genres?.length || 0}
+            currentLength={watch().Genres?.length}
             maxLength={6}
             options={genreOptions}
             setValue={setValue}
@@ -358,7 +358,7 @@ const editProfile = () => {
             maxLength={50}
           />
 
-          <input type="submit" className="my-10 text-button" />
+          <input type="submit" className="my-10 mb-24 text-button" />
         </form>
       </div>
     );

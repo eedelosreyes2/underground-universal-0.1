@@ -67,7 +67,7 @@ const MultiSelect = ({
                   (currentLength > maxLength ? 'text-primary' : 'text-gray')
                 }
               >
-                {currentLength}/{maxLength}
+                {currentLength || 0}/{maxLength}
               </p>
             </div>
           </div>
