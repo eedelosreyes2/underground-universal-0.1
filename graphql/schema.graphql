@@ -17,14 +17,14 @@ type Artist {
   createdAt: String
   dob: String
   email: String
+  experience: Experience
   features: [Track]
   genres: [Genre]
   id: String
   imgSrc: String
-  level: Level
   location: String
   name: String
-  role: Role
+  roles: [Role]
   sharedAlbums: [Album]
   sharedAlbumsWith: [Album]
   sharedTracks: [Track]
@@ -42,6 +42,14 @@ type Artist {
 type Badge {
   id: String
   name: String
+}
+
+"""Experience of Artist"""
+enum Experience {
+  PLAYER
+  PRO
+  ROOKIE
+  VETERAN
 }
 
 """Genres"""
@@ -63,14 +71,6 @@ enum Genre {
   WESTCOAST
 }
 
-"""Level of Artist"""
-enum Level {
-  PLAYER
-  PRO
-  ROOKIE
-  VETERAN
-}
-
 type Mutation {
   updateArtist(bio: String, id: String!, imgSrc: String, location: String, name: String, trackSig: String, username: String): Artist!
 }
@@ -81,7 +81,7 @@ type Query {
   getArtistByUsername(username: String!): Artist!
 }
 
-"""Role of Artist"""
+"""Role(s) of Artist"""
 enum Role {
   DJ
   PRODUCER

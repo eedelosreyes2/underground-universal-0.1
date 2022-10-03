@@ -9,7 +9,7 @@ import {
   mutationField,
   mutationType,
 } from 'nexus';
-import { Status, Role, Level, Genre } from './Enums';
+import { Status, Role, Experience, Genre } from './Enums';
 import { Album } from './Album';
 import { Badge } from './Badge';
 import { Track } from './Track';
@@ -28,8 +28,8 @@ export const Artist = objectType({
     t.string('location');
     t.string('badgeId');
     t.string('trackId');
-    t.field('role', { type: Role });
-    t.field('level', { type: Level });
+    t.list.field('roles', { type: Role });
+    t.field('experience', { type: Experience });
     t.list.field('genres', { type: Genre });
     t.string('bio');
     t.string('imgSrc');
@@ -235,9 +235,9 @@ export const UpdateArtist = extendType({
             imgSrc: _args.imgSrc,
             trackSig: _args.trackSig,
             badge: _args.badge,
-            role: _args.role,
+            roles: _args.roles,
             genres: _args.genres,
-            level: _args.level,
+            experience: _args.experience,
             streamings: _args.streamings,
           },
         });

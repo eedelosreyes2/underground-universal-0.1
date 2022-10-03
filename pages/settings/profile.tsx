@@ -20,9 +20,9 @@ const GET_ARTIST = gql`
       location
       bio
       imgSrc
-      role
+      roles
       genres
-      level
+      experience
       streamings
     }
   }
@@ -48,9 +48,9 @@ const UPDATE_ARTIST = gql`
       username
       location
       bio
-      role
+      roles
       genres
-      level
+      experience
       streamings
     }
   }
@@ -101,9 +101,9 @@ const editProfile = () => {
     imgSrc: '',
     trackSig: {},
     badge: {},
-    role: '',
+    roles: [],
     genres: [],
-    level: '',
+    experience: '',
     streamings: '',
   });
   const {
@@ -116,16 +116,17 @@ const editProfile = () => {
     imgSrc,
     trackSig,
     badge,
-    role,
+    roles,
     genres,
-    level,
+    experience,
     streamings,
   } = profile;
 
-  const { data, loading, error } = useQuery(GET_ARTIST, {
-    variables: { email: user?.email },
-    pollInterval: 500,
-  });
+  // TODO: Fix polling ?
+  const { data, loading, error, startPolling, stopPolling } = useQuery(
+    GET_ARTIST,
+    { variables: { email: user?.email } }
+  );
   const [updateArtist] = useMutation(UPDATE_ARTIST, {
     variables: {
       id,
@@ -136,15 +137,15 @@ const editProfile = () => {
       imgSrc,
       trackSig,
       badge,
-      role,
+      roles,
       genres,
-      level,
+      experience,
       streamings,
     },
   });
 
   useEffect(() => {
-    if (data) {
+    if (data && !profile.email) {
       setProfile(data.getArtistByEmail);
     }
   }, [data]);
@@ -212,14 +213,33 @@ const editProfile = () => {
       { value: 'Instrumental', name: 'Instrumental', id: 14 },
     ];
 
-    console.log(errors);
+    const handleFormSubmit = (data: any) => {
+      // TODO: Send toast message - profile saved
+      console.log(data);
 
+      const variables = {
+        id,
+        name: data.Name || name,
+        username: data.Username || username,
+        location: data.Locations || location,
+        bio: data.Bio || bio,
+        imgSrc, // TODO
+        trackSig, // TODO
+        badge, // TODO
+        roles,
+        genres,
+        experience,
+        streamings,
+      };
+
+      // updateArtist({ variables });
+    };
+
+    // TODO: Prepopulation
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
-          onSubmit={handleSubmit((data) => {
-            console.log(data);
-          })}
+          onSubmit={handleSubmit((data) => handleFormSubmit(data))}
           className="w-full"
         >
           <TextField
@@ -256,10 +276,10 @@ const editProfile = () => {
             control={control}
             register={register}
             errors={errors}
-            name="Role"
-            placeholder="Role"
+            name="Roles"
+            placeholder="Roles"
             required={true}
-            currentLength={watch().Name?.length}
+            currentLength={watch().Roles?.length || 0}
             maxLength={3}
             options={roleOptions}
             setValue={setValue}
@@ -271,7 +291,7 @@ const editProfile = () => {
             required={true}
             name="Genres"
             placeholder="Genres"
-            currentLength={watch().Name?.length}
+            currentLength={watch().Genres?.length || 0}
             maxLength={6}
             options={genreOptions}
             setValue={setValue}

@@ -8,35 +8,35 @@ datasource db {
 }
 
 model Artist {
-  id               String    @id @default(uuid())
-  createdAt        DateTime  @default(now())
-  udpatedAt        DateTime  @updatedAt
-  email            String    @unique
+  id               String     @id @default(uuid())
+  createdAt        DateTime   @default(now())
+  udpatedAt        DateTime   @updatedAt
+  email            String     @unique
   dob              DateTime?
   name             String?
   location         String?
-  badgeId          String?   @unique
+  badgeId          String?    @unique
   trackId          String?
-  role             Role      @default(RAPPER)
-  level            Level     @default(ROOKIE)
   genres           Genre[]
   bio              String?
-  status           Status    @default(GUEST)
+  status           Status     @default(GUEST)
   streamings       String[]
   imgSrc           String?
-  username         String?   @unique
-  trackSig         Track?    @relation("Signature", fields: [trackId], references: [id])
+  username         String?    @unique
+  roles            Role[]
+  experience       Experience @default(ROOKIE)
+  trackSig         Track?     @relation("Signature", fields: [trackId], references: [id])
   albums           Album[]
   badge            Badge?
   tracks           Track[]
   studios          Studio[]
-  features         Track[]   @relation("Features")
-  sharedAlbums     Album[]   @relation("SharedAlbums")
-  sharedAlbumsWith Album[]   @relation("SharedAlbumsWith")
-  sharedTracks     Track[]   @relation("SharedTracks")
-  sharedTracksWith Track[]   @relation("SharedTracksWith")
-  Artist_B         Artist[]  @relation("collabs")
-  Artist_A         Artist[]  @relation("collabs")
+  features         Track[]    @relation("Features")
+  sharedAlbums     Album[]    @relation("SharedAlbums")
+  sharedAlbumsWith Album[]    @relation("SharedAlbumsWith")
+  sharedTracks     Track[]    @relation("SharedTracks")
+  sharedTracksWith Track[]    @relation("SharedTracksWith")
+  Artist_B         Artist[]   @relation("collabs")
+  Artist_A         Artist[]   @relation("collabs")
 }
 
 model Album {
@@ -130,7 +130,7 @@ enum Role {
   DJ
 }
 
-enum Level {
+enum Experience {
   ROOKIE
   PLAYER
   PRO

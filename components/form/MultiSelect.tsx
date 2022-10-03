@@ -31,7 +31,7 @@ const MultiSelect = ({
   setValue,
 }: Props) => {
   // TODO: Fix errors after submit
-  console.log(errors[name]);
+  // console.log(errors[name]);
   return (
     <Controller
       name={name}

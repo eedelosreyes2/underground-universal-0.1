@@ -9,13 +9,13 @@ export const Status = enumType({
 export const Role = enumType({
   name: 'Role',
   members: ['RAPPER', 'SINGER', 'PRODUCER', 'DJ'],
-  description: 'Role of Artist',
+  description: 'Role(s) of Artist',
 });
 
-export const Level = enumType({
-  name: 'Level',
+export const Experience = enumType({
+  name: 'Experience',
   members: ['ROOKIE', 'PLAYER', 'PRO', 'VETERAN'],
-  description: 'Level of Artist',
+  description: 'Experience of Artist',
 });
 
 export const Genre = enumType({
