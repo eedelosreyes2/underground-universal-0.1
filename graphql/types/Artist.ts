@@ -1,15 +1,4 @@
-import {
-  objectType,
-  extendType,
-  intArg,
-  queryType,
-  nonNull,
-  stringArg,
-  arg,
-  mutationField,
-  mutationType,
-  list,
-} from 'nexus';
+import { objectType, extendType, nonNull, stringArg, list } from 'nexus';
 import { Status, Role, Experience, Genre } from './Enums';
 import { Album } from './Album';
 import { Badge } from './Badge';
@@ -223,6 +212,7 @@ export const UpdateArtist = extendType({
         experience: stringArg(),
         roles: list(stringArg()),
         genres: list(stringArg()),
+        streamings: list(stringArg()),
         imgSrc: stringArg(),
         trackSig: stringArg(), // TODO: Object args
       },

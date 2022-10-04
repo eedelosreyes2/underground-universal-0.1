@@ -37,6 +37,7 @@ const UPDATE_ARTIST = gql`
     $experience: String
     $roles: [String]
     $genres: [String]
+    $streamings: [String]
     $bio: String
   ) {
     updateArtist(
@@ -47,6 +48,7 @@ const UPDATE_ARTIST = gql`
       experience: $experience
       roles: $roles
       genres: $genres
+      streamings: $streamings
       bio: $bio
     ) {
       email
@@ -110,7 +112,7 @@ const editProfile = () => {
     roles: [],
     genres: [],
     experience: '',
-    streamings: '',
+    streamings: [],
   });
   const {
     id,
@@ -246,24 +248,22 @@ const editProfile = () => {
 
       // TODO: Fix double edit bug
       updateArtist({ variables });
-      setProfile({
-        id,
-        name: data.Name || name,
-        email,
-        username: data.Username || username,
-        location: data.Location || location,
-        bio: data.Bio || bio,
-        imgSrc, // TODO
-        trackSig, // TODO
-        badge, // TODO
-        roles: parsedRoles || roles,
-        genres: parsedGenres || genres,
-        experience: parsedExperience || experience,
-        streamings, // TODO: finish
-      });
+      // setProfile({
+      //   id,
+      //   name: data.Name || name,
+      //   email,
+      //   username: data.Username || username,
+      //   location: data.Location || location,
+      //   bio: data.Bio || bio,
+      //   imgSrc, // TODO
+      //   trackSig, // TODO
+      //   badge, // TODO
+      //   roles: parsedRoles || roles,
+      //   genres: parsedGenres || genres,
+      //   experience: parsedExperience || experience,
+      //   streamings, // TODO: finish
+      // });
     };
-
-    // console.log(watch());
 
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
@@ -275,7 +275,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Username"
-            initialValue={username}
+            initialvalue={username}
             palceholder="Username"
             required={true}
             currentLength={watch().Username?.length}
@@ -287,7 +287,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Name"
-            initialValue={name}
+            initialvalue={name}
             palceholder="Name"
             required={true}
             currentLength={watch().Name?.length}
@@ -299,7 +299,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Location"
-            initialValue={location}
+            initialvalue={location}
             palceholder="Location"
             required={true}
             currentLength={watch().Location?.length}
@@ -312,7 +312,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Experience"
-            initialValue={[experience]}
+            initialvalue={[experience]}
             placeholder="Experience"
             required={true}
             currentLength={watch().Experience?.length}
@@ -325,7 +325,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Roles"
-            initialValue={roles}
+            initialvalue={roles}
             placeholder="Roles"
             required={true}
             currentLength={watch().Roles?.length}
@@ -339,7 +339,7 @@ const editProfile = () => {
             errors={errors}
             required={true}
             name="Genres"
-            initialValue={genres}
+            initialvalue={genres}
             placeholder="Genres"
             currentLength={watch().Genres?.length}
             maxLength={6}
@@ -350,7 +350,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Bio"
-            initialValue={bio}
+            initialvalue={bio}
             palceholder="Bio (a sentence or two on who you are and who you are looking to collab with)"
             currentLength={watch().Bio?.length}
             minLength={0}

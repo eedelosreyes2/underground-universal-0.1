@@ -8,7 +8,7 @@ interface Props {
   errors: any;
   required: boolean;
   name: string;
-  initialValue?: string[];
+  initialvalue?: string[];
   placeholder: string;
   currentLength: number;
   maxLength: number;
@@ -26,7 +26,7 @@ const MultiSelect = ({
   errors,
   required,
   name,
-  initialValue,
+  initialvalue,
   placeholder,
   currentLength,
   maxLength,
@@ -34,7 +34,7 @@ const MultiSelect = ({
   setValue,
 }: Props) => {
   const selectedValues = options.filter((option: any) =>
-    initialValue?.includes(option.value)
+    initialvalue?.includes(option.value)
   );
 
   useEffect(() => {
@@ -48,11 +48,12 @@ const MultiSelect = ({
       name={name}
       control={control}
       {...register(name, { required: required && 'Required' })}
-      render={({ field: { ...field } }) => {
+      render={({ field: { ref, ...field } }) => {
         return (
           <div className="py-5">
             <MultiselectReact
               {...field}
+              ref={ref}
               displayValue="name"
               selectedValues={selectedValues}
               onSelect={(selected, item) => {

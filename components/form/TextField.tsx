@@ -4,7 +4,7 @@ interface Props {
   register: any;
   errors: any;
   name: string;
-  initialValue?: string;
+  initialvalue?: string;
   palceholder: string;
   required: boolean;
   currentLength: number;
@@ -17,7 +17,7 @@ const TextField = ({
   register,
   errors,
   name,
-  initialValue,
+  initialvalue,
   palceholder,
   required,
   currentLength,
@@ -26,8 +26,8 @@ const TextField = ({
   setValue,
 }: Props) => {
   useEffect(() => {
-    setValue(name, initialValue);
-  }, [initialValue]);
+    setValue(name, initialvalue);
+  }, [initialvalue]);
 
   return (
     <div className="py-5">
@@ -40,7 +40,7 @@ const TextField = ({
           },
           maxLength,
         })}
-        defaultValue={initialValue}
+        defaultValue={initialvalue}
         placeholder={palceholder}
         className={'input ' + (errors[name] ? 'border-primary' : 'border-gray')}
       />

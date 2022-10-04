@@ -4,7 +4,7 @@ interface Props {
   register: any;
   errors: any;
   name: string;
-  initialValue?: string;
+  initialvalue?: string;
   palceholder: string;
   currentLength: number;
   minLength: number;
@@ -17,7 +17,7 @@ const TextArea = ({
   register,
   errors,
   name,
-  initialValue,
+  initialvalue,
   palceholder,
   currentLength,
   minLength,
@@ -25,8 +25,8 @@ const TextArea = ({
   setValue,
 }: Props) => {
   useEffect(() => {
-    setValue(name, initialValue);
-  }, [initialValue]);
+    setValue(name, initialvalue);
+  }, [initialvalue]);
 
   return (
     <div className="py-5">
@@ -39,7 +39,7 @@ const TextArea = ({
           },
           maxLength,
         })}
-        initialValue={initialValue}
+        initialvalue={initialvalue}
         placeholder={palceholder}
         className={
           'pb-2 resize-none min-h-[200px] input ' +
