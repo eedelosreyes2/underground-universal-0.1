@@ -263,7 +263,7 @@ const editProfile = () => {
       });
     };
 
-    // console.log(profile);
+    // console.log(watch());
 
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">

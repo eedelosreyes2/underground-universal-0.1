@@ -33,11 +33,15 @@ const MultiSelect = ({
   options,
   setValue,
 }: Props) => {
-  // TODO: Fix errors after submit
-  // TODO: Fix spacing with multiple selected
   const selectedValues = options.filter((option: any) =>
     initialValue?.includes(option.value)
   );
+
+  useEffect(() => {
+    if (currentLength == null || currentLength <= 0) {
+      setValue(name, selectedValues);
+    }
+  }, [selectedValues]);
 
   return (
     <Controller
