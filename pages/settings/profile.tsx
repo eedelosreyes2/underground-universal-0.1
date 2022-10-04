@@ -225,11 +225,50 @@ const editProfile = () => {
       { value: 'INSTRUMENTAL', name: 'Instrumental', id: 14 },
     ];
 
+    let spotify, appleMusic, soundcloud, youtube, bandcamp;
+    streamings.map((platform: string) => {
+      if (platform.includes('spotify')) {
+        spotify = platform;
+      }
+      if (platform.includes('apple')) {
+        appleMusic = platform;
+      }
+      if (platform.includes('soundcloud')) {
+        soundcloud = platform;
+      }
+      if (platform.includes('youtube')) {
+        youtube = platform;
+      }
+      if (platform.includes('bandcamp')) {
+        bandcamp = platform;
+      }
+    });
+
     const handleFormSubmit = (data: any) => {
       // TODO: Send toast message - profile saved
       const parsedRoles = data.Roles.map((role: any) => role.value);
       const parsedGenres = data.Genres.map((genre: any) => genre.value);
       const parsedExperience = data.Experience[0].value;
+
+      const {
+        Spotify,
+        AppleMusic,
+        Soundcloud,
+        Youtube,
+        Bandcamp,
+      }: {
+        Spotify: never;
+        AppleMusic: never;
+        Soundcloud: never;
+        Youtube: never;
+        Bandcamp: never;
+      } = data;
+      const parsedStreamings: never[] = [];
+      if (Spotify) parsedStreamings.push(Spotify);
+      if (AppleMusic) parsedStreamings.push(AppleMusic);
+      if (Soundcloud) parsedStreamings.push(Soundcloud);
+      if (Youtube) parsedStreamings.push(Youtube);
+      if (Bandcamp) parsedStreamings.push(Bandcamp);
 
       const variables = {
         id,
@@ -243,7 +282,7 @@ const editProfile = () => {
         roles: parsedRoles || roles,
         genres: parsedGenres || genres,
         experience: parsedExperience || experience,
-        streamings, // TODO: finish
+        streamings: parsedStreamings.length ? parsedStreamings : streamings,
       };
 
       // TODO: Fix double edit bug
@@ -364,6 +403,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Spotify"
+            initialvalue={spotify}
             palceholder="Spotify"
             required={false}
             currentLength={watch().Spotify?.length}
@@ -375,6 +415,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="AppleMusic"
+            initialvalue={appleMusic}
             palceholder="Apple Music"
             required={false}
             currentLength={watch().AppleMusic?.length}
@@ -386,6 +427,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Soundcloud"
+            initialvalue={soundcloud}
             palceholder="Soundcloud"
             required={false}
             currentLength={watch().Soundcloud?.length}
@@ -397,6 +439,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Youtube"
+            initialvalue={youtube}
             palceholder="Youtube"
             required={false}
             currentLength={watch().Youtube?.length}
@@ -408,6 +451,7 @@ const editProfile = () => {
             register={register}
             errors={errors}
             name="Bandcamp"
+            initialvalue={bandcamp}
             palceholder="Bandcamp"
             required={false}
             currentLength={watch().Bandcamp?.length}
