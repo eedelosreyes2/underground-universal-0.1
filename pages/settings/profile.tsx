@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { IoConstructOutline } from 'react-icons/io5';
 import MultiSelect from '../../components/form/MultiSelect';
 import TextArea from '../../components/form/TextArea';
 import TextField from '../../components/form/TextField';
@@ -285,24 +286,12 @@ const editProfile = () => {
         streamings: parsedStreamings.length ? parsedStreamings : streamings,
       };
 
-      // TODO: Fix double edit bug
       updateArtist({ variables });
-      // setProfile({
-      //   id,
-      //   name: data.Name || name,
-      //   email,
-      //   username: data.Username || username,
-      //   location: data.Location || location,
-      //   bio: data.Bio || bio,
-      //   imgSrc, // TODO
-      //   trackSig, // TODO
-      //   badge, // TODO
-      //   roles: parsedRoles || roles,
-      //   genres: parsedGenres || genres,
-      //   experience: parsedExperience || experience,
-      //   streamings, // TODO: finish
-      // });
+      router.reload();
     };
+
+    console.log(data);
+    console.log(watch());
 
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
@@ -350,19 +339,6 @@ const editProfile = () => {
             control={control}
             register={register}
             errors={errors}
-            name="Experience"
-            initialvalue={[experience]}
-            placeholder="Experience"
-            required={true}
-            currentLength={watch().Experience?.length}
-            maxLength={1}
-            options={experienceOptions}
-            setValue={setValue}
-          />
-          <MultiSelect
-            control={control}
-            register={register}
-            errors={errors}
             name="Roles"
             initialvalue={roles}
             placeholder="Roles"
@@ -383,6 +359,19 @@ const editProfile = () => {
             currentLength={watch().Genres?.length}
             maxLength={6}
             options={genreOptions}
+            setValue={setValue}
+          />
+          <MultiSelect
+            control={control}
+            register={register}
+            errors={errors}
+            name="Experience"
+            initialvalue={[experience]}
+            placeholder="Experience"
+            required={true}
+            currentLength={watch().Experience?.length}
+            maxLength={1}
+            options={experienceOptions}
             setValue={setValue}
           />
           <TextArea

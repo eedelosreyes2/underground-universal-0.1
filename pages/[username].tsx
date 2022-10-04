@@ -199,10 +199,10 @@ const profile = ({ artist }: any) => {
           {roles?.map((role: any, id: any) => (
             <Role key={id} role={role} />
           ))}
-          <Experience experience={experience} />
           {genres?.map((genre: any, id: any) => (
             <Genre key={id} genre={genre} />
           ))}
+          <Experience experience={experience} />
         </div>
         {bio}
         {renderStreamings()}
