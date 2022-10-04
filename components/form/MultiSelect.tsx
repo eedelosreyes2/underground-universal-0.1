@@ -34,13 +34,10 @@ const MultiSelect = ({
   setValue,
 }: Props) => {
   // TODO: Fix errors after submit
-  // TODO: Finish prepopulation
-
-  console.log(options.map((option: any) => option.value));
-  console.log(initialValue);
-  useEffect(() => {
-    // setValue(name, { value: 'HIPHOP', name: 'Hip hop', id: 0 });
-  }, []);
+  // TODO: Fix spacing with multiple selected
+  const selectedValues = options.filter((option: any) =>
+    initialValue?.includes(option.value)
+  );
 
   return (
     <Controller
@@ -53,7 +50,7 @@ const MultiSelect = ({
             <MultiselectReact
               {...field}
               displayValue="name"
-              selectedValues={initialValue}
+              selectedValues={selectedValues}
               onSelect={(selected, item) => {
                 setValue(name, selected);
               }}

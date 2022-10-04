@@ -244,8 +244,26 @@ const editProfile = () => {
         streamings, // TODO: finish
       };
 
+      // TODO: Fix double edit bug
       updateArtist({ variables });
+      setProfile({
+        id,
+        name: data.Name || name,
+        email,
+        username: data.Username || username,
+        location: data.Location || location,
+        bio: data.Bio || bio,
+        imgSrc, // TODO
+        trackSig, // TODO
+        badge, // TODO
+        roles: parsedRoles || roles,
+        genres: parsedGenres || genres,
+        experience: parsedExperience || experience,
+        streamings, // TODO: finish
+      });
     };
+
+    // console.log(profile);
 
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
@@ -398,7 +416,8 @@ const editProfile = () => {
             setValue={setValue}
           />
 
-          <input type="submit" className="my-10 mb-24 text-button" />
+          {/* TODO: Only show on form dif */}
+          <input type="submit" className="my-10 mb-24 cta-button" />
         </form>
       </div>
     );

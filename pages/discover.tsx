@@ -12,9 +12,9 @@ const GET_ALL_ARTISTS = gql`
       username
       location
       bio
-      role
+      roles
       genres
-      level
+      experience
       streamings
     }
   }
