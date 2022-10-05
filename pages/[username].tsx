@@ -213,25 +213,31 @@ const profile = ({ artist }: any) => {
   const renderStreamings = () => {
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
 
+    const setHttps = (url: string) => {
+      if (url.search('/^http[s]?:///') == -1) {
+        url = 'https://' + url;
+      }
+      return url;
+    };
+
     streamings?.map((platform: string) => {
       if (platform) {
-        const url = new URL(platform);
-        const { hostname } = url;
+        let url = new URL(setHttps(platform));
 
-        if (hostname.includes('spotify')) {
-          spotify = platform;
+        if (platform.includes('spotify')) {
+          spotify = url;
         }
-        if (hostname.includes('apple')) {
-          appleMusic = platform;
+        if (platform.includes('apple')) {
+          appleMusic = url;
         }
-        if (hostname.includes('soundcloud')) {
-          soundcloud = platform;
+        if (platform.includes('soundcloud')) {
+          soundcloud = url;
         }
-        if (hostname.includes('youtube')) {
-          youtube = platform;
+        if (platform.includes('youtube')) {
+          youtube = url;
         }
-        if (hostname.includes('bandcamp')) {
-          bandcamp = platform;
+        if (platform.includes('bandcamp')) {
+          bandcamp = url;
         }
       }
     });

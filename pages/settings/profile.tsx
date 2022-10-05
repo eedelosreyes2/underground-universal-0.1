@@ -290,9 +290,7 @@ const editProfile = () => {
       router.reload();
     };
 
-    console.log(data);
-    console.log(watch());
-
+    // TODO: Add profile pic + sigSong to form
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
         <form
