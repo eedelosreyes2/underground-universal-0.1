@@ -22,17 +22,16 @@ const GET_ALL_ARTISTS = gql`
 
 const discover = () => {
   const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
-
-  console.log(data);
+  const artists = data?.artists;
 
   return (
     <Layout>
       <div className="page-container">
-        <div className="flex flex-col items-center text-center w-full pt-10">
+        <div className="page-inner-container">
           {/* <div className="py-5">Artists | Releases</div> */}
           <h2>Meet the Underground Universal Community</h2>
           <SearchBar label="Artist name, location, genre" />
-          {loading ? <p>Loading</p> : <Carousel />}
+          {loading ? <p>Loading</p> : <Carousel artists={artists} />}
           {error && <p>Oh no... {error.message}</p>}
         </div>
       </div>
