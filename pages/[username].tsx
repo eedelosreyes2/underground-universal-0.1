@@ -2,7 +2,7 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import prisma from '../lib/prisma';
-import ArtistProfile from '../components/artistProfile';
+import ArtistProfile from '../components/ArtistProfile';
 
 export const getServerSideProps = async ({ params }: any) => {
   const username = params.username;

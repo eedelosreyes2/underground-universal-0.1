@@ -324,8 +324,8 @@ const ArtistProfile = ({
 
   return (
     <div
-      className="w-full sm:w-[700px] sm:min-h-[400px] w-screen flex flex-col justify-center 
-        rounded-3xl px-3 py-8 mb-10 lg:px-10 bg-component-light dark:bg-component-dark h-max"
+      className="w-full sm:w-[700px] sm:min-h-[400px] flex flex-col justify-center 
+        rounded-3xl px-3 py-8 mb-10 bg-component-light dark:bg-component-dark h-max"
     >
       {/* Top container */}
       <div className="flex items-center justify-start w-full mb-5">

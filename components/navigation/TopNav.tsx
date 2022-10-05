@@ -49,8 +49,8 @@ const TopNav = () => {
   };
 
   return (
-    <div className="absolute right-0 left-0 flex justify-between py-3 px-5 sm:justify-end sm:py-7 sm:px-12">
-      <div className="sm:hidden">*Logo*</div>
+    <div className="absolute right-0 left-0 flex justify-between py-3 px-5 md:justify-end md:py-7 md:px-12">
+      <div className="md:hidden">*Logo*</div>
       <div className="flex gap-6">
         <div
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}

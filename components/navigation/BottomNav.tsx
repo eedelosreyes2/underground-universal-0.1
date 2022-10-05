@@ -10,7 +10,7 @@ const BottomNav = () => {
     <div
       className="absolute bottom-0 right-0 left-0 
       flex justify-evenly align-middle
-      bg-nav-light dark:bg-nav-dark sm:hidden"
+      bg-nav-light dark:bg-nav-dark md:hidden"
     >
       <ActiveLink href="/discover">
         <div className="p-3 pt-4">
