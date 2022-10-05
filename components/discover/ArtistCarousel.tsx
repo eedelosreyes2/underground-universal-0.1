@@ -1,7 +1,10 @@
 import Control from './Control';
-import ArtistProfile from '../artistProfile';
+import ArtistProfile from '../ArtistProfile';
+import { useUser } from '@auth0/nextjs-auth0';
 
 const Carousel = ({ artists }: any) => {
+  const { user } = useUser();
+
   const collabHandler = () => {
     console.log('Collab with <Artist.name>');
   };
@@ -15,8 +18,8 @@ const Carousel = ({ artists }: any) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="">
+    <div className="flex flex-col items-center overflow-scroll no-scrollbar">
+      <div className="flex">
         {artists.map(
           (artist: {
             id: any;
@@ -49,6 +52,7 @@ const Carousel = ({ artists }: any) => {
               streamings,
             } = artist;
 
+            // if (user?.email !== email) {
             return (
               <ArtistProfile
                 key={id}
@@ -67,6 +71,7 @@ const Carousel = ({ artists }: any) => {
                 streamings={streamings}
               />
             );
+            // }
           }
         )}
       </div>

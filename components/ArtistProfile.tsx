@@ -1,5 +1,4 @@
 import { useUser } from '@auth0/nextjs-auth0';
-import { Role, Genre, Experience } from '@prisma/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IconContext } from 'react-icons';
@@ -12,7 +11,9 @@ import {
   SiYoutube,
   SiBandcamp,
 } from 'react-icons/si';
-import Layout from './Layout';
+import Genre from '../components/tags/Genre';
+import Experience from '../components/tags/Experience';
+import Role from '../components/tags/Role';
 
 interface Props {
   id: string;
@@ -48,29 +49,6 @@ const ArtistProfile = ({
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
-  //   console.log(
-  //     id,
-  //     name,
-  //     email,
-  //     username,
-  //     location,
-  //     bio,
-  //     imgSrc,
-  //     trackSig,
-  //     badge,
-  //     roles,
-  //     genres,
-  //     experience,
-  //     streamings
-  //   );
-
-  const isUserProfile = () => {
-    return user?.email == email;
-  };
-
-  const isProfileComplete = () => {
-    return username && name && location;
-  };
 
   const playHandler = () => {
     setPlaying((playing: any) => !playing);
@@ -139,10 +117,45 @@ const ArtistProfile = ({
   };
 
   const renderInfo = () => {
+    const nameComponent =
+      router.pathname === '/discover' ? (
+        <h1
+          onClick={() => router.push('/' + username)}
+          className="inline text-left cursor-pointer"
+        >
+          {name || user?.nickname + ' '}
+          {badge && (
+            <IconContext.Provider
+              value={{
+                color: 'red',
+                className: 'inline',
+              }}
+            >
+              <MdVerified />
+            </IconContext.Provider>
+          )}
+        </h1>
+      ) : (
+        <h1 className="inline text-left">
+          {name || user?.nickname + ' '}
+          {badge && (
+            <IconContext.Provider
+              value={{
+                color: 'red',
+                className: 'inline',
+              }}
+            >
+              <MdVerified />
+            </IconContext.Provider>
+          )}
+        </h1>
+      );
+
     return (
       <div className="flex flex-col justify-start items-start ml-5">
         <div className="flex items-center">
-          <h1 className="inline text-left">
+          {nameComponent}
+          {/* <h1 className="inline text-left">
             {name || user?.nickname + ' '}
             {badge && (
               <IconContext.Provider
@@ -154,7 +167,7 @@ const ArtistProfile = ({
                 <MdVerified />
               </IconContext.Provider>
             )}
-          </h1>
+          </h1> */}
         </div>
         <h3 className="flex font-medium items-start mt-1">
           <div className="flex items-center">
@@ -183,13 +196,13 @@ const ArtistProfile = ({
     return (
       <>
         <div className="w-full flex flex-wrap mb-3">
-          {/* {roles?.map((role: any, id: any) => (
+          {roles?.map((role: any, id: any) => (
             <Role key={id} role={role} />
           ))}
           {genres?.map((genre: any, id: any) => (
             <Genre key={id} genre={genre} />
           ))}
-          <Experience experience={experience} /> */}
+          <Experience experience={experience} />
         </div>
         {bio}
         {renderStreamings()}
@@ -310,7 +323,10 @@ const ArtistProfile = ({
   };
 
   return (
-    <>
+    <div
+      className="w-full sm:w-[700px] sm:min-h-[400px] w-screen flex flex-col justify-center 
+        rounded-3xl px-3 py-8 mb-10 lg:px-10 bg-component-light dark:bg-component-dark h-max"
+    >
       {/* Top container */}
       <div className="flex items-center justify-start w-full mb-5">
         {renderAvatar()}
@@ -321,7 +337,7 @@ const ArtistProfile = ({
       <div className="sm:hidden sm:block w-full text-left">
         {renderMoreInfo()}
       </div>
-    </>
+    </div>
   );
 };
 
