@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import { MdVerified } from 'react-icons/md';
-import { MdOutlineMyLocation } from 'react-icons/md';
+import { TbCurrentLocation } from 'react-icons/tb';
 import {
   SiSpotify,
   SiApplemusic,
@@ -179,7 +179,7 @@ const ArtistProfile = ({
             <>
               <div className="mx-2 font-bold"> </div>
               <div className="flex items-center">
-                <MdOutlineMyLocation />
+                <TbCurrentLocation />
                 {location}
               </div>
             </>
@@ -243,84 +243,86 @@ const ArtistProfile = ({
       }
     });
 
-    return (
-      <div className="w-full flex flex-wrap mt-5">
-        {spotify && (
-          <div className="flex cursor-pointer font-bold mr-3">
-            <IconContext.Provider
-              value={{
-                size: '1.75em',
-                className: 'text-spotify mr-2',
-              }}
-            >
-              <a href={spotify} target="__blank">
-                <SiSpotify />
-              </a>
-            </IconContext.Provider>
-          </div>
-        )}
+    if (spotify || appleMusic || soundcloud || youtube || bandcamp) {
+      return (
+        <div className="w-full flex flex-wrap mt-5">
+          {spotify && (
+            <div className="flex cursor-pointer font-bold mr-3">
+              <IconContext.Provider
+                value={{
+                  size: '1.75em',
+                  className: 'text-spotify mr-2',
+                }}
+              >
+                <a href={spotify} target="__blank">
+                  <SiSpotify />
+                </a>
+              </IconContext.Provider>
+            </div>
+          )}
 
-        {appleMusic && (
-          <div className="flex cursor-pointer font-bold mr-3">
-            <IconContext.Provider
-              value={{
-                size: '1.75em',
-                className: 'text-appleMusic mr-2',
-              }}
-            >
-              <a href={appleMusic} target="__blank">
-                <SiApplemusic />
-              </a>
-            </IconContext.Provider>
-          </div>
-        )}
+          {appleMusic && (
+            <div className="flex cursor-pointer font-bold mr-3">
+              <IconContext.Provider
+                value={{
+                  size: '1.75em',
+                  className: 'text-appleMusic mr-2',
+                }}
+              >
+                <a href={appleMusic} target="__blank">
+                  <SiApplemusic />
+                </a>
+              </IconContext.Provider>
+            </div>
+          )}
 
-        {soundcloud && (
-          <div className="flex cursor-pointer font-bold mr-3">
-            <IconContext.Provider
-              value={{
-                size: '1.75em',
-                className: 'text-soundcloud mr-2',
-              }}
-            >
-              <a href={soundcloud} target="__blank">
-                <SiSoundcloud />
-              </a>
-            </IconContext.Provider>
-          </div>
-        )}
+          {soundcloud && (
+            <div className="flex cursor-pointer font-bold mr-3">
+              <IconContext.Provider
+                value={{
+                  size: '1.75em',
+                  className: 'text-soundcloud mr-2',
+                }}
+              >
+                <a href={soundcloud} target="__blank">
+                  <SiSoundcloud />
+                </a>
+              </IconContext.Provider>
+            </div>
+          )}
 
-        {youtube && (
-          <div className="flex cursor-pointer font-bold mr-3">
-            <IconContext.Provider
-              value={{
-                size: '1.75em',
-                className: 'text-primary mr-2',
-              }}
-            >
-              <a href={youtube} target="__blank">
-                <SiYoutube />
-              </a>
-            </IconContext.Provider>
-          </div>
-        )}
+          {youtube && (
+            <div className="flex cursor-pointer font-bold mr-3">
+              <IconContext.Provider
+                value={{
+                  size: '1.75em',
+                  className: 'text-primary mr-2',
+                }}
+              >
+                <a href={youtube} target="__blank">
+                  <SiYoutube />
+                </a>
+              </IconContext.Provider>
+            </div>
+          )}
 
-        {bandcamp && (
-          <div className="flex cursor-pointer font-bold mr-3">
-            <IconContext.Provider
-              value={{
-                size: '1.75em',
-                className: 'text-bandcamp mr-2',
-              }}
-            >
-              <a href={bandcamp} target="__blank">
-                <SiBandcamp />
-              </a>
-            </IconContext.Provider>
-          </div>
-        )}
-      </div>
-    );
+          {bandcamp && (
+            <div className="flex cursor-pointer font-bold mr-3">
+              <IconContext.Provider
+                value={{
+                  size: '1.75em',
+                  className: 'text-bandcamp mr-2',
+                }}
+              >
+                <a href={bandcamp} target="__blank">
+                  <SiBandcamp />
+                </a>
+              </IconContext.Provider>
+            </div>
+          )}
+        </div>
+      );
+    }
   };
 
   return (
