@@ -29,10 +29,10 @@ const discover = () => {
       <div className="page-container">
         <div className="page-inner-container">
           {/* <div className="py-5">Artists | Releases</div> */}
-          <h2 className="text-center">
+          <h2 className="text-center pb-10">
             Meet the Underground Universal Community
           </h2>
-          <SearchBar label="Artist name, location, genre" />
+          {/* <SearchBar label="Artist name, location, genre" /> */}
           {loading ? <p>Loading</p> : <Carousel artists={artists} />}
           {error && <p>Oh no... {error.message}</p>}
         </div>

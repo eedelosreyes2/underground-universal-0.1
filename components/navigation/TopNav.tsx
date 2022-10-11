@@ -49,7 +49,10 @@ const TopNav = () => {
   };
 
   return (
-    <div className="absolute right-0 left-0 flex justify-between py-3 px-5 md:justify-end md:py-7 md:px-12">
+    <div
+      className="z-10 absolute right-0 left-0 flex justify-between py-3 px-5 
+      md:justify-end md:py-7 md:px-12 bg-fill-light dark:bg-fill-dark"
+    >
       <div className="md:hidden">*Logo*</div>
       <div className="flex gap-6">
         <div

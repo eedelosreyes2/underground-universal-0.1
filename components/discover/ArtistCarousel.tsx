@@ -19,7 +19,7 @@ const Carousel = ({ artists }: any) => {
 
   return (
     <div className="flex flex-col items-center overflow-scroll no-scrollbar">
-      <div className="flex md:h-[1000px] md:block">
+      <div className="md:h-[1000px] md:block">
         {artists.map(
           (artist: {
             id: any;
@@ -76,7 +76,7 @@ const Carousel = ({ artists }: any) => {
         )}
       </div>
 
-      <div className="hidden h-[1000px] md:block"></div>
+      <div className="h-[200px] md:h-[900px] md:block"></div>
 
       {/* <Control
         ctaHandler={collabHandler}
