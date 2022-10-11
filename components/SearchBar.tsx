@@ -14,7 +14,7 @@ const SearchBar = ({ label }: Props) => {
   }, [value]);
 
   return (
-    <div className="w-full sm:max-w-sm my-10">
+    <div className="w-full md:max-w-sm my-10">
       <div className="flex border-b border-secondary">
         <IconContext.Provider
           value={{ size: '1.15em', className: 'text-secondary mt-1 mr-2' }}

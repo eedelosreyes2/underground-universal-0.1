@@ -76,7 +76,7 @@ const Carousel = ({ artists }: any) => {
         )}
       </div>
 
-      <div className="h-[200px] md:h-[900px] md:block"></div>
+      <div className="h-[50px] md:h-[900px] md:block"></div>
 
       {/* <Control
         ctaHandler={collabHandler}

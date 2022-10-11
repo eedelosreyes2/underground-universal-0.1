@@ -56,7 +56,7 @@ const ArtistProfile = ({
 
   const renderAvatar = () => {
     return (
-      <div className="w-24 h-24 relative border border-secondary rounded-full sm:w-60 sm:h-60">
+      <div className="min-w-[95px] min-h-[95px] relative border border-secondary rounded-full md:min-w-[240px] md:min-h-[240px]">
         {/* <Image
           src={imgSrc || '/default_artist_img.jpg'}
           layout="fill"
@@ -65,7 +65,7 @@ const ArtistProfile = ({
         /> */}
         <div
           onClick={playHandler}
-          className="rounded-full flex justify-center items-center sm:w-60 sm:h-60"
+          className="rounded-full flex justify-center items-center md:w-60 md:h-60"
         >
           {/* TODO: Fix trackSig player UX */}
           {/* {playing ? (
@@ -74,7 +74,7 @@ const ArtistProfile = ({
                 value={{
                   size: '6em',
                   color: 'red',
-                  className: 'hidden sm:block opacity-50',
+                  className: 'hidden md:block opacity-50',
                 }}
               >
                 <VscDebugPause />
@@ -83,7 +83,7 @@ const ArtistProfile = ({
                 value={{
                   size: '2.85em',
                   color: 'red',
-                  className: 'sm:hidden opacity-50',
+                  className: 'md:hidden opacity-50',
                 }}
               >
                 <VscDebugPause />
@@ -95,7 +95,7 @@ const ArtistProfile = ({
                 value={{
                   size: '4em',
                   color: 'red',
-                  className: 'ml-4 hidden sm:block opacity-50',
+                  className: 'ml-4 hidden md:block opacity-50',
                 }}
               >
                 <FaPlay />
@@ -104,7 +104,7 @@ const ArtistProfile = ({
                 value={{
                   size: '2em',
                   color: 'red',
-                  className: 'ml-1 sm:hidden opacity-50',
+                  className: 'ml-1 md:hidden opacity-50',
                 }}
               >
                 <FaPlay />
@@ -185,7 +185,7 @@ const ArtistProfile = ({
           )}
         </h3>
         {/* Desktop only */}
-        <div className="hidden sm:block w-full text-left mt-5">
+        <div className="hidden md:block w-full text-left mt-5">
           {renderMoreInfo()}
         </div>
       </div>
@@ -324,17 +324,17 @@ const ArtistProfile = ({
 
   return (
     <div
-      className="w-full min-w-[350px] max-h-[400px] sm:w-[700px] sm:min-h-[400px] flex flex-col justify-center 
-        rounded-3xl px-3 py-8 mb-10 bg-component-light dark:bg-component-dark h-max"
+      className="w-full min-w-[350px] md:w-[700px] md:min-h-[400px] flex flex-col justify-center 
+        rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 bg-component-light dark:bg-component-dark h-max"
     >
       {/* Top container */}
-      <div className="flex items-center justify-start w-full mb-5">
+      <div className="flex items-start justify-start w-full mb-5">
         {renderAvatar()}
         {renderInfo()}
       </div>
 
       {/* Mobile only */}
-      <div className="sm:hidden sm:block w-full text-left">
+      <div className="md:hidden md:block w-full text-left">
         {renderMoreInfo()}
       </div>
     </div>
