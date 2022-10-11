@@ -25,7 +25,7 @@ module.exports = {
       black: 'black',
       fill: {
         dark: '#0C0C0C',
-        light: '#F6F6F6',
+        light: '#F4F6F9',
       },
       nav: {
         dark: '#1A1A1A',

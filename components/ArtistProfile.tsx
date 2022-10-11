@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import { MdVerified } from 'react-icons/md';
+import { MdOutlineMyLocation } from 'react-icons/md';
 import {
   SiSpotify,
   SiApplemusic,
@@ -169,16 +170,16 @@ const ArtistProfile = ({
             )}
           </h1> */}
         </div>
-        <h3 className="flex font-medium items-start mt-1">
+        <h3 className="flex flex-wrap font-medium items-start mt-1">
           <div className="flex items-center">
             <HiOutlineAtSymbol />
             {username}
           </div>
           {location && (
             <>
-              <div className="mx-2 font-bold"> · </div>
+              <div className="mx-2 font-bold"> </div>
               <div className="flex items-center">
-                {/* <TbMapPin /> */}
+                <MdOutlineMyLocation />
                 {location}
               </div>
             </>
@@ -324,11 +325,11 @@ const ArtistProfile = ({
 
   return (
     <div
-      className="w-full min-w-[350px] md:w-[700px] md:min-h-[400px] flex flex-col justify-center 
-        rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 bg-component-light dark:bg-component-dark h-max"
+      className="w-full min-w-[350px] md:w-[700px] md:min-h-[325px] flex flex-col justify-center 
+        rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 md:mb-8 bg-component-light dark:bg-component-dark h-max"
     >
       {/* Top container */}
-      <div className="flex items-start justify-start w-full mb-5">
+      <div className="flex items-start justify-start w-full mb-5 md:mb-0">
         {renderAvatar()}
         {renderInfo()}
       </div>

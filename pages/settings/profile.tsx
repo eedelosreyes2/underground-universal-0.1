@@ -166,7 +166,7 @@ const editProfile = () => {
   const renderPageHeader = () => {
     if (isProfileComplete()) {
       return (
-        <div className="flex justify-between h-10 w-full mb-10 max-w-sm">
+        <div className="flex justify-between w-full mb-5">
           <div
             onClick={() => router.push('/' + username)}
             className="flex items-center gap-2 text-button"

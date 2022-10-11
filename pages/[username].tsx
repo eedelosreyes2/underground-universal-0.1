@@ -55,7 +55,7 @@ const profile = ({ artist }: any) => {
   const renderPageHeader = () => {
     if (isUserProfile()) {
       return (
-        <div className="flex justify-between h-10 w-full mb-10">
+        <div className="flex justify-between w-full mb-5">
           <div
             onClick={() => router.push('/settings/profile')}
             className="flex items-center gap-2 text-button"
