@@ -19,7 +19,7 @@ const Carousel = ({ artists }: any) => {
 
   return (
     <div className="flex flex-col items-center overflow-scroll no-scrollbar">
-      <div className="flex">
+      <div className="flex md:h-[1000px] md:block">
         {artists.map(
           (artist: {
             id: any;
@@ -76,12 +76,14 @@ const Carousel = ({ artists }: any) => {
         )}
       </div>
 
-      <Control
+      <div className="hidden h-[1000px] md:block"></div>
+
+      {/* <Control
         ctaHandler={collabHandler}
         leftHandler={leftHandler}
         rightHandler={rightHandler}
         label="Collab with Zaction"
-      />
+      /> */}
     </div>
   );
 };
