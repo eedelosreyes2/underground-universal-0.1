@@ -28,13 +28,6 @@ const TopNav = () => {
     pollInterval: 1000,
   });
 
-  const profileBorder =
-    'h-8 cursor-pointer border rounded-full overflow-hidden ' +
-    (router.pathname === user?.username ||
-    router.pathname === '/settings/profile'
-      ? 'border-primary'
-      : 'border-secondary');
-
   const handleSettingsClick = () => {
     router.push('/settings');
   };
@@ -73,7 +66,10 @@ const TopNav = () => {
 
         {/* TODO: Get profile picture from userProfile */}
         {user ? (
-          <div onClick={handleProfileClick} className={profileBorder}>
+          <div
+            onClick={handleProfileClick}
+            className="h-8 cursor-pointer rounded-full overflow-hidden"
+          >
             <Image
               src={user?.picture || '/default_artist_img.jpg'}
               width={32}

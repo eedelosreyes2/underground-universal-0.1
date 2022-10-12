@@ -185,7 +185,7 @@ const editProfile = () => {
   const renderEditInfo = () => {
     return (
       <>
-        <div className="relative border border-secondary rounded-full w-60 h-60">
+        <div className="relative rounded-full w-60 h-60">
           <Image
             src={imgSrc || user?.picture || '/default_artist_img.jpg'}
             layout="fill"

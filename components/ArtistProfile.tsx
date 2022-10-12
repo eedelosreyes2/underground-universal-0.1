@@ -59,7 +59,7 @@ const ArtistProfile = ({
   const renderAvatar = () => {
     return (
       <div
-        className="avatar-size relative border border-secondary rounded-full 
+        className="avatar-size relative rounded-full 
           min-w-[95px] min-h-[95px]
           sm:min-w-[135px] sm:min-h-[135px]
           md:min-w-[240px] md:min-h-[240px]"
