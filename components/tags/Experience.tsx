@@ -2,13 +2,13 @@ const Experience = ({ experience }: any) => {
   const getLabel = (experience: string) => {
     switch (experience) {
       case 'ROOKIE': // <yr
-        return 'Rookie';
+        return '<1 yr';
       case 'PLAYER': // 1-4 yrs
-        return 'Player';
+        return '1-4 yrs';
       case 'PRO': // 5-9 yrs
-        return 'Pro';
+        return '5-9 yrs';
       case 'VETERAN': // 10+ yrs
-        return 'Veteran';
+        return '10+ yrs';
     }
   };
 

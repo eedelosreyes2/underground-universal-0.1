@@ -58,7 +58,12 @@ const ArtistProfile = ({
 
   const renderAvatar = () => {
     return (
-      <div className="min-w-[95px] min-h-[95px] relative border border-secondary rounded-full md:min-w-[240px] md:min-h-[240px]">
+      <div
+        className="avatar-size relative border border-secondary rounded-full 
+          min-w-[95px] min-h-[95px]
+          sm:min-w-[135px] sm:min-h-[135px]
+          md:min-w-[240px] md:min-h-[240px]"
+      >
         <Image
           src={imgSrc || '/default_artist_img.jpg'}
           layout="fill"
@@ -186,8 +191,10 @@ const ArtistProfile = ({
             </>
           )}
         </h3>
+        {renderStreamings()}
+
         {/* Desktop only */}
-        <div className="hidden md:block w-full text-left mt-5">
+        <div className="hidden sm:block w-full text-left mt-3">
           {renderMoreInfo()}
         </div>
       </div>
@@ -197,17 +204,16 @@ const ArtistProfile = ({
   const renderMoreInfo = () => {
     return (
       <>
-        <div className="w-full flex flex-wrap mb-3">
+        {bio}
+        <div className="w-full flex flex-wrap my-3">
+          <Experience experience={experience} />
           {roles?.map((role: any, id: any) => (
             <Role key={id} role={role} />
           ))}
           {genres?.map((genre: any, id: any) => (
             <Genre key={id} genre={genre} />
           ))}
-          <Experience experience={experience} />
         </div>
-        {bio}
-        {renderStreamings()}
         {renderCollab()}
       </>
     );
@@ -249,7 +255,7 @@ const ArtistProfile = ({
       return (
         <div className="w-full flex flex-wrap mt-5">
           {spotify && (
-            <div className="flex cursor-pointer font-bold mr-3">
+            <div className="flex cursor-pointer font-bold mr-1">
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -264,7 +270,7 @@ const ArtistProfile = ({
           )}
 
           {appleMusic && (
-            <div className="flex cursor-pointer font-bold mr-3">
+            <div className="flex cursor-pointer font-bold mr-1">
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -279,7 +285,7 @@ const ArtistProfile = ({
           )}
 
           {soundcloud && (
-            <div className="flex cursor-pointer font-bold mr-3">
+            <div className="flex cursor-pointer font-bold mr-1">
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -294,7 +300,7 @@ const ArtistProfile = ({
           )}
 
           {youtube && (
-            <div className="flex cursor-pointer font-bold mr-3">
+            <div className="flex cursor-pointer font-bold mr-1">
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -309,7 +315,7 @@ const ArtistProfile = ({
           )}
 
           {bandcamp && (
-            <div className="flex cursor-pointer font-bold mr-3">
+            <div className="flex cursor-pointer font-bold mr-1">
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -336,7 +342,7 @@ const ArtistProfile = ({
     return (
       <div
         onClick={handleCollab}
-        className="cta-button text-center max-w-[100px] mt-8"
+        className="cta-button text-center mx-auto sm:mx-0 max-w-[100px] mt-5"
       >
         Collab
       </div>
@@ -355,7 +361,7 @@ const ArtistProfile = ({
       </div>
 
       {/* Mobile only */}
-      <div className="md:hidden md:block w-full text-left">
+      <div className="sm:hidden sm:block w-full text-left">
         {renderMoreInfo()}
       </div>
     </div>
