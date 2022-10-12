@@ -42,7 +42,7 @@ const TextArea = ({
         initialvalue={initialvalue}
         placeholder={palceholder}
         className={
-          'pb-2 resize-none min-h-[200px] input ' +
+          'pb-2 resize-none no-scrollbar min-h-[200px] input ' +
           (errors[name] ? 'border-primary' : 'border-gray')
         }
       />

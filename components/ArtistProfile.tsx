@@ -15,6 +15,7 @@ import {
 import Genre from '../components/tags/Genre';
 import Experience from '../components/tags/Experience';
 import Role from '../components/tags/Role';
+import Image from 'next/image';
 
 interface Props {
   id: string;
@@ -58,12 +59,12 @@ const ArtistProfile = ({
   const renderAvatar = () => {
     return (
       <div className="min-w-[95px] min-h-[95px] relative border border-secondary rounded-full md:min-w-[240px] md:min-h-[240px]">
-        {/* <Image
+        <Image
           src={imgSrc || '/default_artist_img.jpg'}
           layout="fill"
           alt="Profile"
           className="rounded-full"
-        /> */}
+        />
         <div
           onClick={playHandler}
           className="rounded-full flex justify-center items-center md:w-60 md:h-60"
@@ -207,6 +208,7 @@ const ArtistProfile = ({
         </div>
         {bio}
         {renderStreamings()}
+        {renderCollab()}
       </>
     );
   };
@@ -323,6 +325,22 @@ const ArtistProfile = ({
         </div>
       );
     }
+  };
+
+  const renderCollab = () => {
+    // TODO: Collab logic
+    const handleCollab = () => {
+      console.log('Collab request to ', name);
+    };
+
+    return (
+      <div
+        onClick={handleCollab}
+        className="cta-button text-center max-w-[100px] mt-8"
+      >
+        Collab
+      </div>
+    );
   };
 
   return (

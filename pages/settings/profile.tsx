@@ -155,7 +155,11 @@ const editProfile = () => {
 
   useEffect(() => {
     if (data && !profile.email) {
-      setProfile(data.getArtistByEmail);
+      const profile = { ...data.getArtistByEmail };
+      if (profile.imgSrc == null || profile.imgSrc == ' ') {
+        profile.imgSrc = user?.picture;
+      }
+      setProfile(profile);
     }
   }, [data]);
 
@@ -181,7 +185,7 @@ const editProfile = () => {
   const renderEditInfo = () => {
     return (
       <>
-        <div className="w-24 h-24 relative border border-secondary rounded-full md:w-60 md:h-60">
+        <div className="relative border border-secondary rounded-full w-60 h-60">
           <Image
             src={imgSrc || user?.picture || '/default_artist_img.jpg'}
             layout="fill"
