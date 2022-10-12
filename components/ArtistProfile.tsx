@@ -342,7 +342,7 @@ const ArtistProfile = ({
     return (
       <div
         onClick={handleCollab}
-        className="cta-button text-center mx-auto sm:mx-0 max-w-[100px] mt-5"
+        className="cta-button text-center max-w-[100px] mt-5"
       >
         Collab
       </div>

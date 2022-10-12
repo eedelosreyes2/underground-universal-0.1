@@ -32,7 +32,7 @@ module.exports = {
         light: '#FFFFFF',
       },
       component: {
-        dark: '#111111',
+        dark: '#131313',
         light: '#FEFEFE',
       },
       spotify: '#1DB954',
