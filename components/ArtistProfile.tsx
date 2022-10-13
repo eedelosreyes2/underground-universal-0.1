@@ -205,7 +205,7 @@ const ArtistProfile = ({
     return (
       <>
         {bio}
-        <div className="w-full flex flex-wrap my-3">
+        <div className="w-full flex flex-wrap mb-3 mt-4">
           <Experience experience={experience} />
           {roles?.map((role: any, id: any) => (
             <Role key={id} role={role} />
@@ -342,7 +342,7 @@ const ArtistProfile = ({
     };
 
     return (
-      <div className="flex gap-5 items-center pt-3">
+      <div className="flex gap-5 items-center">
         <div
           onClick={handleCollab}
           className="cta-button text-center max-w-[100px]"
