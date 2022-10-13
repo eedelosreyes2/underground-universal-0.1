@@ -221,9 +221,11 @@ const ArtistProfile = ({
 
   const renderStreamings = () => {
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
+    const streamingContainerCLass =
+      'flex cursor-pointer font-bold mr-1 hover:scale-110 transition:transform';
 
     const setHttps = (url: string) => {
-      if (url.search('/^http[s]?:///') == -1) {
+      if (url.search('^http[s]?') == -1) {
         url = 'https://' + url;
       }
       return url;
@@ -255,7 +257,7 @@ const ArtistProfile = ({
       return (
         <div className="w-full flex flex-wrap mt-5">
           {spotify && (
-            <div className="flex cursor-pointer font-bold mr-1">
+            <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -270,7 +272,7 @@ const ArtistProfile = ({
           )}
 
           {appleMusic && (
-            <div className="flex cursor-pointer font-bold mr-1">
+            <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -285,7 +287,7 @@ const ArtistProfile = ({
           )}
 
           {soundcloud && (
-            <div className="flex cursor-pointer font-bold mr-1">
+            <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -300,7 +302,7 @@ const ArtistProfile = ({
           )}
 
           {youtube && (
-            <div className="flex cursor-pointer font-bold mr-1">
+            <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
                   size: '1.75em',
@@ -315,7 +317,7 @@ const ArtistProfile = ({
           )}
 
           {bandcamp && (
-            <div className="flex cursor-pointer font-bold mr-1">
+            <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
                   size: '1.75em',

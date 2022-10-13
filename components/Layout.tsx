@@ -24,14 +24,6 @@ export default function Layout({ children, ...props }: Props) {
           <BottomNav />
         </div>
       </div>
-      <div
-        className="z-[-1] w-6/12 h-screen absolute top-0 left-0 
-        bg-nav-light dark:bg-nav-dark"
-      ></div>
-      <div
-        className="z-[-1] w-6/12 h-screen absolute top-0 right-0 
-        bg-fill-light dark:bg-fill-dark"
-      ></div>
     </>
   );
 }

@@ -37,7 +37,7 @@
     @apply w-full md:max-w-3xl flex flex-col items-center rounded-3xl my-10 px-5 lg:px-10;
   }
   .cta-button {
-    @apply rounded-full cursor-pointer bg-primary font-bold text-white px-4 py-2;
+    @apply hover:scale-105 transition-transform rounded-full cursor-pointer bg-primary font-bold text-white px-4 py-2;
   }
   .text-button {
     @apply text-primary font-bold cursor-pointer w-fit;
