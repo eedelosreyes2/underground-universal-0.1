@@ -16,9 +16,6 @@ interface Props {
   setValue: any;
 }
 
-// TODO: Save value of artist roles
-// TODO: CSS darkmode
-// TODO: Close on select (closeOnSelect)
 // TODO: Required
 const MultiSelect = ({
   control,
@@ -41,7 +38,7 @@ const MultiSelect = ({
     if (currentLength == null || currentLength <= 0) {
       setValue(name, selectedValues);
     }
-  }, [selectedValues]);
+  }, [currentLength, name, setValue, selectedValues]);
 
   return (
     <Controller

@@ -79,15 +79,18 @@ const TopNav = () => {
           </div>
         ) : (
           <>
-            <a
-              href="/api/auth/login"
+            <div
+              onClick={() => router.push('/api/auth/login')}
               className="flex items-center cursor-pointer"
             >
               Log in
-            </a>
-            <a href="/join">
-              <div className="cta-button">Join</div>
-            </a>
+            </div>
+            <div
+              onClick={() => router.push('/api/auth/login')}
+              className="cta-button"
+            >
+              Join
+            </div>
           </>
         )}
       </div>

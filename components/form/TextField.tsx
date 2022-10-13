@@ -27,7 +27,7 @@ const TextField = ({
 }: Props) => {
   useEffect(() => {
     setValue(name, initialvalue);
-  }, [initialvalue]);
+  }, [name, setValue, initialvalue]);
 
   return (
     <div className="py-5">

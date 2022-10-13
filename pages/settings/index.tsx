@@ -1,6 +1,6 @@
 import { getSession } from '@auth0/nextjs-auth0';
-import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
+import Settings from '../../components/settings/Settings';
 
 export const getServerSideProps = async ({
   req,
@@ -27,18 +27,11 @@ export const getServerSideProps = async ({
 };
 
 const settings = () => {
-  const router = useRouter();
-
   return (
     <Layout>
       <div className="page-container">
         <div className="page-inner-container">
-          <div
-            onClick={() => router.push('/api/auth/logout')}
-            className="text-button"
-          >
-            Logout
-          </div>
+          <Settings />
         </div>
       </div>
     </Layout>
