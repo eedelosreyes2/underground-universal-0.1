@@ -20,7 +20,7 @@ const Carousel = ({ artists }: any) => {
   return (
     <div className="flex flex-col items-center overflow-scroll no-scrollbar">
       <div className="md:h-[1000px] md:block">
-        {artists.map(
+        {artists?.map(
           (artist: {
             id: any;
             name: any;
