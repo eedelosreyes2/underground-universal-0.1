@@ -191,7 +191,7 @@ const ArtistProfile = ({
             </>
           )}
         </h3>
-        {renderStreamings()}
+        {/* {renderStreamings()} */}
 
         {/* Desktop only */}
         <div className="hidden sm:block w-full text-left mt-3">
@@ -255,7 +255,7 @@ const ArtistProfile = ({
 
     if (spotify || appleMusic || soundcloud || youtube || bandcamp) {
       return (
-        <div className="w-full flex flex-wrap mt-5">
+        <div className="w-full flex pl-5">
           {spotify && (
             <div className={streamingContainerCLass}>
               <IconContext.Provider
@@ -342,11 +342,14 @@ const ArtistProfile = ({
     };
 
     return (
-      <div
-        onClick={handleCollab}
-        className="cta-button text-center max-w-[100px] mt-5"
-      >
-        Collab
+      <div className="flex gap-5 items-center pt-3">
+        <div
+          onClick={handleCollab}
+          className="cta-button text-center max-w-[100px]"
+        >
+          Collab
+        </div>
+        {renderStreamings()}
       </div>
     );
   };
