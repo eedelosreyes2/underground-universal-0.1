@@ -20,7 +20,7 @@ type Artist {
   experience: Experience
   features: [Track]
   genres: [Genre]
-  id: String
+  id: ID
   imgSrc: String
   location: String
   name: String
@@ -79,6 +79,7 @@ type Query {
   artists: [Artist]!
   getArtistByEmail(email: String!): Artist!
   getArtistByUsername(username: String!): Artist!
+  getStudioById(id: ID!): Studio!
   studios: [Studio]!
 }
 
@@ -106,7 +107,7 @@ type Studio {
   hasMixing: Boolean
   hasVideo: Boolean
   hours: String
-  id: String
+  id: ID
   location: String
   name: String
   rates: String

@@ -8,7 +8,7 @@ import { Studio } from './Studio';
 export const Artist = objectType({
   name: 'Artist',
   definition(t) {
-    t.string('id');
+    t.id('id');
     t.string('createdAt');
     t.string('udpatedAt');
     t.string('email');
@@ -169,12 +169,11 @@ export const ArtistByEmailQuery = extendType({
       type: 'Artist',
       args: { email: nonNull(stringArg()) },
       resolve(_parent, _args, ctx) {
-        const artist = ctx.prisma.artist.findUnique({
+        return ctx.prisma.artist.findUnique({
           where: {
             email: _args.email,
           },
         });
-        return artist;
       },
     });
   },
@@ -187,12 +186,11 @@ export const ArtistByUsernameQuery = extendType({
       type: 'Artist',
       args: { username: nonNull(stringArg()) },
       resolve(_parent, _args, ctx) {
-        const artist = ctx.prisma.artist.findUnique({
+        return ctx.prisma.artist.findUnique({
           where: {
             username: _args.username,
           },
         });
-        return artist;
       },
     });
   },

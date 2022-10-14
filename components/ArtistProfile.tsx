@@ -16,22 +16,7 @@ import Genre from '../components/tags/Genre';
 import Experience from '../components/tags/Experience';
 import Role from '../components/tags/Role';
 import Image from 'next/image';
-
-interface Props {
-  id: string;
-  name: string;
-  email: string;
-  username: string;
-  location: string;
-  bio: string;
-  imgSrc?: string;
-  trackSig?: any;
-  badge?: any;
-  roles: [string];
-  genres: [string];
-  experience: string;
-  streamings: [string];
-}
+import { Artist } from '@prisma/client';
 
 const ArtistProfile = ({
   id,
@@ -41,13 +26,17 @@ const ArtistProfile = ({
   location,
   bio,
   imgSrc,
-  trackSig,
-  badge,
+  trackId,
+  badgeId,
   roles,
   genres,
   experience,
   streamings,
-}: Props) => {
+  createdAt,
+  udpatedAt,
+  dob,
+  status,
+}: Artist) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
@@ -131,7 +120,7 @@ const ArtistProfile = ({
           className="inline text-left cursor-pointer"
         >
           {name || user?.nickname + ' '}
-          {badge && (
+          {badgeId && (
             <IconContext.Provider
               value={{
                 color: 'red',
@@ -145,7 +134,7 @@ const ArtistProfile = ({
       ) : (
         <h1 className="inline text-left">
           {name || user?.nickname + ' '}
-          {badge && (
+          {badgeId && (
             <IconContext.Provider
               value={{
                 color: 'red',
@@ -164,7 +153,7 @@ const ArtistProfile = ({
           {nameComponent}
           {/* <h1 className="inline text-left">
             {name || user?.nickname + ' '}
-            {badge && (
+            {badgeId && (
               <IconContext.Provider
                 value={{
                   color: 'red',
@@ -355,10 +344,7 @@ const ArtistProfile = ({
   };
 
   return (
-    <div
-      className="w-full min-w-[350px] md:w-[700px] md:min-h-[325px] flex flex-col justify-center 
-        rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 md:mb-8 bg-component-light dark:bg-component-dark h-max"
-    >
+    <div className="card">
       {/* Top container */}
       <div className="flex items-start justify-start w-full mb-5 md:mb-0">
         {renderAvatar()}

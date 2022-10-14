@@ -1,9 +1,9 @@
-import { objectType, extendType } from 'nexus';
+import { objectType, extendType, nonNull, idArg } from 'nexus';
 
 export const Studio = objectType({
   name: 'Studio',
   definition(t) {
-    t.string('id');
+    t.id('id');
     t.string('url');
     t.string('email');
     t.string('name');
@@ -27,6 +27,23 @@ export const StudiosQuery = extendType({
       type: Studio,
       resolve(_parent, _args, ctx) {
         return ctx.prisma.studio.findMany();
+      },
+    });
+  },
+});
+
+export const StudioById = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.field('getStudioById', {
+      type: Studio,
+      args: { id: nonNull(idArg()) },
+      resolve(_parent, _args, ctx) {
+        return ctx.prisma.studio.findUnique({
+          where: {
+            id: _args.id,
+          },
+        });
       },
     });
   },

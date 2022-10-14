@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import DiscoverCarousel from '../components/discover/discoverCarousel';
+import DiscoverCarousel from '../components/discover/DiscoverCarousel';
 
 const discover = () => {
   return (
