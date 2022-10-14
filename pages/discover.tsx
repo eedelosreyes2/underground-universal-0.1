@@ -1,5 +1,5 @@
 import Layout from '../components/Layout';
-import ArtistCarousel from '../components/discover/ArtistCarousel';
+import DiscoverCarousel from '../components/discover/discoverCarousel';
 
 const discover = () => {
   return (
@@ -10,7 +10,7 @@ const discover = () => {
           <h2 className="text-center pb-10">
             Meet the Underground Universal Community
           </h2>
-          <ArtistCarousel />
+          <DiscoverCarousel />
         </div>
       </div>
     </Layout>

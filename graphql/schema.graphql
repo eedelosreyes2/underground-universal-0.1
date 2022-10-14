@@ -79,6 +79,7 @@ type Query {
   artists: [Artist]!
   getArtistByEmail(email: String!): Artist!
   getArtistByUsername(username: String!): Artist!
+  studios: [Studio]!
 }
 
 """Role(s) of Artist"""
@@ -97,8 +98,20 @@ enum Status {
 }
 
 type Studio {
+  albums: [String]
+  artists: [String]
+  bio: String
+  email: String
+  hasEngineer: Boolean
+  hasMixing: Boolean
+  hasVideo: Boolean
+  hours: String
   id: String
+  location: String
   name: String
+  rates: String
+  tracks: [String]
+  url: String
 }
 
 type Track {

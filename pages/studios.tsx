@@ -5,8 +5,7 @@ const studios = () => {
   return (
     <Layout>
       <div className="page-container">
-        <div className="flex flex-col items-center text-center w-full pt-10">
-          <h2>Meet the Underground Universal Community</h2>
+        <div className="page-inner-container">
           <StudiosCarousel />
         </div>
       </div>
