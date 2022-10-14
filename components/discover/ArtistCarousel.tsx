@@ -22,7 +22,9 @@ const GET_ALL_ARTISTS = gql`
 
 const ArtistCarousel = () => {
   const { data, loading, error } = useQuery(GET_ALL_ARTISTS);
-  const artists = data?.artists;
+  const artists = data?.artists?.filter(
+    (artist: any) => artist.name && artist.username && artist.location
+  );
 
   const collabHandler = () => {
     console.log('Collab with <Artist.name>');
