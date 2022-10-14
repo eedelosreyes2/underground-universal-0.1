@@ -130,7 +130,6 @@ const Profile = () => {
     streamings,
   } = profile;
 
-  // TODO: Fix polling ?
   const { data, loading, error, startPolling, stopPolling } = useQuery(
     GET_ARTIST,
     { variables: { email: user?.email } }
@@ -387,7 +386,6 @@ const Profile = () => {
             setValue={setValue}
           />
 
-          {/* TODO: Make slidedown and hide streamings by default */}
           {/* TODO: Streamings validation */}
           <TextField
             register={register}
