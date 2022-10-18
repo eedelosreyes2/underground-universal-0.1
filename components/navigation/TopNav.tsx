@@ -71,7 +71,8 @@ const TopNav = () => {
             className="h-8 cursor-pointer rounded-full overflow-hidden"
           >
             <Image
-              src={user?.picture || '/default_artist_img.jpg'}
+              priority
+              src={'/default_artist_img.jpg'}
               width={32}
               height={32}
               alt="Profile"

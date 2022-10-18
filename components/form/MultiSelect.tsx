@@ -34,6 +34,12 @@ const MultiSelect = ({
     initialvalue?.includes(option.value)
   );
 
+  useEffect(() => {
+    if ((currentLength == null || currentLength <= 0) && selectedValues) {
+      setValue(name, selectedValues);
+    }
+  }, [currentLength, name, selectedValues]);
+
   return (
     <Controller
       name={name}

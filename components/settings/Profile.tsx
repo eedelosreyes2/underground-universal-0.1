@@ -153,14 +153,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (data?.getArtistByEmail && !profile.email) {
-      const profile = { ...data.getArtistByEmail };
-      if (profile.imgSrc == null || profile.imgSrc == ' ') {
-        profile.imgSrc = user?.picture;
-      }
-      setProfile(profile);
-      console.log(profile);
+      setProfile(data.getArtistByEmail);
     }
-  }, [profile.email, user?.picture, data]);
+  }, [profile.email, data]);
 
   const isProfileComplete = () => {
     return username && name && location;
@@ -186,7 +181,8 @@ const Profile = () => {
       <>
         <div className="relative rounded-full w-60 h-60">
           <Image
-            src={imgSrc || user?.picture || '/default_artist_img.jpg'}
+            priority
+            src={imgSrc || '/default_artist_img.jpg'}
             layout="fill"
             alt="Profile"
             className="rounded-full"
@@ -293,6 +289,7 @@ const Profile = () => {
       router.reload();
     };
 
+    // console.log(watch().Roles);
     // TODO: Add profile pic + sigSong to form
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
