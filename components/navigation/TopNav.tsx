@@ -33,7 +33,7 @@ const TopNav = () => {
   };
 
   const handleProfileClick = () => {
-    if (data.getArtistByEmail.username) {
+    if (data?.getArtistByEmail.username) {
       router.push('/' + data.getArtistByEmail.username);
     } else {
       // TODO: Send toast message - You need to complete your profile to continue

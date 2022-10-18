@@ -36,6 +36,7 @@ const StudiosCarousel = () => {
         console.log(studio);
         return (
           <StudioCard
+            key={studio.id}
             id={studio.id}
             createdAt={studio.createdAt}
             udpatedAt={studio.udpatedAt}
