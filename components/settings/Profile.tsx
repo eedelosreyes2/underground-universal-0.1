@@ -289,7 +289,6 @@ const Profile = () => {
       router.reload();
     };
 
-    // console.log(watch().Roles);
     // TODO: Add profile pic + sigSong to form
     return (
       <div className="w-full max-w-sm flex justify-center mt-10">
@@ -297,7 +296,7 @@ const Profile = () => {
           onSubmit={handleSubmit((data) => handleFormSubmit(data))}
           className="w-full"
         >
-          {/* Validate if name is taken */}
+          {/* TODO: Validate if name is taken */}
           <TextField
             register={register}
             errors={errors}

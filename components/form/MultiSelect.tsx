@@ -35,7 +35,10 @@ const MultiSelect = ({
   );
 
   useEffect(() => {
-    if ((currentLength == null || currentLength <= 0) && selectedValues) {
+    if (
+      (currentLength == null || currentLength <= 0) &&
+      selectedValues.length
+    ) {
       setValue(name, selectedValues);
     }
   }, [currentLength, name, selectedValues]);
