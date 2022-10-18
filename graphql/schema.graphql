@@ -99,9 +99,9 @@ enum Status {
 }
 
 type Studio {
-  albums: [String]
-  artists: [String]
+  badgeId: String
   bio: String
+  createdAt: String
   email: String
   hasEngineer: Boolean
   hasMixing: Boolean
@@ -111,7 +111,7 @@ type Studio {
   location: String
   name: String
   rates: String
-  tracks: [String]
+  updatedAt: String
   url: String
 }
 

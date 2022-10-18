@@ -1,23 +1,24 @@
 import { gql, useQuery } from '@apollo/client';
-import Studio from './Studio';
+import { Studio } from '@prisma/client';
+import StudioCard from './StudioCard';
 
 const StudiosQuery = gql`
   query {
     studios {
       id
+      createdAt
+      updatedAt
       url
       email
       name
       location
+      badgeId
       bio
       hours
       rates
       hasEngineer
       hasMixing
       hasVideo
-      albums
-      tracks
-      artists
     }
   }
 `;
@@ -31,27 +32,27 @@ const StudiosCarousel = () => {
       {loading && <p>Loading</p>}
       {error && <p>Oh no... {error.message}</p>}
 
-      {studios?.map(
-        (studio: {
-          id: any;
-          url: any;
-          email: any;
-          name: any;
-          location: any;
-          bio: any;
-          hours: any;
-          rates: any;
-          hasEngineer: any;
-          hasMixing: any;
-          hasVideo: any;
-          albums: any;
-          tracks: any;
-          artists: any;
-        }) => {
-          console.log(studio);
-          return <Studio />;
-        }
-      )}
+      {studios?.map((studio: Studio) => {
+        console.log(studio);
+        return (
+          <StudioCard
+            id={studio.id}
+            createdAt={studio.createdAt}
+            udpatedAt={studio.udpatedAt}
+            url={studio.url}
+            email={studio.email}
+            name={studio.name}
+            location={studio.location}
+            badgeId={studio.badgeId}
+            bio={studio.bio}
+            hours={studio.hours}
+            rates={studio.rates}
+            hasEngineer={studio.hasEngineer}
+            hasMixing={studio.hasMixing}
+            hasVideo={studio.hasVideo}
+          />
+        );
+      })}
 
       {/* Extra space at bottom */}
       <div className="h-[250px] md:h-[600px] md:block"></div>
