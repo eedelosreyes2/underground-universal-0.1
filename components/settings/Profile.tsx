@@ -152,12 +152,13 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    if (data && !profile.email) {
+    if (data?.getArtistByEmail && !profile.email) {
       const profile = { ...data.getArtistByEmail };
       if (profile.imgSrc == null || profile.imgSrc == ' ') {
         profile.imgSrc = user?.picture;
       }
       setProfile(profile);
+      console.log(profile);
     }
   }, [profile.email, user?.picture, data]);
 
@@ -299,6 +300,7 @@ const Profile = () => {
           onSubmit={handleSubmit((data) => handleFormSubmit(data))}
           className="w-full"
         >
+          {/* Validate if name is taken */}
           <TextField
             register={register}
             errors={errors}
@@ -456,7 +458,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       {renderPageHeader()}
       {renderEditInfo()}
       {renderForm()}

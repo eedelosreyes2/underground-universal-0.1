@@ -25,7 +25,7 @@ model Artist {
   imgSrc           String?
   username         String?    @unique
   roles            Role[]
-  experience       Experience @default(ROOKIE)
+  experience       Experience
   trackSig         Track?     @relation("Signature", fields: [trackId], references: [id])
   albums           Album[]
   badge            Badge?
