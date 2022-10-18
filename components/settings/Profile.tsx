@@ -176,24 +176,6 @@ const Profile = () => {
     }
   };
 
-  const renderEditInfo = () => {
-    return (
-      <>
-        <div className="relative rounded-full w-60 h-60">
-          <Image
-            priority
-            src={imgSrc || '/default_artist_img.jpg'}
-            layout="fill"
-            alt="Profile"
-            className="rounded-full"
-          />
-        </div>
-        <h3 className="pt-3">Song Title Here</h3>
-        <div className="text-button text-secondary">Change track</div>
-      </>
-    );
-  };
-
   const renderForm = () => {
     const experienceOptions = [
       { value: 'ROOKIE', name: 'Rookie (<yr)', id: 0 },
@@ -289,13 +271,68 @@ const Profile = () => {
       router.reload();
     };
 
+    // Upload photo function
+    const uploadPhoto = async (e) => {
+      const file = e.target.files[0];
+      const filename = encodeURIComponent(file?.name);
+      const res = await fetch(`/api/upload-image?file=${filename}`);
+      const data = await res.json();
+      const formData = new FormData();
+
+      console.log(file);
+      console.log(filename);
+
+      // // @ts-ignore
+      // Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
+      //   formData.append(key, value)
+      // })
+
+      // toast.promise(
+      //   fetch(data.url, {
+      //     method: 'POST',
+      //     body: formData,
+      //   }),
+      //   {
+      //     loading: 'Uploading...',
+      //     success: 'Image successfully uploaded!🎉',
+      //     error: `Upload failed 😥 Please try again ${error}`,
+      //   },
+      // )
+    };
+
     // TODO: Add profile pic + sigSong to form
     return (
-      <div className="w-full max-w-sm flex justify-center mt-10">
+      <div className="w-full max-w-sm flex justify-center my-10">
         <form
           onSubmit={handleSubmit((data) => handleFormSubmit(data))}
           className="w-full"
         >
+          <div className="w-full flex flex-col items-center pb-10">
+            <div className="relative rounded-full w-60 h-60">
+              <Image
+                priority
+                src={imgSrc || '/default_artist_img.jpg'}
+                layout="fill"
+                alt="Profile"
+                className="rounded-full"
+              />
+            </div>
+            <input
+              {...register('image', { required: true })}
+              onChange={uploadPhoto}
+              id="image"
+              type="file"
+              accept="image/png, image/jpeg"
+              name="image"
+              className="hidden"
+            />
+            <label htmlFor="image" className="text-button text-secondary pt-2">
+              Upload image
+            </label>
+            <h3 className="pt-10">Song Title Here</h3>
+            <div className="text-button text-secondary">Select track</div>
+          </div>
+
           {/* TODO: Validate if name is taken */}
           <TextField
             register={register}
@@ -456,7 +493,7 @@ const Profile = () => {
   return (
     <div className="w-full flex flex-col items-center">
       {renderPageHeader()}
-      {renderEditInfo()}
+      {/* {renderEditInfo()} */}
       {renderForm()}
     </div>
   );

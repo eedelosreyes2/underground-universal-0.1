@@ -871,10 +871,10 @@
   "resolved" "https://registry.npmjs.org/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz"
   "version" "1.0.5"
 
-"aws-sdk@^2.1215.0":
-  "integrity" "sha512-btOexIY0O2F+HhjytToaYuub2HEdLqccZSM8rbT3nrbXo7U4k4Gqi6SbMGi2a+vEpj8lY8dAuMR2lvvVs4Ib9Q=="
-  "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1215.0.tgz"
-  "version" "2.1215.0"
+"aws-sdk@^2.1234.0":
+  "integrity" "sha512-QFuSeYM8DPiXytspLnWToy4MWJPGYFCgAy4hi+lRd6ueJtCey7MBIgFNHW814uAJzKUDEdJUJZPvDZvtLM1d/Q=="
+  "resolved" "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.1234.0.tgz"
+  "version" "2.1234.0"
   dependencies:
     "buffer" "4.9.2"
     "events" "1.1.1"
