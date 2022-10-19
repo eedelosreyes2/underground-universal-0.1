@@ -8,7 +8,7 @@ import ActiveLink from './ActiveLink';
 const BottomNav = () => {
   return (
     <div
-      className="absolute bottom-0 right-0 left-0 
+      className="fixed bottom-0 right-0 left-0 
       flex justify-evenly align-middle
       bg-nav-light dark:bg-nav-dark md:hidden"
     >
