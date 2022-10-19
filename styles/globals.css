@@ -34,7 +34,7 @@
     @apply no-scrollbar overflow-scroll h-screen w-full min-h-screen flex flex-col items-center pt-12 md:pt-20;
   }
   .page-inner-container {
-    @apply w-full md:max-w-3xl flex flex-col items-center rounded-3xl my-10 px-5 lg:px-10;
+    @apply w-full md:max-w-3xl flex flex-col items-center rounded-3xl my-5 px-5 lg:px-10;
   }
   .card {
     @apply w-full min-w-[350px] md:w-[700px] md:min-h-[325px] flex flex-col justify-center rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 md:mb-8 bg-component-light dark:bg-component-dark h-max;

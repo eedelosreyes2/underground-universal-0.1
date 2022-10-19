@@ -7,9 +7,7 @@ const discover = () => {
       <div className="page-container">
         <div className="page-inner-container">
           {/* <div className="py-5">Artists | Releases</div> */}
-          <h2 className="text-center pb-10">
-            Meet the Underground Universal Community
-          </h2>
+          <h2 className="pb-5 w-full">Meet the Community</h2>
           <DiscoverCarousel />
         </div>
       </div>
