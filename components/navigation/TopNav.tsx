@@ -2,8 +2,8 @@ import { useUser } from '@auth0/nextjs-auth0';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { HiMoon, HiOutlineMoon } from 'react-icons/hi';
-import { FiSettings } from 'react-icons/fi';
+import { HiMoon } from 'react-icons/hi';
+import { RiSettings5Fill } from 'react-icons/ri';
 import { gql } from 'apollo-server-micro';
 import { useQuery } from '@apollo/client';
 
@@ -52,7 +52,7 @@ const TopNav = () => {
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           className="flex items-center cursor-pointer"
         >
-          {theme === 'dark' ? <HiMoon /> : <HiOutlineMoon />}
+          <HiMoon />
         </div>
 
         {user && (
@@ -60,7 +60,7 @@ const TopNav = () => {
             onClick={handleSettingsClick}
             className={'flex items-center cursor-pointer'}
           >
-            <FiSettings />
+            <RiSettings5Fill />
           </div>
         )}
 

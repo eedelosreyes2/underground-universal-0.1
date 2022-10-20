@@ -12,6 +12,9 @@
   h3 {
     @apply text-base text-h3 font-bold;
   }
+  h4 {
+    @apply text-base font-bold;
+  }
 }
 
 @layer utilities {
