@@ -271,35 +271,6 @@ const Profile = () => {
       router.reload();
     };
 
-    // Upload photo function
-    // const uploadPhoto = async (e) => {
-    //   const file = e.target.files[0];
-    //   const filename = encodeURIComponent(file?.name);
-    //   const res = await fetch(`/api/upload-image?file=${filename}`);
-    //   const data = await res.json();
-    //   const formData = new FormData();
-
-    //   console.log(file);
-    //   console.log(filename);
-
-    //   // // @ts-ignore
-    //   // Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
-    //   //   formData.append(key, value)
-    //   // })
-
-    //   // toast.promise(
-    //   //   fetch(data.url, {
-    //   //     method: 'POST',
-    //   //     body: formData,
-    //   //   }),
-    //   //   {
-    //   //     loading: 'Uploading...',
-    //   //     success: 'Image successfully uploaded!🎉',
-    //   //     error: `Upload failed 😥 Please try again ${error}`,
-    //   //   },
-    //   // )
-    // };
-
     // TODO: Add profile pic + sigSong to form
     return (
       <div className="w-full max-w-sm flex justify-center my-10">
@@ -317,15 +288,6 @@ const Profile = () => {
                 className="rounded-full"
               />
             </div>
-            {/* <input
-              {...register('image', { required: true })}
-              onChange={uploadPhoto}
-              id="image"
-              type="file"
-              accept="image/png, image/jpeg"
-              name="image"
-              className="hidden"
-            /> */}
             <label htmlFor="image" className="text-button text-secondary pt-2">
               Upload image
             </label>
