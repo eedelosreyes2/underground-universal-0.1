@@ -272,33 +272,33 @@ const Profile = () => {
     };
 
     // Upload photo function
-    const uploadPhoto = async (e) => {
-      const file = e.target.files[0];
-      const filename = encodeURIComponent(file?.name);
-      const res = await fetch(`/api/upload-image?file=${filename}`);
-      const data = await res.json();
-      const formData = new FormData();
+    // const uploadPhoto = async (e) => {
+    //   const file = e.target.files[0];
+    //   const filename = encodeURIComponent(file?.name);
+    //   const res = await fetch(`/api/upload-image?file=${filename}`);
+    //   const data = await res.json();
+    //   const formData = new FormData();
 
-      console.log(file);
-      console.log(filename);
+    //   console.log(file);
+    //   console.log(filename);
 
-      // // @ts-ignore
-      // Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
-      //   formData.append(key, value)
-      // })
+    //   // // @ts-ignore
+    //   // Object.entries({ ...data.fields, file }).forEach(([key, value]) => {
+    //   //   formData.append(key, value)
+    //   // })
 
-      // toast.promise(
-      //   fetch(data.url, {
-      //     method: 'POST',
-      //     body: formData,
-      //   }),
-      //   {
-      //     loading: 'Uploading...',
-      //     success: 'Image successfully uploaded!🎉',
-      //     error: `Upload failed 😥 Please try again ${error}`,
-      //   },
-      // )
-    };
+    //   // toast.promise(
+    //   //   fetch(data.url, {
+    //   //     method: 'POST',
+    //   //     body: formData,
+    //   //   }),
+    //   //   {
+    //   //     loading: 'Uploading...',
+    //   //     success: 'Image successfully uploaded!🎉',
+    //   //     error: `Upload failed 😥 Please try again ${error}`,
+    //   //   },
+    //   // )
+    // };
 
     // TODO: Add profile pic + sigSong to form
     return (
@@ -317,7 +317,7 @@ const Profile = () => {
                 className="rounded-full"
               />
             </div>
-            <input
+            {/* <input
               {...register('image', { required: true })}
               onChange={uploadPhoto}
               id="image"
@@ -325,7 +325,7 @@ const Profile = () => {
               accept="image/png, image/jpeg"
               name="image"
               className="hidden"
-            />
+            /> */}
             <label htmlFor="image" className="text-button text-secondary pt-2">
               Upload image
             </label>
