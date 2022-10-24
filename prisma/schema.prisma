@@ -129,6 +129,7 @@ enum Role {
   SINGER
   PRODUCER
   DJ
+  ENGINEER
 }
 
 enum Experience {

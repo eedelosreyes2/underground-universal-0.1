@@ -86,6 +86,7 @@ type Query {
 """Role(s) of Artist"""
 enum Role {
   DJ
+  ENGINEER
   PRODUCER
   RAPPER
   SINGER

@@ -9,6 +9,8 @@ const Role = ({ role }: any) => {
         return 'Producer';
       case 'DJ':
         return 'Dj';
+      case 'ENGINEER':
+        return 'Engineer';
     }
   };
 

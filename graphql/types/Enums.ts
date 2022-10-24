@@ -8,7 +8,7 @@ export const Status = enumType({
 
 export const Role = enumType({
   name: 'Role',
-  members: ['RAPPER', 'SINGER', 'PRODUCER', 'DJ'],
+  members: ['RAPPER', 'SINGER', 'PRODUCER', 'DJ', 'ENGINEER'],
   description: 'Role(s) of Artist',
 });
 

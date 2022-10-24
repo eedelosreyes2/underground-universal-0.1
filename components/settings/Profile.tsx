@@ -188,6 +188,7 @@ const Profile = () => {
       { value: 'SINGER', name: 'Singer', id: 1 },
       { value: 'PRODUCER', name: 'Producer', id: 2 },
       { value: 'DJ', name: 'DJ', id: 3 },
+      { value: 'ENGINEER', name: 'Engineer', id: 4 },
     ];
     const genreOptions = [
       { value: 'HIPHOP', name: 'Hip hop', id: 0 },
