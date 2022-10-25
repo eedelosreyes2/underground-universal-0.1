@@ -7,7 +7,30 @@ import { useForm } from 'react-hook-form';
 import MultiSelect from '../../components/form/MultiSelect';
 import TextArea from '../../components/form/TextArea';
 import TextField from '../../components/form/TextField';
-import Layout from '../../components/Layout';
+
+const ArtistsQuery = gql`
+  query {
+    artists {
+      id
+      name
+      email
+      username
+      location
+      bio
+      imgSrc
+      trackId
+      badgeId
+      roles
+      genres
+      experience
+      streamings
+      createdAt
+      udpatedAt
+      dob
+      status
+    }
+  }
+`;
 
 // TODO: Add trackSig, and badge to query
 const GET_ARTIST = gql`
@@ -95,6 +118,8 @@ const Profile = () => {
     register,
     handleSubmit,
     setValue,
+    setError,
+    clearErrors,
     control,
     watch,
     formState: { errors },
@@ -130,10 +155,8 @@ const Profile = () => {
     streamings,
   } = profile;
 
-  const { data, loading, error, startPolling, stopPolling } = useQuery(
-    GET_ARTIST,
-    { variables: { email: user?.email } }
-  );
+  const { data } = useQuery(GET_ARTIST, { variables: { email: user?.email } });
+  const { data: allArtists, loading, error } = useQuery(ArtistsQuery);
   const [updateArtist] = useMutation(UPDATE_ARTIST, {
     variables: {
       id,
@@ -149,6 +172,14 @@ const Profile = () => {
       experience,
       streamings,
     },
+  });
+  // const artists = allArtists?.artists?.filter(
+  //   (artist: any) => artist.name && artist.username && artist.location
+  // );
+  const artists = allArtists?.artists?.map((artist: any) => {
+    if (user?.email !== artist.email) {
+      return artist.username.toLowerCase();
+    }
   });
 
   useEffect(() => {
@@ -226,6 +257,18 @@ const Profile = () => {
         bandcamp = platform;
       }
     });
+
+    // Username validation
+    useEffect(() => {
+      if (artists?.includes(watch().Username.toLowerCase())) {
+        setError('Username', {
+          type: 'custom',
+          message: 'Username already taken',
+        });
+      } else {
+        clearErrors('Username');
+      }
+    }, [watch().Username]);
 
     const handleFormSubmit = (data: any) => {
       // TODO: Send toast message - profile saved
