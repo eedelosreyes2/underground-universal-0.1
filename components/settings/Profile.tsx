@@ -1,13 +1,13 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
+import AWS from 'aws-sdk';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import MultiSelect from '../../components/form/MultiSelect';
 import TextArea from '../../components/form/TextArea';
 import TextField from '../../components/form/TextField';
-import Layout from '../../components/Layout';
 
 // TODO: Add trackSig, and badge to query
 const GET_ARTIST = gql`
@@ -227,6 +227,21 @@ const Profile = () => {
       }
     });
 
+    const uploadPhoto = async (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files) {
+        const file = e.target.files[0];
+        const filename = encodeURIComponent(file?.name);
+
+        fetch(`/api/upload-image?file=${filename}`).then((res) =>
+          console.log(res)
+        );
+
+        // const res = await fetch(`/api/upload-image?file=${filename}`);
+        // const data = await res.json();
+        // const formData = new FormData();
+      }
+    };
+
     const handleFormSubmit = (data: any) => {
       // TODO: Send toast message - profile saved
       const parsedRoles = data.Roles.map((role: any) => role.value);
@@ -289,6 +304,15 @@ const Profile = () => {
                 className="rounded-full"
               />
             </div>
+            <input
+              {...register('image', { required: true })}
+              onChange={(e) => uploadPhoto(e)}
+              id="image"
+              type="file"
+              accept="image/png, image/jpeg"
+              name="image"
+              className="hidden"
+            />
             <label htmlFor="image" className="text-button text-secondary pt-2">
               Upload image
             </label>
