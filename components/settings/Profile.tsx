@@ -1,6 +1,5 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { getSession, useUser } from '@auth0/nextjs-auth0';
-import AWS from 'aws-sdk';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -480,7 +479,6 @@ const Profile = () => {
   return (
     <div className="w-full flex flex-col items-center">
       {renderPageHeader()}
-      {/* {renderEditInfo()} */}
       {renderForm()}
     </div>
   );
