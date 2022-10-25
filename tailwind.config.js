@@ -35,6 +35,10 @@ module.exports = {
         dark: '#131313',
         light: '#FEFEFE',
       },
+      tag: {
+        dark: '#474747',
+        light: '#F0F0F0',
+      },
       spotify: '#1DB954',
       appleMusic: '#FC3C44',
       soundcloud: '#F27100',

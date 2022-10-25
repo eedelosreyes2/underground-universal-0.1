@@ -25,13 +25,7 @@ const Experience = ({ experience }: any) => {
     }
   };
 
-  return (
-    <div
-      className={'border rounded-full px-3 mr-2 mb-2 ' + getColor(experience)}
-    >
-      {getLabel(experience)}
-    </div>
-  );
+  return <div className="tag">{getLabel(experience)?.toUpperCase()}</div>;
 };
 
 export default Experience;
