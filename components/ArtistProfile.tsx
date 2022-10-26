@@ -180,7 +180,6 @@ const ArtistProfile = ({
             </>
           )}
         </h3>
-        {/* {renderStreamings()} */}
 
         {/* Desktop only */}
         <div className="hidden sm:block w-full text-left mt-3">
@@ -346,7 +345,7 @@ const ArtistProfile = ({
   return (
     <div className="card">
       {/* Top container */}
-      <div className="flex items-start justify-start w-full mb-5 md:mb-0">
+      <div className="flex items-center sm:items-start justify-start w-full mb-5 md:mb-0">
         {renderAvatar()}
         {renderInfo()}
       </div>
