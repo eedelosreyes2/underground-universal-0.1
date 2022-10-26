@@ -173,9 +173,6 @@ const Profile = () => {
       streamings,
     },
   });
-  // const artists = allArtists?.artists?.filter(
-  //   (artist: any) => artist.name && artist.username && artist.location
-  // );
   const artists = allArtists?.artists?.map((artist: any) => {
     if (user?.email !== artist.email) {
       return artist.username.toLowerCase();
@@ -187,6 +184,18 @@ const Profile = () => {
       setProfile(data.getArtistByEmail);
     }
   }, [profile.email, data]);
+
+  // Username validation
+  useEffect(() => {
+    if (artists?.includes(watch().Username.toLowerCase())) {
+      setError('Username', {
+        type: 'custom',
+        message: 'Username already taken',
+      });
+    } else {
+      clearErrors('Username');
+    }
+  }, [watch().Username]);
 
   const isProfileComplete = () => {
     return username && name && location;
@@ -257,18 +266,6 @@ const Profile = () => {
         bandcamp = platform;
       }
     });
-
-    // Username validation
-    useEffect(() => {
-      if (artists?.includes(watch().Username.toLowerCase())) {
-        setError('Username', {
-          type: 'custom',
-          message: 'Username already taken',
-        });
-      } else {
-        clearErrors('Username');
-      }
-    }, [watch().Username]);
 
     const handleFormSubmit = (data: any) => {
       // TODO: Send toast message - profile saved
