@@ -43,7 +43,7 @@
     @apply w-full min-w-[350px] md:w-[700px] md:min-h-[325px] flex flex-col justify-center rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 md:mb-8 bg-component-light dark:bg-component-dark h-max;
   }
   .tag {
-    @apply text-sm rounded-full px-3 mr-2 mb-2 bg-tag-light dark:bg-tag-dark;
+    @apply text-sm rounded-full px-3 mr-2 mb-2 font-bold text-component-light dark:text-component-dark bg-secondary dark:bg-tag-dark;
   }
   .cta-button {
     @apply hover:scale-105 transition-transform rounded-full cursor-pointer bg-primary font-bold text-white px-4 py-2;
