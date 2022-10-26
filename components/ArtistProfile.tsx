@@ -331,7 +331,7 @@ const ArtistProfile = ({
     };
 
     return (
-      <div className="flex gap-5 items-center">
+      <div className="flex items-center">
         <div
           onClick={handleCollab}
           className="cta-button text-center max-w-[100px]"
