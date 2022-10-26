@@ -193,7 +193,7 @@ const ArtistProfile = ({
     return (
       <>
         {bio}
-        <div className="w-full flex flex-wrap mb-3 mt-4">
+        <div className="w-full flex flex-wrap my-4">
           <Experience experience={experience} />
           {roles?.map((role: any, id: any) => (
             <Role key={id} role={role} />
