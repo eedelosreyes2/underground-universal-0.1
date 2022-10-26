@@ -434,7 +434,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Spotify?.length}
             minLength={2}
-            maxLength={100}
+            maxLength={50}
             setValue={setValue}
           />
           <TextField
@@ -446,7 +446,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().AppleMusic?.length}
             minLength={2}
-            maxLength={100}
+            maxLength={50}
             setValue={setValue}
           />
           <TextField
@@ -458,7 +458,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Soundcloud?.length}
             minLength={2}
-            maxLength={100}
+            maxLength={50}
             setValue={setValue}
           />
           <TextField
@@ -470,7 +470,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Youtube?.length}
             minLength={2}
-            maxLength={100}
+            maxLength={50}
             setValue={setValue}
           />
           <TextField
@@ -482,7 +482,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Bandcamp?.length}
             minLength={2}
-            maxLength={100}
+            maxLength={50}
             setValue={setValue}
           />
 
