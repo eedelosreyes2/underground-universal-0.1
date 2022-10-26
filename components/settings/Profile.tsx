@@ -434,7 +434,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Spotify?.length}
             minLength={2}
-            maxLength={50}
+            maxLength={100}
             setValue={setValue}
           />
           <TextField
@@ -446,7 +446,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().AppleMusic?.length}
             minLength={2}
-            maxLength={50}
+            maxLength={100}
             setValue={setValue}
           />
           <TextField
@@ -458,7 +458,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Soundcloud?.length}
             minLength={2}
-            maxLength={50}
+            maxLength={100}
             setValue={setValue}
           />
           <TextField
@@ -470,7 +470,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Youtube?.length}
             minLength={2}
-            maxLength={50}
+            maxLength={100}
             setValue={setValue}
           />
           <TextField
@@ -482,7 +482,7 @@ const Profile = () => {
             required={false}
             currentLength={watch().Bandcamp?.length}
             minLength={2}
-            maxLength={50}
+            maxLength={100}
             setValue={setValue}
           />
 
@@ -496,7 +496,6 @@ const Profile = () => {
   return (
     <div className="w-full flex flex-col items-center">
       {renderPageHeader()}
-      {/* {renderEditInfo()} */}
       {renderForm()}
     </div>
   );

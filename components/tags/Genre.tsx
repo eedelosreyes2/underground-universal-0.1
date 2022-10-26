@@ -2,7 +2,7 @@ const Genre = ({ genre }: any) => {
   const getLabel = (genre: string) => {
     switch (genre) {
       case 'HIPHOP':
-        return 'Hip hop';
+        return 'Hip-hop';
       case 'ALTERNATIVE':
         return 'Alternative';
       case 'BOOMBAP':
