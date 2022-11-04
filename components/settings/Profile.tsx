@@ -236,16 +236,16 @@ const Profile = () => {
       { value: 'BOOMBAP', name: 'Boom Bap', id: 2 },
       { value: 'EASTCOAST', name: 'East Coast', id: 3 },
       { value: 'HARDCORE', name: 'Hardcore', id: 4 },
+      { value: 'INSTRUMENTAL', name: 'Instrumental', id: 14 },
       { value: 'LOFI', name: 'Lofi', id: 5 },
+      { value: 'MIDWEST', name: 'Midwest', id: 12 },
       { value: 'OLDSCHOOL', name: 'Old School', id: 6 },
       { value: 'POP', name: 'Pop', id: 7 },
       { value: 'RNB', name: 'R&B', id: 8 },
       { value: 'SOUTHERN', name: 'Southern', id: 9 },
       { value: 'TRAP', name: 'Trap', id: 10 },
       { value: 'UNDERGROUND', name: 'Underground', id: 11 },
-      { value: 'MIDWEST', name: 'Midwest', id: 12 },
       { value: 'WESTCOAST', name: 'West Coast', id: 13 },
-      { value: 'INSTRUMENTAL', name: 'Instrumental', id: 14 },
     ];
 
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
