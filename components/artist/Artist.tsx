@@ -19,6 +19,10 @@ const Artist = ({ artist }: any) => {
     genres,
     experience,
     streamings,
+    createdAt,
+    udpatedAt,
+    dob,
+    status,
   } = artist;
 
   const isUserProfile = () => {
@@ -45,7 +49,7 @@ const Artist = ({ artist }: any) => {
   };
 
   return (
-    <>
+    <div className="pb-10">
       {renderPageHeader()}
       <ArtistProfile
         key={id}
@@ -56,14 +60,18 @@ const Artist = ({ artist }: any) => {
         location={location}
         bio={bio}
         imgSrc={imgSrc}
-        trackSig={trackSig}
-        badge={badge}
+        trackId={trackSig}
+        badgeId={badge}
         roles={roles}
         genres={genres}
         experience={experience}
         streamings={streamings}
+        createdAt={createdAt}
+        udpatedAt={udpatedAt}
+        dob={dob}
+        status={status}
       />
-    </>
+    </div>
   );
 };
 
