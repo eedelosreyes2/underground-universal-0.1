@@ -5,9 +5,7 @@ const studios = () => {
   return (
     <Layout>
       <div className="page-container">
-        <div className="page-inner-container">
-          <StudiosCarousel />
-        </div>
+        <StudiosCarousel />
       </div>
     </Layout>
   );

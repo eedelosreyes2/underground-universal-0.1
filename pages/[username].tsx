@@ -27,9 +27,7 @@ const profile = ({ artist }: any) => {
   return (
     <Layout>
       <div className="page-container">
-        <div className="page-inner-container">
-          <Artist artist={artist} />
-        </div>
+        <Artist artist={artist} />
       </div>
     </Layout>
   );

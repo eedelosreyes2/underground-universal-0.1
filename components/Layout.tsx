@@ -13,8 +13,8 @@ export default function Layout({ children, ...props }: Props) {
     <>
       <Header />
       <div
-        className="z-50 flex flex-col min-h-screen mx-auto max-w-[2200px]  
-        bg-fill-light dark:bg-fill-dark md:flex-row"
+        className="z-50 flex flex-col mx-auto max-w-[2200px]  
+         md:flex-row"
         {...props}
       >
         <LeftNav />

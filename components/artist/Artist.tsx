@@ -49,7 +49,7 @@ const Artist = ({ artist }: any) => {
   };
 
   return (
-    <div className="pb-10">
+    <div className="pb-12">
       {renderPageHeader()}
       <ArtistProfile
         key={id}

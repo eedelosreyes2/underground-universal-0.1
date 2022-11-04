@@ -60,7 +60,8 @@
 }
 
 body {
-  font-family: Montserrat, sans-serif; /* TODO: Fix  */
+  font-family: Montserrat, sans-serif;
+  @apply bg-fill-light dark:bg-fill-dark;
 }
 
 .no-scrollbar::-webkit-scrollbar {
