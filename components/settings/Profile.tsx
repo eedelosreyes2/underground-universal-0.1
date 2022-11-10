@@ -175,7 +175,7 @@ const Profile = () => {
   });
   const artists = allArtists?.artists?.map((artist: any) => {
     if (user?.email !== artist.email) {
-      return artist.username.toLowerCase();
+      return artist?.username?.toLowerCase();
     }
   });
 

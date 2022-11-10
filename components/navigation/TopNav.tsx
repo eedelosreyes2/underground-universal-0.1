@@ -72,7 +72,11 @@ const TopNav = () => {
           >
             <Image
               priority
-              src={'/default_artist_img.jpg'}
+              src={
+                // TEMP
+                `/profiles/${data?.getArtistByEmail.id}.jpeg` ||
+                '/default_artist_img.jpg'
+              }
               width={32}
               height={32}
               alt="Profile"
