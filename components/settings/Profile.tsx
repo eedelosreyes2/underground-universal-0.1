@@ -187,13 +187,15 @@ const Profile = () => {
 
   // Username validation
   useEffect(() => {
-    if (artists?.includes(watch().Username.toLowerCase())) {
-      setError('Username', {
-        type: 'custom',
-        message: 'Username already taken',
-      });
-    } else {
-      clearErrors('Username');
+    if (watch().Username) {
+      if (artists?.includes(watch().Username.toLowerCase())) {
+        setError('Username', {
+          type: 'custom',
+          message: 'Username already taken',
+        });
+      } else {
+        clearErrors('Username');
+      }
     }
   }, [watch().Username]);
 
