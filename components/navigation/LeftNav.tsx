@@ -7,7 +7,7 @@ import ActiveLink from './ActiveLink';
 const Nav = () => {
   return (
     <div
-      className="z-20 min-h-screen w-48 hidden 
+      className="z-20 min-h-screen fixed w-48 hidden 
       bg-nav-light dark:bg-nav-dark md:block"
     >
       <div className="py-8 p-3">*Logo*</div>
