@@ -7,48 +7,52 @@ import ActiveLink from './ActiveLink';
 const Nav = () => {
   return (
     <div
-      className="z-20 min-h-screen fixed w-48 hidden 
+      className="z-20 min-h-screen w-48 hidden 
       bg-nav-light dark:bg-nav-dark md:block"
     >
-      <div className="py-8 p-3">*Logo*</div>
+      <div className="fixed">
+        <div className="py-8 p-3">*Logo*</div>
 
-      <ActiveLink href="/discover">
-        <div className="flex items-center cursor-pointer gap-3 p-4 pt-4">
-          <div className="w-[28px]">
-            <IconContext.Provider value={{ size: '1.35em', className: 'ml-1' }}>
-              <FaLocationArrow />
-            </IconContext.Provider>
+        <ActiveLink href="/discover">
+          <div className="flex items-center cursor-pointer gap-3 p-4 pt-4">
+            <div className="w-[28px]">
+              <IconContext.Provider
+                value={{ size: '1.35em', className: 'ml-1' }}
+              >
+                <FaLocationArrow />
+              </IconContext.Provider>
+            </div>
+            <h4>Discover</h4>
           </div>
-          <h4>Discover</h4>
-        </div>
-      </ActiveLink>
+        </ActiveLink>
 
-      <ActiveLink href="/studios">
-        <div className="flex items-center cursor-pointer gap-3 p-4">
-          <IconContext.Provider value={{ size: '1.75em' }}>
-            <RiHeadphoneFill />
-          </IconContext.Provider>
-          <h4>Studios</h4>
-        </div>
-      </ActiveLink>
+        <ActiveLink href="/studios">
+          <div className="flex items-center cursor-pointer gap-3 p-4">
+            <IconContext.Provider value={{ size: '1.75em' }}>
+              <RiHeadphoneFill />
+            </IconContext.Provider>
+            <h4>Studios</h4>
+          </div>
+        </ActiveLink>
 
-      <ActiveLink href="/library">
-        <div className="flex items-center cursor-pointer gap-3 p-4">
-          <IconContext.Provider value={{ size: '1.75em' }}>
-            <MdLibraryMusic />
-          </IconContext.Provider>
-          <h4>Library</h4>
-        </div>
-      </ActiveLink>
+        <ActiveLink href="/library">
+          <div className="flex items-center cursor-pointer gap-3 p-4">
+            <IconContext.Provider value={{ size: '1.75em' }}>
+              <MdLibraryMusic />
+            </IconContext.Provider>
+            <h4>Library</h4>
+          </div>
+        </ActiveLink>
 
-      <ActiveLink href="/collabs">
-        <div className="flex items-center cursor-pointer gap-3 p-4">
-          <IconContext.Provider value={{ size: '1.75em' }}>
-            <MdPeopleAlt />
-          </IconContext.Provider>
-          <h4>Collabs</h4>
-        </div>
-      </ActiveLink>
+        <ActiveLink href="/collabs">
+          <div className="flex items-center cursor-pointer gap-3 p-4">
+            <IconContext.Provider value={{ size: '1.75em' }}>
+              <MdPeopleAlt />
+            </IconContext.Provider>
+            <h4>Collabs</h4>
+          </div>
+        </ActiveLink>
+      </div>
     </div>
   );
 };
