@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { IconContext } from 'react-icons';
 import { FaLocationArrow } from 'react-icons/fa';
 import { MdLibraryMusic, MdPeopleAlt } from 'react-icons/md';
@@ -7,11 +8,13 @@ import ActiveLink from './ActiveLink';
 const Nav = () => {
   return (
     <div
-      className="z-20 min-h-screen w-48 hidden 
-      bg-nav-light dark:bg-nav-dark md:block"
+      className="z-20 min-h-screen w-[200px] hidden
+      bg-nav-light dark:bg-nav-dark md:block z-50"
     >
       <div className="fixed">
-        <div className="py-8 p-3">*Logo*</div>
+        <div className="pt-8 p-4">
+          <Image src="/logo.png" width={142} height={42} alt="Logo" />
+        </div>
 
         <ActiveLink href="/discover">
           <div className="flex items-center cursor-pointer gap-3 p-4 pt-4">

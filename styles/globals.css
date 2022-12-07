@@ -34,7 +34,7 @@
     @apply bg-primary max-w-3xl border md:ml-64;
   }
   .page-container {
-    @apply w-full md:max-w-3xl flex flex-col justify-center items-center mx-auto px-5 lg:px-10 pt-16 md:pt-24;
+    @apply w-full md:max-w-3xl flex flex-col justify-center items-center mx-auto px-5 lg:px-10 pt-20 md:pt-24;
   }
   .card {
     @apply w-full min-w-[350px] md:w-[700px] md:min-h-[325px] flex flex-col justify-center rounded-3xl px-4 sm:px-8 md:px-10 py-6 mb-6 md:mb-8 bg-component-light dark:bg-component-dark h-max;
