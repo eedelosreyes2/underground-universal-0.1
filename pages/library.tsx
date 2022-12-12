@@ -28,7 +28,9 @@ export const getServerSideProps = async ({
 const library = () => {
   return (
     <Layout>
-      <div className="page-container">Library</div>
+      <div className="page-container">
+        <h2 className="pb-5 w-full">Library</h2>
+      </div>
     </Layout>
   );
 };

@@ -5,7 +5,7 @@ const studios = () => {
   return (
     <Layout>
       <div className="page-container">
-        <StudiosCarousel />
+        <h2 className="pb-5 w-full">Studios</h2>
       </div>
     </Layout>
   );

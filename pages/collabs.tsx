@@ -1,4 +1,5 @@
 import { getSession } from '@auth0/nextjs-auth0';
+import Collabs from '../components/collabs/Collabs';
 import Layout from '../components/Layout';
 
 export const getServerSideProps = async ({
@@ -28,7 +29,10 @@ export const getServerSideProps = async ({
 const collabs = () => {
   return (
     <Layout>
-      <div className="page-container">Collabs</div>
+      <div className="page-container">
+        <h2 className="pb-5 w-full">Collabs</h2>
+        <Collabs />
+      </div>
     </Layout>
   );
 };
