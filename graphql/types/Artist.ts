@@ -1,4 +1,4 @@
-import { objectType, extendType, nonNull, stringArg, list } from 'nexus';
+import { objectType, extendType, nonNull, stringArg, list, arg } from 'nexus';
 import { Status, Role, Experience, Genre } from './Enums';
 import { Album } from './Album';
 import { Badge } from './Badge';
@@ -24,6 +24,8 @@ export const Artist = objectType({
     t.string('bio');
     t.string('imgSrc');
     t.list.string('streamings');
+    t.list.string('collabsSent');
+    t.list.string('collabsRecieved');
     t.field('status', { type: Status });
     t.field('trackSig', {
       type: Track,
@@ -145,8 +147,6 @@ export const Artist = objectType({
           .sharedTracksWith();
       },
     });
-    t.list.field('Artist_B', { type: Artist });
-    t.list.field('Artist_A', { type: Artist });
   },
 });
 
@@ -231,6 +231,26 @@ export const UpdateArtist = extendType({
             genres: _args.genres,
             experience: _args.experience,
             streamings: _args.streamings,
+          },
+        });
+      },
+    });
+  },
+});
+
+export const AddCollab = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.nonNull.field('addCollab', {
+      type: Artist,
+      args: { id: nonNull(stringArg()), collabsSent: list(stringArg()) },
+      async resolve(_parent, _args, ctx) {
+        return await ctx.prisma.artist.update({
+          where: {
+            id: _args.id,
+          },
+          data: {
+            collabsSent: _args.collabsSent,
           },
         });
       },

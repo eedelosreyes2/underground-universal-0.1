@@ -17,6 +17,15 @@ import Experience from '../components/tags/Experience';
 import Role from '../components/tags/Role';
 import Image from 'next/image';
 import { Artist } from '@prisma/client';
+import { gql } from '@apollo/client';
+
+const ADD_COLLAB = gql`
+  mutation ($id: String!) {
+    updateArtist(id: $id) {
+      id
+    }
+  }
+`;
 
 const ArtistProfile = ({
   id,

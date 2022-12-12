@@ -8,12 +8,12 @@ type Album {
 }
 
 type Artist {
-  Artist_A: [Artist]
-  Artist_B: [Artist]
   albums: [Album]
   badge: Badge
   badgeId: String
   bio: String
+  collabsRecieved: [String]
+  collabsSent: [String]
   createdAt: String
   dob: String
   email: String
@@ -72,6 +72,7 @@ enum Genre {
 }
 
 type Mutation {
+  addCollab(collabsSent: [String], id: String!): Artist!
   updateArtist(bio: String, experience: String, genres: [String], id: String!, imgSrc: String, location: String, name: String, roles: [String], streamings: [String], trackSig: String, username: String): Artist!
 }
 
