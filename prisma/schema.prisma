@@ -26,6 +26,8 @@ model Artist {
   username         String?     @unique
   roles            Role[]
   experience       Experience?
+  collabsReceived  String[]
+  collabsSent      String[]
   trackSig         Track?      @relation("Signature", fields: [trackId], references: [id])
   albums           Album[]
   badge            Badge?
@@ -36,8 +38,6 @@ model Artist {
   sharedAlbumsWith Album[]     @relation("SharedAlbumsWith")
   sharedTracks     Track[]     @relation("SharedTracks")
   sharedTracksWith Track[]     @relation("SharedTracksWith")
-  Artist_B         Artist[]    @relation("collabs")
-  Artist_A         Artist[]    @relation("collabs")
 }
 
 model Album {

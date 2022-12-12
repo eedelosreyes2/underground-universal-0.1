@@ -12,7 +12,7 @@ type Artist {
   badge: Badge
   badgeId: String
   bio: String
-  collabsRecieved: [String]
+  collabsReceived: [String]
   collabsSent: [String]
   createdAt: String
   dob: String

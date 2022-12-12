@@ -25,7 +25,7 @@ export const Artist = objectType({
     t.string('imgSrc');
     t.list.string('streamings');
     t.list.string('collabsSent');
-    t.list.string('collabsRecieved');
+    t.list.string('collabsReceived');
     t.field('status', { type: Status });
     t.field('trackSig', {
       type: Track,
