@@ -3,7 +3,7 @@ import { gql, useQuery } from '@apollo/client';
 import { Artist } from '@prisma/client';
 import { useUser } from '@auth0/nextjs-auth0';
 
-const ArtistsQuery = gql`
+const GET_ARTIST_BY_EMAIL = gql`
   query {
     artists {
       id
@@ -29,7 +29,7 @@ const ArtistsQuery = gql`
 
 const DiscoverCarousel = () => {
   const { user } = useUser();
-  const { data, loading, error } = useQuery(ArtistsQuery);
+  const { data, loading, error } = useQuery(GET_ARTIST_BY_EMAIL);
   const artists = data?.artists?.filter(
     (artist: any) => artist.name && artist.username && artist.location
   );

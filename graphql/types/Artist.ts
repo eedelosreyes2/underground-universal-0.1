@@ -179,6 +179,24 @@ export const ArtistByEmailQuery = extendType({
   },
 });
 
+// Multiple artists by email
+export const ArtistsByEmailQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('getArtistsByEmail', {
+      type: 'Artist',
+      args: { emails: nonNull(list(nonNull('String'))) },
+      resolve(_parent, _args, ctx) {
+        return ctx.prisma.artist.findMany({
+          where: {
+            email: { in: _args.emails },
+          },
+        });
+      },
+    });
+  },
+});
+
 export const ArtistByUsernameQuery = extendType({
   type: 'Query',
   definition(t) {

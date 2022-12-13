@@ -80,6 +80,7 @@ type Query {
   artists: [Artist]!
   getArtistByEmail(email: String!): Artist!
   getArtistByUsername(username: String!): Artist!
+  getArtistsByEmail(emails: [String!]!): [Artist]!
   getStudioById(id: ID!): Studio!
   studios: [Studio]!
 }
