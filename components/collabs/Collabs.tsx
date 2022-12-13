@@ -2,6 +2,8 @@ import { gql, useQuery } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { IconContext } from 'react-icons';
+import { IoCloseOutline } from 'react-icons/io5';
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -43,6 +45,10 @@ const Collabs = () => {
   const collabsSent = collabsSentArtistData?.getArtistsByEmail;
   const collabsReceived = collabsReceievedArtistData?.getArtistsByEmail;
 
+  const handleRemoveSent = (artist: any) => {
+    console.log('remove ' + artist.username + ' from collabsSent');
+  };
+
   return (
     <div className="flex flex-col w-full">
       <h3 className="mb-3">Sent</h3>
@@ -50,11 +56,13 @@ const Collabs = () => {
         {collabsSent &&
           Object.values(collabsSent).map((artist: any) => (
             <div
-              onClick={() => router.push('/' + artist.username)}
-              className="flex items-center justify-between rounded-3xl
-              p-5 cursor-pointer bg-component-light dark:bg-component-dark"
+              className="flex items-center justify-between rounded-full
+              md:p-5 p-3 bg-component-light dark:bg-component-dark"
             >
-              <div className="flex items-center gap-3">
+              <div
+                onClick={() => router.push('/' + artist.username)}
+                className="flex items-center gap-3 cursor-pointer"
+              >
                 <Image
                   src={'/default_artist_img.jpg'}
                   width={32}
@@ -64,6 +72,12 @@ const Collabs = () => {
                 />
                 {artist.name}
               </div>
+              <IconContext.Provider value={{ size: '1.2em' }}>
+                <IoCloseOutline
+                  onClick={() => handleRemoveSent(artist)}
+                  className="cursor-pointer"
+                />
+              </IconContext.Provider>
             </div>
           ))}
       </div>

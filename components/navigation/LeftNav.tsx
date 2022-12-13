@@ -1,5 +1,6 @@
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { IconContext } from 'react-icons';
 import { FaLocationArrow } from 'react-icons/fa';
 import { MdLibraryMusic, MdPeopleAlt } from 'react-icons/md';
@@ -8,6 +9,7 @@ import ActiveLink from './ActiveLink';
 
 const Nav = () => {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
   return (
     <div
@@ -15,7 +17,10 @@ const Nav = () => {
       bg-nav-light dark:bg-nav-dark md:block z-50"
     >
       <div className="fixed">
-        <div className="pt-8 p-4">
+        <div
+          onClick={() => router.push('/discover')}
+          className="cursor-pointer pt-8 p-4"
+        >
           {theme === 'dark' ? (
             <Image src="/logo.png" width={142} height={42} alt="Logo" />
           ) : (

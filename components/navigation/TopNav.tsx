@@ -46,7 +46,10 @@ const TopNav = () => {
       className="z-10 fixed right-0 left-0 flex justify-between py-3 px-5 
       md:justify-end md:py-7 md:px-12 bg-fill-light dark:bg-fill-dark"
     >
-      <div className="md:hidden">
+      <div
+        onClick={() => router.push('/discover')}
+        className="cursor-pointer md:hidden"
+      >
         {theme === 'dark' ? (
           <Image src="/logo.png" width={142} height={42} alt="Logo" />
         ) : (
