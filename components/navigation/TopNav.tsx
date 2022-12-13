@@ -47,7 +47,11 @@ const TopNav = () => {
       md:justify-end md:py-7 md:px-12 bg-fill-light dark:bg-fill-dark"
     >
       <div className="md:hidden">
-        <Image src="/logo.png" width={142} height={42} alt="Logo" />
+        {theme === 'dark' ? (
+          <Image src="/logo.png" width={142} height={42} alt="Logo" />
+        ) : (
+          <Image src="/logo_light.png" width={142} height={42} alt="Logo" />
+        )}
       </div>
       <div className="flex gap-6 h-fit">
         <div

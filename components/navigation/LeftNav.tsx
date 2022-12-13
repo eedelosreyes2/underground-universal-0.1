@@ -1,3 +1,4 @@
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { IconContext } from 'react-icons';
 import { FaLocationArrow } from 'react-icons/fa';
@@ -6,6 +7,8 @@ import { RiHeadphoneFill } from 'react-icons/ri';
 import ActiveLink from './ActiveLink';
 
 const Nav = () => {
+  const { theme, setTheme } = useTheme();
+
   return (
     <div
       className="z-20 min-h-screen w-[200px] hidden
@@ -13,7 +16,11 @@ const Nav = () => {
     >
       <div className="fixed">
         <div className="pt-8 p-4">
-          <Image src="/logo.png" width={142} height={42} alt="Logo" />
+          {theme === 'dark' ? (
+            <Image src="/logo.png" width={142} height={42} alt="Logo" />
+          ) : (
+            <Image src="/logo_light.png" width={142} height={42} alt="Logo" />
+          )}
         </div>
 
         <ActiveLink href="/discover">
