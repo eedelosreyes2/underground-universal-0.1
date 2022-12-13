@@ -56,6 +56,7 @@ const Collabs = () => {
         {collabsSent &&
           Object.values(collabsSent).map((artist: any) => (
             <div
+              key={artist.username}
               className="flex items-center justify-between rounded-full
               md:p-5 p-3 bg-component-light dark:bg-component-dark"
             >
