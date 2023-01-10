@@ -63,8 +63,7 @@ const ArtistProfile = ({
           md:min-w-[240px] md:min-h-[240px]"
       >
         <Image
-          // TEMP
-          src={`/profiles/${id}.jpeg` || imgSrc || '/default_artist_img.jpg'}
+          src={imgSrc || '/default_artist_img.jpg'}
           layout="fill"
           alt="Profile"
           className="rounded-full"
