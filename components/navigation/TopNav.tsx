@@ -81,31 +81,19 @@ const TopNav = () => {
           >
             <Image
               priority
-              src={
-                // TEMP
-                `/profiles/${data?.getArtistByEmail.id}.jpeg` ||
-                '/default_artist_img.jpg'
-              }
+              src={'/default_artist_img.jpg'}
               width={32}
               height={32}
               alt="Profile"
             />
           </div>
         ) : (
-          <>
-            {/* <div
-              onClick={() => router.push("/api/auth/login")}
-              className="flex items-center cursor-pointer"
-            >
-              Log in
-            </div> */}
-            <div
-              onClick={() => router.push('/api/auth/login')}
-              className="cta-button"
-            >
-              Enter
-            </div>
-          </>
+          <div
+            onClick={() => router.push('/api/auth/login')}
+            className="cta-button"
+          >
+            Enter
+          </div>
         )}
       </div>
     </div>

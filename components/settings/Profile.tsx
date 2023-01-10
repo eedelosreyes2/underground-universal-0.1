@@ -311,7 +311,7 @@ const Profile = () => {
       };
 
       updateArtist({ variables });
-      router.reload();
+      // router.reload();
     };
 
     // TODO: Add profile pic + sigSong to form
