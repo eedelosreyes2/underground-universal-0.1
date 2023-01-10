@@ -338,14 +338,20 @@ const ArtistProfile = ({
       console.log('Collab request to ', name);
     };
 
+    const isUserProfile = () => {
+      return user?.email == email;
+    };
+
     return (
       <div className="flex items-center">
-        <div
-          onClick={handleCollab}
-          className="cta-button text-center max-w-[100px]"
-        >
-          Collab
-        </div>
+        {!isUserProfile() && (
+          <div
+            onClick={handleCollab}
+            className="cta-button text-center max-w-[100px]"
+          >
+            Collab
+          </div>
+        )}
         {renderStreamings()}
       </div>
     );

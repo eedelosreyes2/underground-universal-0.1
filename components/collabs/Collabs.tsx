@@ -3,7 +3,8 @@ import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { IconContext } from 'react-icons';
-import { IoCloseOutline } from 'react-icons/io5';
+import { HiOutlineAtSymbol } from 'react-icons/hi';
+import { IoCheckmarkOutline, IoCloseOutline } from 'react-icons/io5';
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -46,41 +47,94 @@ const Collabs = () => {
   const collabsReceived = collabsReceievedArtistData?.getArtistsByEmail;
 
   const handleRemoveSent = (artist: any) => {
-    console.log('remove ' + artist.username + ' from collabsSent');
+    if (confirm('Cancel Collab request to ' + artist.name + '?')) {
+      console.log('remove ' + artist.name + ' from collabsSent');
+    }
+  };
+
+  const handleAcceptReceieved = (artist: any) => {
+    if (confirm('Accept Collab request from ' + artist.name + '?')) {
+      console.log(
+        'add ' + artist.name + ' to collabsSent as well as collabsReceived'
+      );
+    }
+  };
+
+  const handleRejectReceieved = (artist: any) => {
+    if (confirm('Reject Collab request from ' + artist.name + '?')) {
+      console.log('remove ' + artist.name + ' from collabsReceived');
+    }
+  };
+
+  const renderCollab = (artist: any, type: string) => {
+    return (
+      <div
+        key={artist.username}
+        className="flex items-center justify-between rounded-xl
+    md:p-5 p-3 bg-component-light dark:bg-component-dark"
+      >
+        <div
+          onClick={() => router.push('/' + artist.username)}
+          className="flex items-center gap-3 w-full cursor-pointer"
+        >
+          <Image
+            src={'/default_artist_img.jpg'}
+            width={32}
+            height={32}
+            alt="Profile"
+            className="rounded-full"
+          />
+          {artist.name}
+          <h3 className="flex items-center font-medium">
+            <HiOutlineAtSymbol />
+            {artist.username}
+          </h3>
+        </div>
+
+        <div>
+          {type === 'sent' && (
+            <IconContext.Provider value={{ size: '1.2em' }}>
+              <IoCloseOutline
+                onClick={() => handleRemoveSent(artist)}
+                className="cursor-pointer"
+              />
+            </IconContext.Provider>
+          )}
+          {type === 'receieved' && (
+            <IconContext.Provider value={{ size: '1.2em' }}>
+              <div className="flex gap-5">
+                <IoCheckmarkOutline
+                  onClick={() => handleAcceptReceieved(artist)}
+                  className="cursor-pointer text-red"
+                />
+                <IoCloseOutline
+                  onClick={() => handleRejectReceieved(artist)}
+                  className="cursor-pointer"
+                />
+              </div>
+            </IconContext.Provider>
+          )}
+        </div>
+      </div>
+    );
   };
 
   return (
     <div className="flex flex-col w-full">
       <h3 className="mb-3">Sent</h3>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 mb-10">
         {collabsSent &&
-          Object.values(collabsSent).map((artist: any) => (
-            <div
-              key={artist.username}
-              className="flex items-center justify-between rounded-xl
-              md:p-5 p-3 bg-component-light dark:bg-component-dark"
-            >
-              <div
-                onClick={() => router.push('/' + artist.username)}
-                className="flex items-center gap-3 w-full cursor-pointer"
-              >
-                <Image
-                  src={'/default_artist_img.jpg'}
-                  width={32}
-                  height={32}
-                  alt="Profile"
-                  className="rounded-full"
-                />
-                {artist.name}
-              </div>
-              <IconContext.Provider value={{ size: '1.2em' }}>
-                <IoCloseOutline
-                  onClick={() => handleRemoveSent(artist)}
-                  className="cursor-pointer"
-                />
-              </IconContext.Provider>
-            </div>
-          ))}
+          Object.values(collabsSent).map((artist: any) =>
+            renderCollab(artist, 'sent')
+          )}
+      </div>
+
+      <h3 className="mb-3">Received</h3>
+      <div className="flex flex-col gap-3">
+        {collabsReceived &&
+          Object.values(collabsReceived).map((artist: any) =>
+            renderCollab(artist, 'receieved')
+          )}
       </div>
     </div>
   );
