@@ -44,11 +44,32 @@ const Collabs = () => {
     variables: { emails: collabsSentData?.getArtistByEmail.collabsReceived },
   });
 
-  // TODO: Filter Collabed, Sent, and Receieved
-
   // Collab artist data
-  const collabsSent = collabsSentArtistData?.getArtistsByEmail;
-  const collabsReceived = collabsReceievedArtistData?.getArtistsByEmail;
+  const collabsSent = Object.values(
+    collabsSentArtistData?.getArtistsByEmail || {}
+  );
+  const collabsReceived = Object.values(
+    collabsReceievedArtistData?.getArtistsByEmail || {}
+  );
+
+  // Filter and set objects to render
+  const collabs = collabsSent.filter((sentCollab: any) =>
+    collabsReceived
+      .map((receivedCollab: any) => receivedCollab.username)
+      .includes(sentCollab.username)
+  );
+  const sent = collabsSent.filter(
+    (collabSent: any) =>
+      !collabs
+        .map((collab: any) => collab.username)
+        .includes(collabSent.username)
+  );
+  const received = collabsReceived.filter(
+    (collabReceived: any) =>
+      !collabs
+        .map((collab: any) => collab.username)
+        .includes(collabReceived.username)
+  );
 
   const handleRemoveSent = (artist: any) => {
     if (confirm('Cancel Collab request to ' + artist.name + '?')) {
@@ -149,26 +170,19 @@ const Collabs = () => {
     <div className="flex flex-col w-full">
       <h3 className="mb-3">Sent</h3>
       <div className="flex flex-col gap-3 mb-10">
-        {collabsSent &&
-          Object.values(collabsSent).map((artist: any) =>
-            renderCollab(artist, 'sent')
-          )}
+        {sent && sent.map((artist: any) => renderCollab(artist, 'sent'))}
       </div>
 
       <h3 className="mb-3">Received</h3>
       <div className="flex flex-col gap-3 mb-10">
-        {collabsReceived &&
-          Object.values(collabsReceived).map((artist: any) =>
-            renderCollab(artist, 'receieved')
-          )}
+        {received &&
+          received.map((artist: any) => renderCollab(artist, 'receieved'))}
       </div>
 
       <h3 className="mb-3">Collabed</h3>
       <div className="flex flex-col gap-3 mb-10">
-        {collabsReceived &&
-          Object.values(collabsReceived).map((artist: any) =>
-            renderCollab(artist, 'collabed')
-          )}
+        {collabs &&
+          collabs.map((artist: any) => renderCollab(artist, 'collabed'))}
       </div>
     </div>
   );
