@@ -4,11 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
-import {
-  IoChatboxOutline,
-  IoCheckmarkOutline,
-  IoCloseOutline,
-} from 'react-icons/io5';
+import { IoChatbox, IoCheckmarkOutline, IoCloseOutline } from 'react-icons/io5';
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -156,8 +152,8 @@ const Collabs = () => {
           )}
 
           {type === 'collabed' && (
-            <IconContext.Provider value={{ size: '1.2em' }}>
-              <IoChatboxOutline
+            <IconContext.Provider value={{ size: '1.2em', color: 'red' }}>
+              <IoChatbox
                 onClick={() => handleSendMessage(artist)}
                 className="cursor-pointer"
               />

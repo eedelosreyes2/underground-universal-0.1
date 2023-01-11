@@ -26,6 +26,9 @@ const ADD_COLLAB = gql`
     }
   }
 `;
+// TODO: Add collab, cancel collab request, remove collab mutations
+// TODO: If collabed, remove collab button will be on profile page
+// and collab button will turn into message/email/discord
 
 const ArtistProfile = ({
   id,
