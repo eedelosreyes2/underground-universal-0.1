@@ -30,7 +30,7 @@ const collabs = () => {
   return (
     <Layout>
       <div className="page-container">
-        <h2 className="pb-5 w-full">Collabs</h2>
+        <h2 className="pb-5 w-full">Connect with Your Collabs</h2>
         <Collabs />
       </div>
     </Layout>

@@ -29,7 +29,7 @@ const library = () => {
   return (
     <Layout>
       <div className="page-container">
-        <h2 className="pb-5 w-full">Library</h2>
+        <h2 className="pb-5 w-full">Share Your Music</h2>
       </div>
     </Layout>
   );

@@ -148,7 +148,7 @@ const Collabs = () => {
               <div className="flex gap-5">
                 <IoCheckmarkOutline
                   onClick={() => handleAcceptReceieved(artist)}
-                  className="cursor-pointer text-red"
+                  className="cursor-pointer"
                 />
                 <IoCloseOutline
                   onClick={() => handleRejectReceieved(artist)}
@@ -159,7 +159,7 @@ const Collabs = () => {
           )}
 
           {type === 'collabed' && (
-            <IconContext.Provider value={{ size: '1.5em', color: 'red' }}>
+            <IconContext.Provider value={{ size: '1.5em' }}>
               <IoChatboxEllipses
                 onClick={() => handleSendMessage(artist)}
                 className="cursor-pointer"
