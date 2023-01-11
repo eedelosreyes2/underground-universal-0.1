@@ -336,8 +336,8 @@ const ArtistProfile = ({
   };
 
   const renderCollab = () => {
-    // TODO: Collab logic
     const handleCollab = () => {
+      // TODO: Collab logic
       console.log('Collab request to ', name);
     };
 
@@ -361,7 +361,20 @@ const ArtistProfile = ({
   };
 
   return (
-    <div className="card">
+    <div
+      className={router.pathname === '/discover' ? 'card cursor-pointer' : ''}
+      onClick={(e) => {
+        const target = e.target as HTMLElement;
+        if (
+          target.id != 'button' &&
+          target.tagName != 'A' &&
+          target.tagName != 'path' &&
+          target.tagName != 'svg'
+        ) {
+          router.push('/' + username);
+        }
+      }}
+    >
       {/* Top container */}
       <div className="flex items-center sm:items-start justify-start w-full mb-5 md:mb-0">
         {renderAvatar()}
