@@ -30,9 +30,7 @@ const settings = () => {
   return (
     <Layout>
       <div className="page-container">
-        <div className="page-inner-container">
-          <Settings />
-        </div>
+        <Settings />
       </div>
     </Layout>
   );

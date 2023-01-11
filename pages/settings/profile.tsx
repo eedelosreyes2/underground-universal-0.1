@@ -30,9 +30,7 @@ const editProfile = () => {
   return (
     <Layout>
       <div className="page-container">
-        <div className="page-inner-container">
-          <Profile />
-        </div>
+        <Profile />
       </div>
     </Layout>
   );
