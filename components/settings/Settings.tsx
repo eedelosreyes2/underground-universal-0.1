@@ -4,7 +4,7 @@ const Settings = () => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col gap-5 mt-5 justify-start w-full">
+    <div className="flex flex-col gap-5 justify-start w-full">
       <div className="text-button">
         <a
           href="https://www.undergrounduniversal.com/"
