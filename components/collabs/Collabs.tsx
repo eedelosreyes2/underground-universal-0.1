@@ -4,11 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
-import {
-  IoChatboxEllipses,
-  IoCheckmarkOutline,
-  IoCloseOutline,
-} from 'react-icons/io5';
+import { IoChatboxEllipses, IoCheckmarkSharp, IoClose } from 'react-icons/io5';
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -136,7 +132,7 @@ const Collabs = () => {
         <div>
           {type === 'sent' && (
             <IconContext.Provider value={{ size: '1.2em' }}>
-              <IoCloseOutline
+              <IoClose
                 onClick={() => handleRemoveSent(artist)}
                 className="cursor-pointer"
               />
@@ -146,11 +142,11 @@ const Collabs = () => {
           {type === 'receieved' && (
             <IconContext.Provider value={{ size: '1.2em' }}>
               <div className="flex gap-5">
-                <IoCheckmarkOutline
+                <IoCheckmarkSharp
                   onClick={() => handleAcceptReceieved(artist)}
                   className="cursor-pointer"
                 />
-                <IoCloseOutline
+                <IoClose
                   onClick={() => handleRejectReceieved(artist)}
                   className="cursor-pointer"
                 />
