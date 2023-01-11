@@ -30,6 +30,7 @@ const settings = () => {
   return (
     <Layout>
       <div className="page-container">
+        <h2 className="pb-5 w-full">Settings</h2>
         <Settings />
       </div>
     </Layout>
