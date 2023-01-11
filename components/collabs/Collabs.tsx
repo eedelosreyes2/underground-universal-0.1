@@ -107,13 +107,16 @@ const Collabs = () => {
     return (
       <div
         key={artist.username}
+        onClick={(e) => {
+          const target = e.target as HTMLElement;
+          if (target.tagName != 'path' && target.tagName != 'svg') {
+            router.push('/' + artist.username);
+          }
+        }}
         className="flex items-center justify-between rounded-xl
-    md:p-5 p-3 bg-component-light dark:bg-component-dark"
+          md:p-5 p-3 bg-component-light dark:bg-component-dark cursor-pointer"
       >
-        <div
-          onClick={() => router.push('/' + artist.username)}
-          className="flex items-center gap-3 w-full max-w-sm cursor-pointer"
-        >
+        <div className="flex items-center gap-3 z-50">
           <Image
             src={'/default_artist_img.jpg'}
             width={48}
