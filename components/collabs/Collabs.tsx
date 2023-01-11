@@ -112,20 +112,22 @@ const Collabs = () => {
       >
         <div
           onClick={() => router.push('/' + artist.username)}
-          className="flex items-center gap-3 w-full cursor-pointer"
+          className="flex items-center gap-3 w-full max-w-sm cursor-pointer"
         >
           <Image
             src={'/default_artist_img.jpg'}
-            width={32}
-            height={32}
+            width={48}
+            height={48}
             alt="Profile"
             className="rounded-full"
           />
-          {artist.name}
-          <h3 className="flex items-center font-medium">
-            <HiOutlineAtSymbol />
-            {artist.username}
-          </h3>
+          <div>
+            {artist.name}
+            <h3 className="flex items-center font-medium">
+              <HiOutlineAtSymbol />
+              {artist.username}
+            </h3>
+          </div>
         </div>
 
         <div>
