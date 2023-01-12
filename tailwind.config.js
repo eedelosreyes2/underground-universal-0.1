@@ -41,5 +41,5 @@ module.exports = {
       bandcamp: '#4AC4E4',
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };

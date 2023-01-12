@@ -17,7 +17,7 @@ import Experience from '../components/tags/Experience';
 import Role from '../components/tags/Role';
 import Image from 'next/image';
 import { Artist } from '@prisma/client';
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 
 const ADD_COLLAB = gql`
   mutation ($id: String!) {
@@ -29,6 +29,25 @@ const ADD_COLLAB = gql`
 // TODO: Add collab, cancel collab request, remove collab mutations
 // TODO: If collabed, remove collab button will be on profile page
 // and collab button will turn into message/email/discord
+
+const GET_COLLABS = gql`
+  query ($email: String!) {
+    getArtistByEmail(email: $email) {
+      collabsSent
+      collabsReceived
+    }
+  }
+`;
+
+const GET_ARTISTS_BY_EMAIL = gql`
+  query GetArtistsByEmail($emails: [String!]!) {
+    getArtistsByEmail(emails: $emails) {
+      name
+      email
+      username
+    }
+  }
+`;
 
 const ArtistProfile = ({
   id,
@@ -52,6 +71,14 @@ const ArtistProfile = ({
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
+
+  const isUserProfile = () => {
+    return user?.email == email;
+  };
+
+  const isDiscoverPage = () => {
+    return router.pathname === '/discover';
+  };
 
   const playHandler = () => {
     setPlaying((playing: any) => !playing);
@@ -204,7 +231,7 @@ const ArtistProfile = ({
   const renderMoreInfo = () => {
     return (
       <>
-        {bio}
+        <div className={isDiscoverPage() ? 'line-clamp-4' : ''}>{bio}</div>
         <div className="w-full flex flex-wrap mb-3 mt-4">
           <Experience experience={experience} />
           {roles?.map((role: any, id: any) => (
@@ -336,25 +363,98 @@ const ArtistProfile = ({
   };
 
   const renderCollab = () => {
+    const { user } = useUser();
+    const { data: collabsSentData } = useQuery(GET_COLLABS, {
+      variables: { email: user?.email },
+    });
+
+    // Fetch collabs data by email
+    const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
+      variables: { emails: collabsSentData?.getArtistByEmail.collabsSent },
+    });
+    const { data: collabsReceievedArtistData } = useQuery(
+      GET_ARTISTS_BY_EMAIL,
+      {
+        variables: {
+          emails: collabsSentData?.getArtistByEmail.collabsReceived,
+        },
+      }
+    );
+
+    // Collab artist data
+    const collabsSent = Object.values(
+      collabsSentArtistData?.getArtistsByEmail || {}
+    );
+    const collabsReceived = Object.values(
+      collabsReceievedArtistData?.getArtistsByEmail || {}
+    );
+
+    // Filter and set objects to render
+    const collabs = collabsSent.filter((sentCollab: any) =>
+      collabsReceived
+        .map((receivedCollab: any) => receivedCollab.username)
+        .includes(sentCollab.username)
+    );
+    const sent = collabsSent.filter(
+      (collabSent: any) =>
+        !collabs
+          .map((collab: any) => collab.username)
+          .includes(collabSent.username)
+    );
+    const received = collabsReceived.filter(
+      (collabReceived: any) =>
+        !collabs
+          .map((collab: any) => collab.username)
+          .includes(collabReceived.username)
+    );
+
     const handleCollab = () => {
       // TODO: Collab logic
       console.log('Collab request to ', name);
     };
 
-    const isUserProfile = () => {
-      return user?.email == email;
+    const isCollabed = () => {
+      return (
+        collabs.filter((collab: any) => collab.username === username).length > 0
+      );
+    };
+
+    const isSent = () => {
+      return (
+        !isCollabed() &&
+        sent.filter((collab: any) => collab.username === username).length > 0
+      );
+    };
+
+    const isRceieved = () => {
+      return (
+        !isCollabed() &&
+        received.filter((collab: any) => collab.username === username).length >
+          0
+      );
+    };
+
+    const renderCta = () => {
+      return (
+        <div>
+          {!isUserProfile() && !isCollabed() && !isSent() && !isRceieved() && (
+            <div
+              onClick={handleCollab}
+              className="cta-button text-center max-w-[100px]"
+            >
+              Collab
+            </div>
+          )}
+          {isCollabed() && <div>Collabed</div>}
+          {isSent() && <div>Requested</div>}
+          {isRceieved() && <div>Receieved</div>}
+        </div>
+      );
     };
 
     return (
       <div className="flex items-center">
-        {!isUserProfile() && (
-          <div
-            onClick={handleCollab}
-            className="cta-button text-center max-w-[100px]"
-          >
-            Collab
-          </div>
-        )}
+        {renderCta()}
         {renderStreamings()}
       </div>
     );
@@ -362,7 +462,7 @@ const ArtistProfile = ({
 
   return (
     <div
-      className={router.pathname === '/discover' ? 'card cursor-pointer' : ''}
+      className={isDiscoverPage() ? 'card cursor-pointer' : ''}
       onClick={(e) => {
         const target = e.target as HTMLElement;
         if (
