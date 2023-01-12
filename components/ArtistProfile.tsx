@@ -448,6 +448,23 @@ const ArtistProfile = ({
         console.log('Collab request to ', name);
       };
 
+      const handleSentClick = () => {
+        if (confirm('Cancel Collab request to ' + name + '?')) {
+          // TODO
+          console.log('remove ' + name + ' from collabsSent');
+        }
+      };
+
+      const handleReceivedClick = () => {
+        // TODO
+        console.log('Received click');
+      };
+
+      const handleMessageClick = () => {
+        // TODO
+        console.log('Message click');
+      };
+
       return (
         <div>
           {!isUserProfile() && !isCollabed() && !isSent() && !isRceieved() && (
@@ -455,19 +472,31 @@ const ArtistProfile = ({
               Collab
             </div>
           )}
-          {isCollabed() && <div id="button">Message</div>}
+
           {isSent() && (
             <div
               id="button"
+              onClick={handleSentClick}
               className="flex items-center text-button-secondary"
             >
               Sent
               <BsCheckLg className="cursor-pointer ml-1" />
             </div>
           )}
+
           {isRceieved() && (
-            <div id="button" className="text-button">
+            <div
+              id="button"
+              onClick={handleReceivedClick}
+              className="text-button"
+            >
               Received
+            </div>
+          )}
+
+          {isCollabed() && (
+            <div id="button" onClick={handleMessageClick}>
+              Message
             </div>
           )}
         </div>

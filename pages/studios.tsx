@@ -5,7 +5,7 @@ const studios = () => {
   return (
     <Layout>
       <div className="page-container">
-        <h2 className="pb-5 w-full">Find Your Local Studio</h2>
+        <h2 className="pb-5 w-full">Let Us Book Your Studio</h2>
       </div>
     </Layout>
   );
