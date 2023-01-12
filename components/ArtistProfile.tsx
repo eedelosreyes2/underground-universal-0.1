@@ -18,6 +18,7 @@ import Role from '../components/tags/Role';
 import Image from 'next/image';
 import { Artist } from '@prisma/client';
 import { gql, useQuery } from '@apollo/client';
+import { BsCheckLg } from 'react-icons/bs';
 
 const ADD_COLLAB = gql`
   mutation ($id: String!) {
@@ -78,6 +79,18 @@ const ArtistProfile = ({
 
   const isDiscoverPage = () => {
     return router.pathname === '/discover';
+  };
+
+  const handleProfileClick = (e: any) => {
+    const target = e.target as HTMLElement;
+    if (
+      target.id != 'button' &&
+      target.tagName != 'A' &&
+      target.tagName != 'path' &&
+      target.tagName != 'svg'
+    ) {
+      router.push('/' + username);
+    }
   };
 
   const playHandler = () => {
@@ -408,11 +421,6 @@ const ArtistProfile = ({
           .includes(collabReceived.username)
     );
 
-    const handleCollab = () => {
-      // TODO: Collab logic
-      console.log('Collab request to ', name);
-    };
-
     const isCollabed = () => {
       return (
         collabs.filter((collab: any) => collab.username === username).length > 0
@@ -435,19 +443,33 @@ const ArtistProfile = ({
     };
 
     const renderCta = () => {
+      const handleCollab = () => {
+        // TODO: Collab logic
+        console.log('Collab request to ', name);
+      };
+
       return (
         <div>
           {!isUserProfile() && !isCollabed() && !isSent() && !isRceieved() && (
-            <div
-              onClick={handleCollab}
-              className="cta-button text-center max-w-[100px]"
-            >
+            <div id="button" onClick={handleCollab} className="cta-button">
               Collab
             </div>
           )}
-          {isCollabed() && <div>Collabed</div>}
-          {isSent() && <div>Requested</div>}
-          {isRceieved() && <div>Receieved</div>}
+          {isCollabed() && <div id="button">Message</div>}
+          {isSent() && (
+            <div
+              id="button"
+              className="flex items-center text-button-secondary"
+            >
+              Sent
+              <BsCheckLg className="cursor-pointer ml-1" />
+            </div>
+          )}
+          {isRceieved() && (
+            <div id="button" className="text-button">
+              Received
+            </div>
+          )}
         </div>
       );
     };
@@ -463,17 +485,7 @@ const ArtistProfile = ({
   return (
     <div
       className={isDiscoverPage() ? 'card cursor-pointer' : ''}
-      onClick={(e) => {
-        const target = e.target as HTMLElement;
-        if (
-          target.id != 'button' &&
-          target.tagName != 'A' &&
-          target.tagName != 'path' &&
-          target.tagName != 'svg'
-        ) {
-          router.push('/' + username);
-        }
-      }}
+      onClick={(e) => handleProfileClick(e)}
     >
       {/* Top container */}
       <div className="flex items-center sm:items-start justify-start w-full mb-5 md:mb-0">

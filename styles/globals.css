@@ -43,7 +43,10 @@
     @apply hover:scale-105 transition-transform rounded-full cursor-pointer bg-primary font-bold text-white px-4 py-2;
   }
   .text-button {
-    @apply text-primary font-bold cursor-pointer w-fit;
+    @apply hover:scale-105 text-primary font-bold cursor-pointer w-fit;
+  }
+  .text-button-secondary {
+    @apply hover:scale-105 text-secondary font-bold cursor-pointer w-fit;
   }
   .input {
     @apply outline-none text border-b border-primary pb-1 mb-1 bg-fill-light dark:bg-fill-dark w-full;
