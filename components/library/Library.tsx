@@ -13,6 +13,13 @@ const Library = () => {
         </a>{' '}
         to get the latest updates.
       </div>
+      <div>
+        If you would like your music <span className="font-bold">Mixed</span>,{' '}
+        <span className="font-bold">Mastered</span>,{' '}
+        <span className="font-bold">Published</span>, or{' '}
+        <span className="font-bold">Distributed</span>, you can directly email
+        I.R.B at hismail@gmail.com.
+      </div>
     </div>
   );
 };

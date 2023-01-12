@@ -48,6 +48,23 @@ const Artist = ({ artist }: any) => {
     }
   };
 
+  const renderMusicSharing = () => {
+    return (
+      <div className="mt-10">
+        Music sharing is not yet available. Join our{' '}
+        <a
+          className="text-button"
+          href="https://discord.com/invite/KNUG3yTsT8/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Discord
+        </a>{' '}
+        to get the latest updates.
+      </div>
+    );
+  };
+
   return (
     <div className="pb-12">
       {renderPageHeader()}
@@ -71,6 +88,7 @@ const Artist = ({ artist }: any) => {
         dob={dob}
         status={status}
       />
+      {/* {renderMusicSharing()} */}
     </div>
   );
 };
