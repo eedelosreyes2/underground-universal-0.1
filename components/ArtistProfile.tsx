@@ -73,6 +73,20 @@ const ArtistProfile = ({
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
 
+  const { data: collabsSentData } = useQuery(GET_COLLABS, {
+    variables: { email: user?.email },
+  });
+
+  // Fetch collabs data by email
+  const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
+    variables: { emails: collabsSentData?.getArtistByEmail.collabsSent },
+  });
+  const { data: collabsReceievedArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
+    variables: {
+      emails: collabsSentData?.getArtistByEmail.collabsReceived,
+    },
+  });
+
   const isUserProfile = () => {
     return user?.email == email;
   };
@@ -376,24 +390,6 @@ const ArtistProfile = ({
   };
 
   const renderCollab = () => {
-    const { user } = useUser();
-    const { data: collabsSentData } = useQuery(GET_COLLABS, {
-      variables: { email: user?.email },
-    });
-
-    // Fetch collabs data by email
-    const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
-      variables: { emails: collabsSentData?.getArtistByEmail.collabsSent },
-    });
-    const { data: collabsReceievedArtistData } = useQuery(
-      GET_ARTISTS_BY_EMAIL,
-      {
-        variables: {
-          emails: collabsSentData?.getArtistByEmail.collabsReceived,
-        },
-      }
-    );
-
     // Collab artist data
     const collabsSent = Object.values(
       collabsSentArtistData?.getArtistsByEmail || {}
