@@ -446,7 +446,7 @@ const ArtistProfile = ({
 
       const handleSentClick = () => {
         if (confirm('Cancel Collab request to ' + name + '?')) {
-          // TODO
+          // TODO: Collab logic
           console.log('remove ' + name + ' from collabsSent');
         }
       };
@@ -458,7 +458,11 @@ const ArtistProfile = ({
 
       const handleMessageClick = () => {
         // TODO
-        console.log('Message click');
+        alert(
+          'The Messaging Collabs feature is not yet available... For now you can reach out to ' +
+            name +
+            ' through their Discord/Email \n\nJoin the Underground Universal Discord to get updates on when this feature will be ready!'
+        );
       };
 
       return (
@@ -491,7 +495,11 @@ const ArtistProfile = ({
           )}
 
           {isCollabed() && (
-            <div id="button" onClick={handleMessageClick}>
+            <div
+              id="button"
+              onClick={handleMessageClick}
+              className="text-button"
+            >
               Message
             </div>
           )}

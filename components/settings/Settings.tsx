@@ -14,7 +14,7 @@ const Settings = () => {
           About Underground Universal
         </a>
       </div>
-      <div className="text-button">
+      <div className="text-button mb-10">
         <a
           href="https://linktr.ee/undergrounduniversal/"
           target="_blank"
@@ -32,13 +32,24 @@ const Settings = () => {
           Contact us on Discord
         </a>
       </div>
+      <div className="text-button">
+        <a
+          href="https://www.undergrounduniversal.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {/* TODO */}
+          Provide Feedback
+        </a>
+      </div>
       <div className="text-button mb-10">
         <a
           href="https://www.undergrounduniversal.com/"
           target="_blank"
           rel="noreferrer"
         >
-          Provide Feedback
+          {/* TODO */}
+          Suggest a Studio
         </a>
       </div>
       <div
