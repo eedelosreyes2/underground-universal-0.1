@@ -12,6 +12,7 @@ export default function Layout({ children, ...props }: Props) {
   return (
     <>
       <Header />
+      {/* Window container */}
       <div
         className="z-50 flex flex-col mx-auto max-w-[2200px]  
          md:flex-row"
