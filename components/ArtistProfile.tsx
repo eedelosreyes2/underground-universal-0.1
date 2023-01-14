@@ -88,8 +88,8 @@ const ArtistProfile = ({
     },
   });
 
-  const [modalOpen, setModalOpen] = useState(true);
-  const [modalProps, setModalProps] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('');
 
   const isUserProfile = () => {
     return user?.email == email;
@@ -102,6 +102,7 @@ const ArtistProfile = ({
   const handleProfileClick = (e: any) => {
     const target = e.target as HTMLElement;
     if (
+      !modalOpen &&
       target.id != 'button' &&
       target.tagName != 'A' &&
       target.tagName != 'path' &&
@@ -449,8 +450,7 @@ const ArtistProfile = ({
       };
 
       const handleSentClick = () => {
-        const props = {};
-        setModalProps(props);
+        setModalType('sent');
         setModalOpen(true);
         // if (confirm('Cancel Collab request to ' + name + '?')) {
         //   // TODO: Collab logic
@@ -472,6 +472,52 @@ const ArtistProfile = ({
         );
       };
 
+      const renderModal = () => {
+        let modal = null;
+        const containerClass = 'flex flex-col gap-10';
+        const ctaContainerClass = 'flex justify-center items-center gap-10';
+
+        const handleRemoveFromSent = () => {
+          // TODO: Collab logic
+          console.log('remove ' + name + ' from collabsSent');
+        };
+
+        const handleRemoveFromReceived = () => {
+          // TODO: Collab logic
+          console.log('remove ' + name + ' from collabsReceived');
+        };
+
+        switch (modalType) {
+          case 'sent':
+            modal = (
+              <div className={containerClass}>
+                <div>Cancel Collab request to {name}?</div>
+                <div className={ctaContainerClass}>
+                  <div
+                    id="button"
+                    onClick={() => handleRemoveFromSent()}
+                    className="text-button"
+                  >
+                    Yes
+                  </div>
+                  <div
+                    id="button"
+                    onClick={() => setModalOpen(false)}
+                    className="cta-button"
+                  >
+                    No
+                  </div>
+                </div>
+              </div>
+            );
+
+          default:
+            break;
+        }
+
+        return modal;
+      };
+
       return (
         <div>
           {modalOpen && (
@@ -479,7 +525,7 @@ const ArtistProfile = ({
               isOpen={modalOpen}
               handleClose={() => setModalOpen(!modalOpen)}
             >
-              <div>heyy</div>
+              {renderModal()}
             </Modal>
           )}
 
