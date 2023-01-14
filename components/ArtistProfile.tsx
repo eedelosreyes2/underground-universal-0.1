@@ -491,7 +491,9 @@ const ArtistProfile = ({
           case 'sent':
             modal = (
               <div className={containerClass}>
-                <div>Cancel Collab request to {name}?</div>
+                <div>
+                  Cancel Collab request to <b>{name}</b>?
+                </div>
                 <div className={ctaContainerClass}>
                   <div
                     id="button"

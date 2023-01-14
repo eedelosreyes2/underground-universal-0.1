@@ -31,11 +31,11 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
       <>
-        <div className="fixed top-0 left-0 w-screen h-screen z-40 bg-secondary opacity-20" />
+        <div className="fixed bottom-0 left-0 w-screen h-full z-40 bg-secondary opacity-20" />
         <div
-          className="absolute m-auto left-0 right-0 top-[80px] flex flex-col 
+          className="fixed m-auto left-0 right-0 top-0 bottom-80 flex flex-col 
         z-50 dark:bg-nav-dark bg-nav-light shadow-2xl border-primary border-2
-        rounded-lg min-h-[100px] w-[80%] max-w-xl"
+        rounded-lg min-h-[100px] max-h-fit w-[80%] max-w-xl"
         >
           <div
             className="bg-primary rounded-t-sm h-[5px] w-full
@@ -46,12 +46,6 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
         flex flex-col gap-5 justify-between items-center"
           >
             {children}
-            {/* <div>
-          hey this is contenthey this is contenthey this is contenthey this is
-          contenthey this is contenthey this is contenthey this is contenthey
-          this is contenthey this is contenthey this is content
-        </div>
-        <div>This is the button container</div> */}
           </div>
         </div>
       </>
