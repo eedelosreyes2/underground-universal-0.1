@@ -19,6 +19,7 @@ import Image from 'next/image';
 import { Artist } from '@prisma/client';
 import { gql, useQuery } from '@apollo/client';
 import { BsCheckLg } from 'react-icons/bs';
+import Modal from './Modal';
 
 const ADD_COLLAB = gql`
   mutation ($id: String!) {
@@ -86,6 +87,9 @@ const ArtistProfile = ({
       emails: collabsSentData?.getArtistByEmail.collabsReceived,
     },
   });
+
+  const [modalOpen, setModalOpen] = useState(true);
+  const [modalProps, setModalProps] = useState({});
 
   const isUserProfile = () => {
     return user?.email == email;
@@ -445,10 +449,13 @@ const ArtistProfile = ({
       };
 
       const handleSentClick = () => {
-        if (confirm('Cancel Collab request to ' + name + '?')) {
-          // TODO: Collab logic
-          console.log('remove ' + name + ' from collabsSent');
-        }
+        const props = {};
+        setModalProps(props);
+        setModalOpen(true);
+        // if (confirm('Cancel Collab request to ' + name + '?')) {
+        //   // TODO: Collab logic
+        //   console.log('remove ' + name + ' from collabsSent');
+        // }
       };
 
       const handleReceivedClick = () => {
@@ -467,6 +474,15 @@ const ArtistProfile = ({
 
       return (
         <div>
+          {modalOpen && (
+            <Modal
+              isOpen={modalOpen}
+              handleClose={() => setModalOpen(!modalOpen)}
+            >
+              <div>heyy</div>
+            </Modal>
+          )}
+
           {!isUserProfile() && !isCollabed() && !isSent() && !isRceieved() && (
             <div id="button" onClick={handleCollab} className="cta-button">
               Collab

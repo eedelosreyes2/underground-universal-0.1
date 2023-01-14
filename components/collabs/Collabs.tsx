@@ -1,10 +1,14 @@
 import { gql, useQuery } from '@apollo/client';
 import { useUser } from '@auth0/nextjs-auth0';
+// import { ModalConsumer } from '../../src/ModalContext';
+// import ModalRoot from '../../src/ModalRoot';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import { IoChatboxEllipses, IoCheckmarkSharp, IoClose } from 'react-icons/io5';
+import Modal from '../Modal';
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -167,8 +171,27 @@ const Collabs = () => {
     );
   };
 
+  const [modalOpen, setModalOpen] = useState(true);
+
   return (
     <div className="flex flex-col w-full">
+      {/* <ModalRoot />
+      <ModalConsumer>
+        {({ showModal }: any) => (
+          <div>
+            hello
+            <button onClick={() => showModal(<div>this is a modal</div>)}>
+              Open Modal
+            </button>
+          </div>
+        )}
+      </ModalConsumer> */}
+      {modalOpen && (
+        <Modal isOpen={modalOpen} handleClose={() => setModalOpen(!modalOpen)}>
+          <div>This is the content inside the modal</div>
+        </Modal>
+      )}
+
       <h3 className="mb-3">Sent</h3>
       <div className="flex flex-col gap-3 mb-10">
         {sent && sent.map((artist: any) => renderCollab(artist, 'sent'))}
