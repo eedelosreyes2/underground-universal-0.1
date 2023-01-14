@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import { MdVerified } from 'react-icons/md';
@@ -18,7 +18,7 @@ import Role from '../components/tags/Role';
 import Image from 'next/image';
 import { Artist } from '@prisma/client';
 import { gql, useQuery } from '@apollo/client';
-import { BsCheckLg } from 'react-icons/bs';
+import { BsCheckLg, BsReplyAll } from 'react-icons/bs';
 import Modal from './Modal';
 
 const ADD_COLLAB = gql`
@@ -444,35 +444,27 @@ const ArtistProfile = ({
     };
 
     const renderCta = () => {
-      const handleCollab = () => {
-        // TODO: Collab logic
-        console.log('Collab request to ', name);
+      const handleCollabClick = () => {
+        setModalType('collab');
+        setModalOpen(true);
       };
 
       const handleSentClick = () => {
         setModalType('sent');
         setModalOpen(true);
-        // if (confirm('Cancel Collab request to ' + name + '?')) {
-        //   // TODO: Collab logic
-        //   console.log('remove ' + name + ' from collabsSent');
-        // }
       };
 
       const handleReceivedClick = () => {
-        // TODO
-        console.log('Received click');
+        setModalType('received');
+        setModalOpen(true);
       };
 
       const handleMessageClick = () => {
-        // TODO
-        alert(
-          'The Messaging Collabs feature is not yet available... For now you can reach out to ' +
-            name +
-            ' through their Discord/Email \n\nJoin the Underground Universal Discord to get updates on when this feature will be ready!'
-        );
+        setModalType('message');
+        setModalOpen(true);
       };
 
-      const renderModal = () => {
+      const renderModal = (modalType: any) => {
         let modal = null;
         const containerClass = 'flex flex-col gap-10';
         const ctaContainerClass = 'flex justify-center items-center gap-10';
@@ -487,12 +479,56 @@ const ArtistProfile = ({
           console.log('remove ' + name + ' from collabsReceived');
         };
 
+        const handleAddToSent = () => {
+          // TODO: Collab logic
+          console.log('Add ' + name + ' to collabsSent');
+        };
+
+        const handleDiscord = () => {
+          // TODO
+          console.log('Open ' + name + "'s Discord");
+        };
+
+        const handleEmail = () => {
+          // TODO
+          console.log('Open ' + name + "'s Email");
+        };
+
         switch (modalType) {
+          case 'collab':
+            modal = (
+              <div className={containerClass}>
+                <div>
+                  Send collab request to <b>{name}</b>?
+                </div>
+                <div className={ctaContainerClass}>
+                  <div
+                    id="button"
+                    onClick={() => {
+                      handleAddToSent();
+                      setModalOpen(false);
+                    }}
+                    className="cta-button"
+                  >
+                    Collab
+                  </div>
+                  <div
+                    id="button"
+                    onClick={() => setModalOpen(false)}
+                    className="text-button"
+                  >
+                    Cancel
+                  </div>
+                </div>
+              </div>
+            );
+            break;
+
           case 'sent':
             modal = (
               <div className={containerClass}>
                 <div>
-                  Cancel Collab request to <b>{name}</b>?
+                  Cancel collab request from <b>{name}</b>?
                 </div>
                 <div className={ctaContainerClass}>
                   <div
@@ -512,6 +548,75 @@ const ArtistProfile = ({
                 </div>
               </div>
             );
+            break;
+
+          case 'received':
+            modal = (
+              <div className={containerClass}>
+                <div>
+                  Accept or Reject collab request from <b>{name}</b>?
+                </div>
+                <div className={ctaContainerClass}>
+                  <div
+                    id="button"
+                    onClick={() => handleAddToSent()}
+                    className="cta-button"
+                  >
+                    Accept
+                  </div>
+                  <div
+                    id="button"
+                    onClick={() => handleRemoveFromReceived()}
+                    className="text-button"
+                  >
+                    Reject
+                  </div>
+                  <div
+                    id="button"
+                    onClick={() => setModalOpen(false)}
+                    className="text-button"
+                  >
+                    Cancel
+                  </div>
+                </div>
+              </div>
+            );
+            break;
+
+          case 'message':
+            modal = (
+              <div className={containerClass}>
+                <div>
+                  The Messaging Collabs feature is not yet available... For now
+                  you can reach out to <b>{name}</b> through their{' '}
+                  Discord/Email.
+                </div>
+                <div className={ctaContainerClass}>
+                  <div
+                    id="button"
+                    onClick={() => handleDiscord()}
+                    className="cta-button"
+                  >
+                    Discord
+                  </div>
+                  <div
+                    id="button"
+                    onClick={() => handleEmail()}
+                    className="text-button"
+                  >
+                    Email
+                  </div>
+                  <div
+                    id="button"
+                    onClick={() => setModalOpen(false)}
+                    className="text-button"
+                  >
+                    Cancel
+                  </div>
+                </div>
+              </div>
+            );
+            break;
 
           default:
             break;
@@ -527,12 +632,12 @@ const ArtistProfile = ({
               isOpen={modalOpen}
               handleClose={() => setModalOpen(!modalOpen)}
             >
-              {renderModal()}
+              {modalType && renderModal(modalType)}
             </Modal>
           )}
 
           {!isUserProfile() && !isCollabed() && !isSent() && !isRceieved() && (
-            <div id="button" onClick={handleCollab} className="cta-button">
+            <div id="button" onClick={handleCollabClick} className="cta-button">
               Collab
             </div>
           )}
