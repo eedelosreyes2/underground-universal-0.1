@@ -35,7 +35,7 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
         <div
           className="fixed m-auto left-0 right-0 top-0 bottom-80 flex flex-col 
         z-50 dark:bg-nav-dark bg-nav-light shadow-2xl border-primary border-2
-        rounded-lg min-h-[100px] max-h-fit w-[80%] max-w-xl"
+        rounded-lg min-h-[100px] max-h-fit w-[90%] max-w-xl"
         >
           <div
             className="bg-primary rounded-t-sm h-[5px] w-full
