@@ -92,7 +92,7 @@ const TopNav = () => {
             onClick={() => router.push('/api/auth/login')}
             className="cta-button"
           >
-            Enter
+            Log in
           </div>
         )}
       </div>

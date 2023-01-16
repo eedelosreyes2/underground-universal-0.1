@@ -496,32 +496,59 @@ const ArtistProfile = ({
 
         switch (modalType) {
           case 'collab':
-            modal = (
-              <div className={containerClass}>
-                <div>
-                  Send collab request to <b>{name}</b>?
-                </div>
-                <div className={ctaContainerClass}>
-                  <div
-                    id="button"
-                    onClick={() => {
-                      handleAddToSent();
-                      setModalOpen(false);
-                    }}
-                    className="cta-button"
-                  >
-                    Collab
+            if (!user) {
+              modal = (
+                <div className={containerClass}>
+                  <div>
+                    You must be logged in to collab with <b>{name}</b>.
                   </div>
-                  <div
-                    id="button"
-                    onClick={() => setModalOpen(false)}
-                    className="text-button"
-                  >
-                    Cancel
+                  <div className={ctaContainerClass}>
+                    <div
+                      id="button"
+                      onClick={() => router.push('/api/auth/login')}
+                      className="cta-button"
+                    >
+                      Log in
+                    </div>
+                    <div
+                      id="button"
+                      onClick={() => setModalOpen(false)}
+                      className="text-button"
+                    >
+                      Cancel
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
+              );
+            } else {
+              modal = (
+                <div className={containerClass}>
+                  <div>
+                    Send collab request to <b>{name}</b>?
+                  </div>
+                  <div className={ctaContainerClass}>
+                    <div
+                      id="button"
+                      onClick={() => {
+                        handleAddToSent();
+                        setModalOpen(false);
+                      }}
+                      className="cta-button"
+                    >
+                      Collab
+                    </div>
+                    <div
+                      id="button"
+                      onClick={() => setModalOpen(false)}
+                      className="text-button"
+                    >
+                      Cancel
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             break;
 
           case 'sent':
@@ -586,32 +613,31 @@ const ArtistProfile = ({
           case 'message':
             modal = (
               <div className={containerClass}>
-                <div>
-                  The Messaging Collabs feature is not yet available... For now
-                  you can reach out to <b>{name}</b> through their{' '}
-                  Discord/Email.
+                <div className="flex flex-col gap-5">
+                  <div>
+                    The Messaging Collabs feature is not yet available... For
+                    now you can reach out to <b>{name}</b> through the{' '}
+                    <a
+                      className="text-button"
+                      href="https://discord.com/invite/KNUG3yTsT8/"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Underground Universal Discord
+                    </a>
+                    .
+                  </div>
+                  <div>
+                    Or you can contact them directly at <b>{email}</b>.
+                  </div>
                 </div>
                 <div className={ctaContainerClass}>
-                  <div
-                    id="button"
-                    onClick={() => handleDiscord()}
-                    className="cta-button"
-                  >
-                    Discord
-                  </div>
-                  <div
-                    id="button"
-                    onClick={() => handleEmail()}
-                    className="text-button"
-                  >
-                    Email
-                  </div>
                   <div
                     id="button"
                     onClick={() => setModalOpen(false)}
                     className="text-button"
                   >
-                    Cancel
+                    Close
                   </div>
                 </div>
               </div>
