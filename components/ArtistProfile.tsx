@@ -24,6 +24,7 @@ import Modal from "./Modal";
 const GET_COLLABS = gql`
   query ($email: String!) {
     getArtistByEmail(email: $email) {
+      id
       collabsSent
       collabsReceived
     }
@@ -33,6 +34,7 @@ const GET_COLLABS = gql`
 const GET_ARTISTS_BY_EMAIL = gql`
   query GetArtistsByEmail($emails: [String!]!) {
     getArtistsByEmail(emails: $emails) {
+      id
       name
       email
       username
@@ -57,7 +59,6 @@ const ADD_COLLAB_RECEIVED = gql`
 `;
 
 const ArtistProfile = ({
-  id,
   name,
   email,
   username,
@@ -86,6 +87,7 @@ const ArtistProfile = ({
     variables: { email: user?.email },
   });
 
+  const id = collabsSentData?.getArtistByEmail.id;
   const collabsSent = collabsSentData?.getArtistByEmail.collabsSent;
   const collabsReceived = collabsSentData?.getArtistByEmail.collabsReceived;
 
@@ -506,9 +508,10 @@ const ArtistProfile = ({
             collabsSent: [...collabsSent, email],
           };
           addCollabSent({ variables });
+          setModalOpen(false);
 
           // TODO: Alert or something that you collabed with {name}
-          setModalOpen(false);
+          router.push("/" + username);
         };
 
         switch (modalType) {
