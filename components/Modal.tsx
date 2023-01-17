@@ -33,16 +33,16 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
       <div>
         <div className="fixed bottom-0 left-0 w-screen h-full z-40 bg-secondary opacity-20" />
         <div
-          className="fixed m-auto left-0 right-0 top-0 bottom-80 flex flex-col 
+          className="fixed m-auto left-0 right-0 top-40 flex flex-col 
         z-50 dark:bg-nav-dark bg-nav-light shadow-2xl border-primary border-2
-        rounded-lg min-h-[100px] max-h-[300px] w-[90%] max-w-xl"
+        rounded-lg min-h-[100px] w-[90%] max-w-xl"
         >
           <div
             className="bg-primary rounded-t-sm h-[5px] w-full
         flex flex-col"
           ></div>
           <div
-            className="h-full flex-grow p-5 px-10 text-center
+            className="p-5 px-10 text-center
         flex flex-col gap-5 justify-center items-center"
           >
             {children}
