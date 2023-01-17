@@ -548,7 +548,6 @@ const ArtistProfile = ({
                 </div>
               );
             }
-
             break;
 
           case 'sent':

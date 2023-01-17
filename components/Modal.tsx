@@ -30,7 +30,7 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
-      <>
+      <div>
         <div className="fixed bottom-0 left-0 w-screen h-full z-40 bg-secondary opacity-20" />
         <div
           className="fixed m-auto left-0 right-0 top-0 bottom-80 flex flex-col 
@@ -48,7 +48,7 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
             {children}
           </div>
         </div>
-      </>
+      </div>
     </ReactPortal>
   );
 };
