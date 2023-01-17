@@ -74,23 +74,27 @@ const ArtistProfile = ({
   udpatedAt,
   dob,
   status,
-  collabsSent,
-  collabsReceived,
 }: Artist) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
   const { user } = useUser();
 
   // Queries
   const { data: collabsSentData } = useQuery(GET_COLLABS, {
     variables: { email: user?.email },
   });
+
+  const collabsSent = collabsSentData?.getArtistByEmail.collabsSent;
+  const collabsReceived = collabsSentData?.getArtistByEmail.collabsReceived;
+
   const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
-    variables: { emails: collabsSentData?.getArtistByEmail.collabsSent },
+    variables: { emails: collabsSent },
   });
   const { data: collabsReceievedArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
     variables: {
-      emails: collabsSentData?.getArtistByEmail.collabsReceived,
+      emails: collabsReceived,
     },
   });
 
@@ -107,9 +111,6 @@ const ArtistProfile = ({
       collabsReceived,
     },
   });
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalType, setModalType] = useState("");
 
   const isUserProfile = () => {
     return user?.email == email;
@@ -416,26 +417,26 @@ const ArtistProfile = ({
 
   const renderCollab = () => {
     // Collab artist data
-    const collabsSent = Object.values(
+    const collabsSentObj = Object.values(
       collabsSentArtistData?.getArtistsByEmail || {}
     );
-    const collabsReceived = Object.values(
+    const collabsReceivedObj = Object.values(
       collabsReceievedArtistData?.getArtistsByEmail || {}
     );
 
     // Filter and set objects to render
-    const collabs = collabsSent.filter((sentCollab: any) =>
-      collabsReceived
+    const collabs = collabsSentObj.filter((sentCollab: any) =>
+      collabsReceivedObj
         .map((receivedCollab: any) => receivedCollab.username)
         .includes(sentCollab.username)
     );
-    const sent = collabsSent.filter(
+    const sent = collabsSentObj.filter(
       (collabSent: any) =>
         !collabs
           .map((collab: any) => collab.username)
           .includes(collabSent.username)
     );
-    const received = collabsReceived.filter(
+    const received = collabsReceivedObj.filter(
       (collabReceived: any) =>
         !collabs
           .map((collab: any) => collab.username)
@@ -500,18 +501,14 @@ const ArtistProfile = ({
         };
 
         const handleAddToSent = () => {
-          // TODO: Collab logic
-          console.log("Add " + name + " to collabsSent");
-        };
+          const variables = {
+            id,
+            collabsSent: [...collabsSent, email],
+          };
+          addCollabSent({ variables });
 
-        const handleDiscord = () => {
-          // TODO
-          console.log("Open " + name + "'s Discord");
-        };
-
-        const handleEmail = () => {
-          // TODO
-          console.log("Open " + name + "'s Email");
+          // TODO: Alert or something that you collabed with {name}
+          setModalOpen(false);
         };
 
         switch (modalType) {
@@ -549,10 +546,7 @@ const ArtistProfile = ({
                   <div className={ctaContainerClass}>
                     <div
                       id="button"
-                      onClick={() => {
-                        handleAddToSent();
-                        setModalOpen(false);
-                      }}
+                      onClick={() => handleAddToSent()}
                       className="cta-button"
                     >
                       Collab

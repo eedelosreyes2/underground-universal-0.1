@@ -1,6 +1,6 @@
-import { useUser } from '@auth0/nextjs-auth0';
-import { useRouter } from 'next/router';
-import ArtistProfile from '../ArtistProfile';
+import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
+import ArtistProfile from "../ArtistProfile";
 
 const Artist = ({ artist }: any) => {
   const router = useRouter();
@@ -23,6 +23,8 @@ const Artist = ({ artist }: any) => {
     udpatedAt,
     dob,
     status,
+    collabsSent,
+    collabsReceived,
   } = artist;
 
   const isUserProfile = () => {
@@ -38,10 +40,10 @@ const Artist = ({ artist }: any) => {
       return (
         <div className="flex justify-between w-full mb-5">
           <div
-            onClick={() => router.push('/settings/profile')}
+            onClick={() => router.push("/settings/profile")}
             className="flex items-center gap-2 text-button"
           >
-            {isProfileComplete() ? 'Edit profile' : 'Complete profile'}
+            {isProfileComplete() ? "Edit profile" : "Complete profile"}
           </div>
         </div>
       );
@@ -51,7 +53,7 @@ const Artist = ({ artist }: any) => {
   const renderMusicSharing = () => {
     return (
       <div className="mt-10">
-        Music sharing is not yet available. Join our{' '}
+        Music sharing is not yet available. Join our{" "}
         <a
           className="text-button"
           href="https://discord.com/invite/KNUG3yTsT8/"
@@ -59,7 +61,7 @@ const Artist = ({ artist }: any) => {
           rel="noreferrer"
         >
           Discord
-        </a>{' '}
+        </a>{" "}
         to get the latest updates.
       </div>
     );
@@ -87,6 +89,8 @@ const Artist = ({ artist }: any) => {
         udpatedAt={udpatedAt}
         dob={dob}
         status={status}
+        collabsSent={collabsSent}
+        collabsReceived={collabsReceived}
       />
       {/* {renderMusicSharing()} */}
     </div>

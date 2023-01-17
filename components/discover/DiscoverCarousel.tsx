@@ -1,7 +1,7 @@
-import ArtistProfile from '../ArtistProfile';
-import { gql, useQuery } from '@apollo/client';
-import { Artist } from '@prisma/client';
-import { useUser } from '@auth0/nextjs-auth0';
+import ArtistProfile from "../ArtistProfile";
+import { gql, useQuery } from "@apollo/client";
+import { Artist } from "@prisma/client";
+import { useUser } from "@auth0/nextjs-auth0";
 
 const GET_ARTIST_BY_EMAIL = gql`
   query {
@@ -23,6 +23,8 @@ const GET_ARTIST_BY_EMAIL = gql`
       udpatedAt
       dob
       status
+      collabsSent
+      collabsReceived
     }
   }
 `;
@@ -61,6 +63,8 @@ const DiscoverCarousel = () => {
               udpatedAt={artist.udpatedAt}
               dob={artist.dob}
               status={artist.status}
+              collabsSent={artist.collabsSent}
+              collabsReceived={artist.collabsReceived}
             />
           );
         }
