@@ -1,12 +1,12 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { getSession, useUser } from '@auth0/nextjs-auth0';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import MultiSelect from '../../components/form/MultiSelect';
-import TextArea from '../../components/form/TextArea';
-import TextField from '../../components/form/TextField';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { getSession, useUser } from "@auth0/nextjs-auth0";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import MultiSelect from "../../components/form/MultiSelect";
+import TextArea from "../../components/form/TextArea";
+import TextField from "../../components/form/TextField";
 
 const ArtistsQuery = gql`
   query {
@@ -100,7 +100,7 @@ export const getServerSideProps = async ({
     return {
       redirect: {
         permanent: false,
-        destination: '/api/auth/login',
+        destination: "/api/auth/login",
       },
       props: {},
     };
@@ -125,18 +125,18 @@ const Profile = () => {
     formState: { errors },
   } = useForm();
   const [profile, setProfile] = useState({
-    id: '',
-    name: '',
-    email: '',
-    username: '',
-    location: '',
-    bio: '',
-    imgSrc: '',
+    id: "",
+    name: "",
+    email: "",
+    username: "",
+    location: "",
+    bio: "",
+    imgSrc: "",
     trackSig: {},
     badge: {},
     roles: [],
     genres: [],
-    experience: '',
+    experience: "",
     streamings: [],
   });
   const {
@@ -189,12 +189,12 @@ const Profile = () => {
   useEffect(() => {
     if (watch().Username) {
       if (artists?.includes(watch().Username.toLowerCase())) {
-        setError('Username', {
-          type: 'custom',
-          message: 'Username already taken',
+        setError("Username", {
+          type: "custom",
+          message: "Username already taken",
         });
       } else {
-        clearErrors('Username');
+        clearErrors("Username");
       }
     }
   }, [watch().Username]);
@@ -208,7 +208,7 @@ const Profile = () => {
       return (
         <div className="flex justify-between w-full mb-5">
           <div
-            onClick={() => router.push('/' + username)}
+            onClick={() => router.push("/" + username)}
             className="flex items-center gap-2 text-button"
           >
             Back to profile
@@ -220,51 +220,51 @@ const Profile = () => {
 
   const renderForm = () => {
     const experienceOptions = [
-      { value: 'ROOKIE', name: 'Rookie (<yr)', id: 0 },
-      { value: 'PLAYER', name: 'Player (1-4 yrs)', id: 1 },
-      { value: 'PRO', name: 'Pro (5-9 yrs)', id: 2 },
-      { value: 'VETERAN', name: 'Veteran (10+ yrs)', id: 3 },
+      { value: "ROOKIE", name: "Rookie (<yr)", id: 0 },
+      { value: "PLAYER", name: "Player (1-4 yrs)", id: 1 },
+      { value: "PRO", name: "Pro (5-9 yrs)", id: 2 },
+      { value: "VETERAN", name: "Veteran (10+ yrs)", id: 3 },
     ];
     const roleOptions = [
-      { value: 'RAPPER', name: 'Rapper', id: 0 },
-      { value: 'SINGER', name: 'Singer', id: 1 },
-      { value: 'PRODUCER', name: 'Producer', id: 2 },
-      { value: 'DJ', name: 'DJ', id: 3 },
-      { value: 'ENGINEER', name: 'Engineer', id: 4 },
+      { value: "RAPPER", name: "Rapper", id: 0 },
+      { value: "SINGER", name: "Singer", id: 1 },
+      { value: "PRODUCER", name: "Producer", id: 2 },
+      { value: "DJ", name: "DJ", id: 3 },
+      { value: "ENGINEER", name: "Engineer", id: 4 },
     ];
     const genreOptions = [
-      { value: 'HIPHOP', name: 'Hip hop', id: 0 },
-      { value: 'ALTERNATIVE', name: 'Alternative', id: 1 },
-      { value: 'BOOMBAP', name: 'Boom Bap', id: 2 },
-      { value: 'EASTCOAST', name: 'East Coast', id: 3 },
-      { value: 'HARDCORE', name: 'Hardcore', id: 4 },
-      { value: 'INSTRUMENTAL', name: 'Instrumental', id: 14 },
-      { value: 'LOFI', name: 'Lofi', id: 5 },
-      { value: 'MIDWEST', name: 'Midwest', id: 12 },
-      { value: 'OLDSCHOOL', name: 'Old School', id: 6 },
-      { value: 'POP', name: 'Pop', id: 7 },
-      { value: 'RNB', name: 'R&B', id: 8 },
-      { value: 'SOUTHERN', name: 'Southern', id: 9 },
-      { value: 'TRAP', name: 'Trap', id: 10 },
-      { value: 'UNDERGROUND', name: 'Underground', id: 11 },
-      { value: 'WESTCOAST', name: 'West Coast', id: 13 },
+      { value: "HIPHOP", name: "Hip hop", id: 0 },
+      { value: "ALTERNATIVE", name: "Alternative", id: 1 },
+      { value: "BOOMBAP", name: "Boom Bap", id: 2 },
+      { value: "EASTCOAST", name: "East Coast", id: 3 },
+      { value: "HARDCORE", name: "Hardcore", id: 4 },
+      { value: "INSTRUMENTAL", name: "Instrumental", id: 14 },
+      { value: "LOFI", name: "Lofi", id: 5 },
+      { value: "MIDWEST", name: "Midwest", id: 12 },
+      { value: "OLDSCHOOL", name: "Old School", id: 6 },
+      { value: "POP", name: "Pop", id: 7 },
+      { value: "RNB", name: "R&B", id: 8 },
+      { value: "SOUTHERN", name: "Southern", id: 9 },
+      { value: "TRAP", name: "Trap", id: 10 },
+      { value: "UNDERGROUND", name: "Underground", id: 11 },
+      { value: "WESTCOAST", name: "West Coast", id: 13 },
     ];
 
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
     streamings.map((platform: string) => {
-      if (platform.includes('spotify')) {
+      if (platform.includes("spotify")) {
         spotify = platform;
       }
-      if (platform.includes('apple')) {
+      if (platform.includes("apple")) {
         appleMusic = platform;
       }
-      if (platform.includes('soundcloud')) {
+      if (platform.includes("soundcloud")) {
         soundcloud = platform;
       }
-      if (platform.includes('youtube')) {
+      if (platform.includes("youtube")) {
         youtube = platform;
       }
-      if (platform.includes('bandcamp')) {
+      if (platform.includes("bandcamp")) {
         bandcamp = platform;
       }
     });
@@ -311,7 +311,7 @@ const Profile = () => {
       };
 
       updateArtist({ variables });
-      // router.reload();
+      router.reload();
     };
 
     // TODO: Add profile pic + sigSong to form
@@ -325,7 +325,7 @@ const Profile = () => {
             <div className="relative rounded-full w-60 h-60">
               <Image
                 priority
-                src={imgSrc || '/default_artist_img.jpg'}
+                src={imgSrc || "/default_artist_img.jpg"}
                 layout="fill"
                 alt="Profile"
                 className="rounded-full"
