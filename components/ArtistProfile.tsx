@@ -1,36 +1,25 @@
-import { useUser } from '@auth0/nextjs-auth0';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { IconContext } from 'react-icons';
-import { HiOutlineAtSymbol } from 'react-icons/hi';
-import { MdVerified } from 'react-icons/md';
-import { TbCurrentLocation } from 'react-icons/tb';
+import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { IconContext } from "react-icons";
+import { HiOutlineAtSymbol } from "react-icons/hi";
+import { MdVerified } from "react-icons/md";
+import { TbCurrentLocation } from "react-icons/tb";
 import {
   SiSpotify,
   SiApplemusic,
   SiSoundcloud,
   SiYoutube,
   SiBandcamp,
-} from 'react-icons/si';
-import Genre from '../components/tags/Genre';
-import Experience from '../components/tags/Experience';
-import Role from '../components/tags/Role';
-import Image from 'next/image';
-import { Artist } from '@prisma/client';
-import { gql, useQuery } from '@apollo/client';
-import { BsCheckLg, BsReplyAll } from 'react-icons/bs';
-import Modal from './Modal';
-
-const ADD_COLLAB = gql`
-  mutation ($id: String!) {
-    updateArtist(id: $id) {
-      id
-    }
-  }
-`;
-// TODO: Add collab, cancel collab request, remove collab mutations
-// TODO: If collabed, remove collab button will be on profile page
-// and collab button will turn into message/email/discord
+} from "react-icons/si";
+import Genre from "../components/tags/Genre";
+import Experience from "../components/tags/Experience";
+import Role from "../components/tags/Role";
+import Image from "next/image";
+import { Artist } from "@prisma/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { BsCheckLg } from "react-icons/bs";
+import Modal from "./Modal";
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -47,6 +36,22 @@ const GET_ARTISTS_BY_EMAIL = gql`
       name
       email
       username
+    }
+  }
+`;
+
+const ADD_COLLAB_SENT = gql`
+  mutation ($id: String!, $collabsSent: [String]) {
+    addCollabSent(id: $id, collabsSent: $collabsSent) {
+      collabsSent
+    }
+  }
+`;
+
+const ADD_COLLAB_RECEIVED = gql`
+  mutation ($id: String!, $collabsReceived: [String]) {
+    addCollabReceived(id: $id, collabsReceived: $collabsReceived) {
+      collabsReceived
     }
   }
 `;
@@ -69,16 +74,17 @@ const ArtistProfile = ({
   udpatedAt,
   dob,
   status,
+  collabsSent,
+  collabsReceived,
 }: Artist) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
   const { user } = useUser();
 
+  // Queries
   const { data: collabsSentData } = useQuery(GET_COLLABS, {
     variables: { email: user?.email },
   });
-
-  // Fetch collabs data by email
   const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
     variables: { emails: collabsSentData?.getArtistByEmail.collabsSent },
   });
@@ -88,27 +94,41 @@ const ArtistProfile = ({
     },
   });
 
+  // Mutations
+  const [addCollabSent] = useMutation(ADD_COLLAB_SENT, {
+    variables: {
+      id,
+      collabsSent,
+    },
+  });
+  const [addCollabReceived] = useMutation(ADD_COLLAB_RECEIVED, {
+    variables: {
+      id,
+      collabsReceived,
+    },
+  });
+
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalType, setModalType] = useState('');
+  const [modalType, setModalType] = useState("");
 
   const isUserProfile = () => {
     return user?.email == email;
   };
 
   const isDiscoverPage = () => {
-    return router.pathname === '/discover';
+    return router.pathname === "/discover";
   };
 
   const handleProfileClick = (e: any) => {
     const target = e.target as HTMLElement;
     if (
       !modalOpen &&
-      target.id != 'button' &&
-      target.tagName != 'A' &&
-      target.tagName != 'path' &&
-      target.tagName != 'svg'
+      target.id != "button" &&
+      target.tagName != "A" &&
+      target.tagName != "path" &&
+      target.tagName != "svg"
     ) {
-      router.push('/' + username);
+      router.push("/" + username);
     }
   };
 
@@ -125,7 +145,7 @@ const ArtistProfile = ({
           md:min-w-[240px] md:min-h-[240px]"
       >
         <Image
-          src={imgSrc || '/default_artist_img.jpg'}
+          src={imgSrc || "/default_artist_img.jpg"}
           layout="fill"
           alt="Profile"
           className="rounded-full"
@@ -185,17 +205,17 @@ const ArtistProfile = ({
 
   const renderInfo = () => {
     const nameComponent =
-      router.pathname === '/discover' ? (
+      router.pathname === "/discover" ? (
         <h1
-          onClick={() => router.push('/' + username)}
+          onClick={() => router.push("/" + username)}
           className="inline text-left cursor-pointer"
         >
-          {name || user?.nickname + ' '}
+          {name || user?.nickname + " "}
           {badgeId && (
             <IconContext.Provider
               value={{
-                color: 'red',
-                className: 'inline',
+                color: "red",
+                className: "inline",
               }}
             >
               <MdVerified />
@@ -204,12 +224,12 @@ const ArtistProfile = ({
         </h1>
       ) : (
         <h1 className="inline text-left">
-          {name || user?.nickname + ' '}
+          {name || user?.nickname + " "}
           {badgeId && (
             <IconContext.Provider
               value={{
-                color: 'red',
-                className: 'inline',
+                color: "red",
+                className: "inline",
               }}
             >
               <MdVerified />
@@ -263,7 +283,7 @@ const ArtistProfile = ({
   const renderMoreInfo = () => {
     return (
       <>
-        <div className={isDiscoverPage() ? 'line-clamp-4' : ''}>{bio}</div>
+        <div className={isDiscoverPage() ? "line-clamp-4" : ""}>{bio}</div>
         <div className="w-full flex flex-wrap mb-3 mt-4">
           <Experience experience={experience} />
           {roles?.map((role: any, id: any) => (
@@ -281,11 +301,11 @@ const ArtistProfile = ({
   const renderStreamings = () => {
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
     const streamingContainerCLass =
-      'flex cursor-pointer font-bold mr-1 hover:scale-110 transition:transform';
+      "flex cursor-pointer font-bold mr-1 hover:scale-110 transition:transform";
 
     const setHttps = (url: string) => {
-      if (url.search('^http[s]?') == -1) {
-        url = 'https://' + url;
+      if (url.search("^http[s]?") == -1) {
+        url = "https://" + url;
       }
       return url;
     };
@@ -294,19 +314,19 @@ const ArtistProfile = ({
       if (platform) {
         let url = new URL(setHttps(platform));
 
-        if (platform.includes('spotify')) {
+        if (platform.includes("spotify")) {
           spotify = url;
         }
-        if (platform.includes('apple')) {
+        if (platform.includes("apple")) {
           appleMusic = url;
         }
-        if (platform.includes('soundcloud')) {
+        if (platform.includes("soundcloud")) {
           soundcloud = url;
         }
-        if (platform.includes('youtube')) {
+        if (platform.includes("youtube")) {
           youtube = url;
         }
-        if (platform.includes('bandcamp')) {
+        if (platform.includes("bandcamp")) {
           bandcamp = url;
         }
       }
@@ -319,8 +339,8 @@ const ArtistProfile = ({
             <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
-                  size: '1.75em',
-                  className: 'text-spotify mr-2',
+                  size: "1.75em",
+                  className: "text-spotify mr-2",
                 }}
               >
                 <a href={spotify} target="__blank">
@@ -334,8 +354,8 @@ const ArtistProfile = ({
             <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
-                  size: '1.75em',
-                  className: 'text-appleMusic mr-2',
+                  size: "1.75em",
+                  className: "text-appleMusic mr-2",
                 }}
               >
                 <a href={appleMusic} target="__blank">
@@ -349,8 +369,8 @@ const ArtistProfile = ({
             <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
-                  size: '1.75em',
-                  className: 'text-soundcloud mr-2',
+                  size: "1.75em",
+                  className: "text-soundcloud mr-2",
                 }}
               >
                 <a href={soundcloud} target="__blank">
@@ -364,8 +384,8 @@ const ArtistProfile = ({
             <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
-                  size: '1.75em',
-                  className: 'text-primary mr-2',
+                  size: "1.75em",
+                  className: "text-primary mr-2",
                 }}
               >
                 <a href={youtube} target="__blank">
@@ -379,8 +399,8 @@ const ArtistProfile = ({
             <div className={streamingContainerCLass}>
               <IconContext.Provider
                 value={{
-                  size: '1.75em',
-                  className: 'text-bandcamp mr-2',
+                  size: "1.75em",
+                  className: "text-bandcamp mr-2",
                 }}
               >
                 <a href={bandcamp} target="__blank">
@@ -445,57 +465,57 @@ const ArtistProfile = ({
 
     const renderCta = () => {
       const handleCollabClick = () => {
-        setModalType('collab');
+        setModalType("collab");
         setModalOpen(true);
       };
 
       const handleSentClick = () => {
-        setModalType('sent');
+        setModalType("sent");
         setModalOpen(true);
       };
 
       const handleReceivedClick = () => {
-        setModalType('received');
+        setModalType("received");
         setModalOpen(true);
       };
 
       const handleMessageClick = () => {
-        setModalType('message');
+        setModalType("message");
         setModalOpen(true);
       };
 
       const renderModal = (modalType: any) => {
         let modal = null;
-        const containerClass = 'flex flex-col gap-10';
-        const ctaContainerClass = 'flex justify-center items-center gap-10';
+        const containerClass = "flex flex-col gap-10";
+        const ctaContainerClass = "flex justify-center items-center gap-10";
 
         const handleRemoveFromSent = () => {
           // TODO: Collab logic
-          console.log('remove ' + name + ' from collabsSent');
+          console.log("remove " + name + " from collabsSent");
         };
 
         const handleRemoveFromReceived = () => {
           // TODO: Collab logic
-          console.log('remove ' + name + ' from collabsReceived');
+          console.log("remove " + name + " from collabsReceived");
         };
 
         const handleAddToSent = () => {
           // TODO: Collab logic
-          console.log('Add ' + name + ' to collabsSent');
+          console.log("Add " + name + " to collabsSent");
         };
 
         const handleDiscord = () => {
           // TODO
-          console.log('Open ' + name + "'s Discord");
+          console.log("Open " + name + "'s Discord");
         };
 
         const handleEmail = () => {
           // TODO
-          console.log('Open ' + name + "'s Email");
+          console.log("Open " + name + "'s Email");
         };
 
         switch (modalType) {
-          case 'collab':
+          case "collab":
             if (!user) {
               modal = (
                 <div className={containerClass}>
@@ -505,7 +525,7 @@ const ArtistProfile = ({
                   <div className={ctaContainerClass}>
                     <div
                       id="button"
-                      onClick={() => router.push('/api/auth/login')}
+                      onClick={() => router.push("/api/auth/login")}
                       className="cta-button"
                     >
                       Log in
@@ -550,7 +570,7 @@ const ArtistProfile = ({
             }
             break;
 
-          case 'sent':
+          case "sent":
             modal = (
               <div className={containerClass}>
                 <div>
@@ -576,7 +596,7 @@ const ArtistProfile = ({
             );
             break;
 
-          case 'received':
+          case "received":
             modal = (
               <div className={containerClass}>
                 <div>
@@ -609,13 +629,13 @@ const ArtistProfile = ({
             );
             break;
 
-          case 'message':
+          case "message":
             modal = (
               <div className={containerClass}>
                 <div className="flex flex-col gap-5">
                   <div>
                     The Messaging Collabs feature is not yet available... For
-                    now you can reach out to <b>{name}</b> through the{' '}
+                    now you can reach out to <b>{name}</b> through the{" "}
                     <a
                       className="text-button"
                       href="https://discord.com/invite/KNUG3yTsT8/"
@@ -711,7 +731,7 @@ const ArtistProfile = ({
 
   return (
     <div
-      className={isDiscoverPage() ? 'card cursor-pointer' : ''}
+      className={isDiscoverPage() ? "card cursor-pointer" : ""}
       onClick={(e) => handleProfileClick(e)}
     >
       {/* Top container */}

@@ -256,10 +256,10 @@ export const UpdateArtist = extendType({
   },
 });
 
-export const AddCollab = extendType({
+export const AddCollabSent = extendType({
   type: 'Mutation',
   definition(t) {
-    t.nonNull.field('addCollab', {
+    t.nonNull.field('addCollabSent', {
       type: Artist,
       args: { id: nonNull(stringArg()), collabsSent: list(stringArg()) },
       async resolve(_parent, _args, ctx) {
@@ -269,6 +269,26 @@ export const AddCollab = extendType({
           },
           data: {
             collabsSent: _args.collabsSent,
+          },
+        });
+      },
+    });
+  },
+});
+
+export const AddCollabReceived = extendType({
+  type: 'Mutation',
+  definition(t) {
+    t.nonNull.field('addCollabReceived', {
+      type: Artist,
+      args: { id: nonNull(stringArg()), collabsReceived: list(stringArg()) },
+      async resolve(_parent, _args, ctx) {
+        return await ctx.prisma.artist.update({
+          where: {
+            id: _args.id,
+          },
+          data: {
+            collabsReceived: _args.collabsReceived,
           },
         });
       },
