@@ -35,7 +35,7 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
         <div
           className="fixed m-auto left-0 right-0 top-0 bottom-80 flex flex-col 
         z-50 dark:bg-nav-dark bg-nav-light shadow-2xl border-primary border-2
-        rounded-lg min-h-[100px] max-h-fit w-[90%] max-w-xl"
+        rounded-lg min-h-[100px] max-h-[300px] w-[90%] max-w-xl"
         >
           <div
             className="bg-primary rounded-t-sm h-[5px] w-full
@@ -43,7 +43,7 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
           ></div>
           <div
             className="h-full flex-grow p-5 px-10 text-center
-        flex flex-col gap-5 justify-between items-center"
+        flex flex-col gap-5 justify-center items-center"
           >
             {children}
           </div>
