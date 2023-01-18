@@ -493,8 +493,18 @@ const ArtistProfile = ({
         const ctaContainerClass = "flex justify-center items-center gap-10";
 
         const handleRemoveFromSent = () => {
-          // TODO: Collab logic
-          console.log("remove " + name + " from collabsSent");
+          const variables = {
+            id,
+            collabsSent: [
+              ...collabsSent.filter((collab: any) => collab != email),
+            ],
+          };
+
+          addCollabSent({ variables });
+          setModalOpen(false);
+
+          // TODO: Alert or something that you collabed with {name}
+          router.push("/" + username);
         };
 
         const handleRemoveFromReceived = () => {
