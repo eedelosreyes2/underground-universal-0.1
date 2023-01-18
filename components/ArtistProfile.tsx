@@ -445,12 +445,14 @@ const ArtistProfile = ({
           .includes(collabReceived.username)
     );
 
+    // TODO: Store in state so component rerenders on data change
     const isCollabed = () => {
       return (
         collabs.filter((collab: any) => collab.username === username).length > 0
       );
     };
 
+    // TODO: Store in state so component rerenders on data change
     const isSent = () => {
       return (
         !isCollabed() &&
@@ -458,6 +460,7 @@ const ArtistProfile = ({
       );
     };
 
+    // TODO: Store in state so component rerenders on data change
     const isRceieved = () => {
       return (
         !isCollabed() &&
@@ -492,6 +495,7 @@ const ArtistProfile = ({
         const containerClass = "flex flex-col gap-10";
         const ctaContainerClass = "flex justify-center items-center gap-10";
 
+        // TODO: Handle logic for the receiving user
         const handleRemoveFromSent = () => {
           const variables = {
             id,
@@ -503,15 +507,26 @@ const ArtistProfile = ({
           addCollabSent({ variables });
           setModalOpen(false);
 
-          // TODO: Alert or something that you collabed with {name}
+          // TODO: Alert or toast saying that you collabed with {name}
           router.push("/" + username);
         };
 
+        // TODO: Handle logic for the receiving user
         const handleRemoveFromReceived = () => {
-          // TODO: Collab logic
-          console.log("remove " + name + " from collabsReceived");
+          const variables = {
+            id,
+            collabsReceived: [
+              ...collabsReceived.filter((collab: any) => collab != email),
+            ],
+          };
+          addCollabReceived({ variables });
+          setModalOpen(false);
+
+          // TODO: Alert or toast saying that you collabed with {name}
+          router.push("/" + username);
         };
 
+        // TODO: Handle logic for the receiving user
         const handleAddToSent = () => {
           const variables = {
             id,
@@ -520,7 +535,7 @@ const ArtistProfile = ({
           addCollabSent({ variables });
           setModalOpen(false);
 
-          // TODO: Alert or something that you collabed with {name}
+          // TODO: Alert or toast saying that you collabed with {name}
           router.push("/" + username);
         };
 
@@ -746,11 +761,13 @@ const ArtistProfile = ({
         {renderAvatar()}
         {renderInfo()}
       </div>
+      {/* TODO: Add remove collabs if collabed */}
 
       {/* Mobile only */}
       <div className="sm:hidden sm:block w-full text-left">
         {renderMoreInfo()}
       </div>
+      {/* TODO: Mobile - Add remove collabs if collabed */}
     </div>
   );
 };
