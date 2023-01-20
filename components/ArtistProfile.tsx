@@ -59,6 +59,7 @@ const ADD_COLLAB_RECEIVED = gql`
 `;
 
 const ArtistProfile = ({
+  id: artistId,
   name,
   email,
   username,
@@ -75,6 +76,8 @@ const ArtistProfile = ({
   udpatedAt,
   dob,
   status,
+  collabsReceived: artistCollabsReceived,
+  collabsSent: artistCollabsSent,
 }: Artist) => {
   const router = useRouter();
   const [playing, setPlaying] = useState(true);
@@ -99,6 +102,8 @@ const ArtistProfile = ({
       emails: collabsReceived,
     },
   });
+
+  console.log(artistCollabsReceived);
 
   // Mutations
   const [addCollabSent] = useMutation(ADD_COLLAB_SENT, {
@@ -533,9 +538,14 @@ const ArtistProfile = ({
             collabsSent: [...collabsSent, email],
           };
           addCollabSent({ variables });
-          setModalOpen(false);
+
+          const artistVariables = {
+            artistId,
+            // collabsReceived:
+          };
 
           // TODO: Alert or toast saying that you collabed with {name}
+          setModalOpen(false);
           router.push("/" + username);
         };
 
