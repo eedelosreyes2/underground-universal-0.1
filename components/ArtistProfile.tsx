@@ -59,7 +59,7 @@ const ADD_COLLAB_RECEIVED = gql`
 `;
 
 const ArtistProfile = ({
-  id: artistId,
+  id,
   name,
   email,
   username,
@@ -90,7 +90,8 @@ const ArtistProfile = ({
     variables: { email: user?.email },
   });
 
-  const id = collabsSentData?.getArtistByEmail.id;
+  // Logged in user info
+  const userId = collabsSentData?.getArtistByEmail.id;
   const collabsSent = collabsSentData?.getArtistByEmail.collabsSent;
   const collabsReceived = collabsSentData?.getArtistByEmail.collabsReceived;
 
@@ -108,13 +109,13 @@ const ArtistProfile = ({
   // Mutations
   const [addCollabSent] = useMutation(ADD_COLLAB_SENT, {
     variables: {
-      id,
+      id: userId,
       collabsSent,
     },
   });
   const [addCollabReceived] = useMutation(ADD_COLLAB_RECEIVED, {
     variables: {
-      id,
+      id: userId,
       collabsReceived,
     },
   });
@@ -503,7 +504,7 @@ const ArtistProfile = ({
         // TODO: Handle logic for the receiving user
         const handleRemoveFromSent = () => {
           const variables = {
-            id,
+            id: userId,
             collabsSent: [
               ...collabsSent.filter((collab: any) => collab != email),
             ],
@@ -519,7 +520,7 @@ const ArtistProfile = ({
         // TODO: Handle logic for the receiving user
         const handleRemoveFromReceived = () => {
           const variables = {
-            id,
+            id: userId,
             collabsReceived: [
               ...collabsReceived.filter((collab: any) => collab != email),
             ],
@@ -531,17 +532,17 @@ const ArtistProfile = ({
           router.push("/" + username);
         };
 
-        // TODO: Handle logic for the receiving user
         const handleAddToSent = () => {
           const variables = {
-            id,
+            id: userId,
             collabsSent: [...collabsSent, email],
           };
           addCollabSent({ variables });
 
+          // TODO: Handle logic for the receiving user
           const artistVariables = {
-            artistId,
-            // collabsReceived:
+            id,
+            // collabsReceived: [...artistCollabsReceived,
           };
 
           // TODO: Alert or toast saying that you collabed with {name}
