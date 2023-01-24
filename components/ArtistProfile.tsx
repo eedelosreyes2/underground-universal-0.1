@@ -499,7 +499,6 @@ const ArtistProfile = ({
         const containerClass = 'flex flex-col gap-10';
         const ctaContainerClass = 'flex justify-center items-center gap-10';
 
-        // TODO: Handle logic for the receiving user
         const handleRemoveFromSent = () => {
           const variables = {
             id: userId,
@@ -507,15 +506,24 @@ const ArtistProfile = ({
               ...collabsSent.filter((collab: any) => collab != email),
             ],
           };
-
           addCollabSent({ variables });
-          setModalOpen(false);
+
+          // Remove logged in user from receiving user's collabsReceived
+          const artistVariables = {
+            id,
+            collabsReceived: [
+              ...artistCollabsReceived.filter(
+                (collab: any) => collab != user?.email
+              ),
+            ],
+          };
+          addCollabReceived({ variables: artistVariables });
 
           // TODO: Alert or toast saying that you collabed with {name}
+          setModalOpen(false);
           router.push('/' + username);
         };
 
-        // TODO: Handle logic for the receiving user
         const handleRemoveFromReceived = () => {
           const variables = {
             id: userId,
@@ -524,9 +532,20 @@ const ArtistProfile = ({
             ],
           };
           addCollabReceived({ variables });
-          setModalOpen(false);
+
+          // Remove logged in user from receiving user's collabsSent
+          const artistVariables = {
+            id,
+            collabsSent: [
+              ...artistCollabsSent.filter(
+                (collab: any) => collab != user?.email
+              ),
+            ],
+          };
+          addCollabSent({ variables: artistVariables });
 
           // TODO: Alert or toast saying that you collabed with {name}
+          setModalOpen(false);
           router.push('/' + username);
         };
 
@@ -537,7 +556,8 @@ const ArtistProfile = ({
           };
           addCollabSent({ variables });
 
-          // Handle logic for the receiving user
+          // TODO: Test
+          // Add logged in user to receiving user's collabsReceived
           const artistVariables = {
             id,
             collabsReceived: [...artistCollabsReceived, user?.email],
