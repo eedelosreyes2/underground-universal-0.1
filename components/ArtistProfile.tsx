@@ -86,9 +86,15 @@ const ArtistProfile = ({
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
 
+  // Logged in user collabs
   const [collabs, setCollabs] = useState([] as any);
   const [sent, setSent] = useState([] as any);
   const [received, setReceived] = useState([] as any);
+
+  // State of cta button
+  const [isCollabed, setIsCollabed] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [isReceived, setIsReceived] = useState(false);
 
   const { data: collabsSentData } = useQuery(GET_COLLABS, {
     variables: { email: user?.email },
@@ -123,6 +129,7 @@ const ArtistProfile = ({
     },
   });
 
+  // On component mount
   useEffect(() => {
     // Collab artist data
     const collabsSentObj = Object.values(
@@ -156,6 +163,26 @@ const ArtistProfile = ({
     setSent(sent);
     setReceived(received);
   }, [collabsSentArtistData, collabsReceievedArtistData]);
+
+  // On collabs change
+  useEffect(() => {
+    const isCollabed =
+      collabs.filter((collab: any) => collab.username === username).length > 0;
+    const isSent =
+      !isCollabed &&
+      sent.filter((collab: any) => collab.username === username).length > 0;
+    const isReceived =
+      !isCollabed &&
+      received.filter((collab: any) => collab.username === username).length > 0;
+
+    // TODO: Fix
+    console.log(artistCollabsSent);
+    console.log(artistCollabsReceived);
+
+    setIsCollabed(isCollabed);
+    setIsSent(isSent);
+    setIsReceived(isReceived);
+  }, [collabs, sent, received]);
 
   const isUserProfile = () => {
     return user?.email == email;
@@ -199,8 +226,8 @@ const ArtistProfile = ({
     addCollabReceived({ variables: artistVariables });
 
     // TODO: Alert or toast saying that you collabed with {name}
+    setIsSent(false);
     setModalOpen(false);
-    router.push('/' + username);
   };
 
   const handleRemoveFromReceived = () => {
@@ -222,8 +249,8 @@ const ArtistProfile = ({
     addCollabSent({ variables: artistVariables });
 
     // TODO: Alert or toast saying that you collabed with {name}
+    setReceived(false);
     setModalOpen(false);
-    router.push('/' + username);
   };
 
   const handleAddToSent = () => {
@@ -233,6 +260,7 @@ const ArtistProfile = ({
     };
     addCollabSent({ variables });
 
+    // TODO: Fix multiple adds
     // Add logged in user to receiving user's collabsReceived
     const artistVariables = {
       id,
@@ -241,8 +269,8 @@ const ArtistProfile = ({
     addCollabReceived({ variables: artistVariables });
 
     // TODO: Alert or toast saying that you collabed with {name}
+    setIsSent(true);
     setModalOpen(false);
-    router.push('/' + username);
   };
 
   const renderAvatar = () => {
@@ -524,30 +552,6 @@ const ArtistProfile = ({
   };
 
   const renderCollab = () => {
-    // TODO: Store in state so component rerenders on data change
-    const isCollabed = () => {
-      return (
-        collabs.filter((collab: any) => collab.username === username).length > 0
-      );
-    };
-
-    // TODO: Store in state so component rerenders on data change
-    const isSent = () => {
-      return (
-        !isCollabed() &&
-        sent.filter((collab: any) => collab.username === username).length > 0
-      );
-    };
-
-    // TODO: Store in state so component rerenders on data change
-    const isRceieved = () => {
-      return (
-        !isCollabed() &&
-        received.filter((collab: any) => collab.username === username).length >
-          0
-      );
-    };
-
     const renderCta = () => {
       const handleCollabClick = () => {
         setModalType('collab');
@@ -738,13 +742,13 @@ const ArtistProfile = ({
             </Modal>
           )}
 
-          {!isUserProfile() && !isCollabed() && !isSent() && !isRceieved() && (
+          {!isUserProfile() && !isCollabed && !isSent && !isReceived && (
             <div id="button" onClick={handleCollabClick} className="cta-button">
               Collab
             </div>
           )}
 
-          {isSent() && (
+          {isSent && (
             <div
               id="button"
               onClick={handleSentClick}
@@ -755,7 +759,7 @@ const ArtistProfile = ({
             </div>
           )}
 
-          {isRceieved() && (
+          {isReceived && (
             <div
               id="button"
               onClick={handleReceivedClick}
@@ -765,7 +769,7 @@ const ArtistProfile = ({
             </div>
           )}
 
-          {isCollabed() && (
+          {isCollabed && (
             <div
               id="button"
               onClick={handleMessageClick}
@@ -779,7 +783,7 @@ const ArtistProfile = ({
     };
 
     return (
-      <div className="flex items-center">
+      <div id="collab" className="flex items-center">
         {renderCta()}
         {renderStreamings()}
       </div>
