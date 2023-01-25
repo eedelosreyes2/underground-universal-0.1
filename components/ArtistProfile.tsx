@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { HiOutlineAtSymbol } from 'react-icons/hi';
 import { MdVerified } from 'react-icons/md';
@@ -80,12 +80,16 @@ const ArtistProfile = ({
   collabsSent: artistCollabsSent,
 }: Artist) => {
   const router = useRouter();
+  const { user } = useUser();
   const [playing, setPlaying] = useState(true);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
-  const { user } = useUser();
 
-  // Queries
+  const [collabs, setCollabs] = useState([] as any);
+  const [sent, setSent] = useState([] as any);
+  const [received, setReceived] = useState([] as any);
+
   const { data: collabsSentData } = useQuery(GET_COLLABS, {
     variables: { email: user?.email },
   });
@@ -95,6 +99,7 @@ const ArtistProfile = ({
   const collabsSent = collabsSentData?.getArtistByEmail.collabsSent;
   const collabsReceived = collabsSentData?.getArtistByEmail.collabsReceived;
 
+  // Collabs data
   const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
     variables: { emails: collabsSent },
   });
@@ -117,6 +122,40 @@ const ArtistProfile = ({
       collabsReceived,
     },
   });
+
+  useEffect(() => {
+    // Collab artist data
+    const collabsSentObj = Object.values(
+      collabsSentArtistData?.getArtistsByEmail || {}
+    );
+    const collabsReceivedObj = Object.values(
+      collabsReceievedArtistData?.getArtistsByEmail || {}
+    );
+
+    // Filter and set objects to render
+    const collabs = collabsSentObj.filter((sentCollab: any) =>
+      collabsReceivedObj
+        .map((receivedCollab: any) => receivedCollab.username)
+        .includes(sentCollab.username)
+    );
+    const sent = collabsSentObj.filter(
+      (collabSent: any) =>
+        !collabs
+          .map((collab: any) => collab.username)
+          .includes(collabSent.username)
+    );
+    const received = collabsReceivedObj.filter(
+      (collabReceived: any) =>
+        !collabs
+          .map((collab: any) => collab.username)
+          .includes(collabReceived.username)
+    );
+
+    // Set to global state
+    setCollabs(collabs);
+    setSent(sent);
+    setReceived(received);
+  }, [collabsSentArtistData, collabsReceievedArtistData]);
 
   const isUserProfile = () => {
     return user?.email == email;
@@ -141,6 +180,69 @@ const ArtistProfile = ({
 
   const playHandler = () => {
     setPlaying((playing: any) => !playing);
+  };
+
+  const handleRemoveFromSent = () => {
+    const variables = {
+      id: userId,
+      collabsSent: [...collabsSent.filter((collab: any) => collab != email)],
+    };
+    addCollabSent({ variables });
+
+    // Remove logged in user from receiving user's collabsReceived
+    const artistVariables = {
+      id,
+      collabsReceived: [
+        ...artistCollabsReceived.filter((collab: any) => collab != user?.email),
+      ],
+    };
+    addCollabReceived({ variables: artistVariables });
+
+    // TODO: Alert or toast saying that you collabed with {name}
+    setModalOpen(false);
+    router.push('/' + username);
+  };
+
+  const handleRemoveFromReceived = () => {
+    const variables = {
+      id: userId,
+      collabsReceived: [
+        ...collabsReceived.filter((collab: any) => collab != email),
+      ],
+    };
+    addCollabReceived({ variables });
+
+    // Remove logged in user from receiving user's collabsSent
+    const artistVariables = {
+      id,
+      collabsSent: [
+        ...artistCollabsSent.filter((collab: any) => collab != user?.email),
+      ],
+    };
+    addCollabSent({ variables: artistVariables });
+
+    // TODO: Alert or toast saying that you collabed with {name}
+    setModalOpen(false);
+    router.push('/' + username);
+  };
+
+  const handleAddToSent = () => {
+    const variables = {
+      id: userId,
+      collabsSent: [...collabsSent, email],
+    };
+    addCollabSent({ variables });
+
+    // Add logged in user to receiving user's collabsReceived
+    const artistVariables = {
+      id,
+      collabsReceived: [...artistCollabsReceived, user?.email],
+    };
+    addCollabReceived({ variables: artistVariables });
+
+    // TODO: Alert or toast saying that you collabed with {name}
+    setModalOpen(false);
+    router.push('/' + username);
   };
 
   const renderAvatar = () => {
@@ -422,33 +524,6 @@ const ArtistProfile = ({
   };
 
   const renderCollab = () => {
-    // Collab artist data
-    const collabsSentObj = Object.values(
-      collabsSentArtistData?.getArtistsByEmail || {}
-    );
-    const collabsReceivedObj = Object.values(
-      collabsReceievedArtistData?.getArtistsByEmail || {}
-    );
-
-    // Filter and set objects to render
-    const collabs = collabsSentObj.filter((sentCollab: any) =>
-      collabsReceivedObj
-        .map((receivedCollab: any) => receivedCollab.username)
-        .includes(sentCollab.username)
-    );
-    const sent = collabsSentObj.filter(
-      (collabSent: any) =>
-        !collabs
-          .map((collab: any) => collab.username)
-          .includes(collabSent.username)
-    );
-    const received = collabsReceivedObj.filter(
-      (collabReceived: any) =>
-        !collabs
-          .map((collab: any) => collab.username)
-          .includes(collabReceived.username)
-    );
-
     // TODO: Store in state so component rerenders on data change
     const isCollabed = () => {
       return (
@@ -498,76 +573,6 @@ const ArtistProfile = ({
         let modal = null;
         const containerClass = 'flex flex-col gap-10';
         const ctaContainerClass = 'flex justify-center items-center gap-10';
-
-        const handleRemoveFromSent = () => {
-          const variables = {
-            id: userId,
-            collabsSent: [
-              ...collabsSent.filter((collab: any) => collab != email),
-            ],
-          };
-          addCollabSent({ variables });
-
-          // Remove logged in user from receiving user's collabsReceived
-          const artistVariables = {
-            id,
-            collabsReceived: [
-              ...artistCollabsReceived.filter(
-                (collab: any) => collab != user?.email
-              ),
-            ],
-          };
-          addCollabReceived({ variables: artistVariables });
-
-          // TODO: Alert or toast saying that you collabed with {name}
-          setModalOpen(false);
-          router.push('/' + username);
-        };
-
-        const handleRemoveFromReceived = () => {
-          const variables = {
-            id: userId,
-            collabsReceived: [
-              ...collabsReceived.filter((collab: any) => collab != email),
-            ],
-          };
-          addCollabReceived({ variables });
-
-          // Remove logged in user from receiving user's collabsSent
-          const artistVariables = {
-            id,
-            collabsSent: [
-              ...artistCollabsSent.filter(
-                (collab: any) => collab != user?.email
-              ),
-            ],
-          };
-          addCollabSent({ variables: artistVariables });
-
-          // TODO: Alert or toast saying that you collabed with {name}
-          setModalOpen(false);
-          router.push('/' + username);
-        };
-
-        const handleAddToSent = () => {
-          const variables = {
-            id: userId,
-            collabsSent: [...collabsSent, email],
-          };
-          addCollabSent({ variables });
-
-          // TODO: Test
-          // Add logged in user to receiving user's collabsReceived
-          const artistVariables = {
-            id,
-            collabsReceived: [...artistCollabsReceived, user?.email],
-          };
-          addCollabReceived({ variables: artistVariables });
-
-          // TODO: Alert or toast saying that you collabed with {name}
-          setModalOpen(false);
-          router.push('/' + username);
-        };
 
         switch (modalType) {
           case 'collab':
