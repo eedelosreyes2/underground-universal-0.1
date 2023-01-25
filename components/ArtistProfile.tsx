@@ -81,7 +81,6 @@ const ArtistProfile = ({
 }: Artist) => {
   const router = useRouter();
   const { user } = useUser();
-  const [playing, setPlaying] = useState(true);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('');
@@ -206,10 +205,6 @@ const ArtistProfile = ({
     }
   };
 
-  const playHandler = () => {
-    setPlaying((playing: any) => !playing);
-  };
-
   const handleRemoveFromSent = () => {
     const variables = {
       id: userId,
@@ -289,55 +284,6 @@ const ArtistProfile = ({
           alt="Profile"
           className="rounded-full"
         />
-        <div
-          onClick={playHandler}
-          className="rounded-full flex justify-center items-center md:w-60 md:h-60"
-        >
-          {/* TODO: Fix trackSig player UX */}
-          {/* {playing ? (
-            <>
-              <IconContext.Provider
-                value={{
-                  size: '6em',
-                  color: 'red',
-                  className: 'hidden md:block opacity-50',
-                }}
-              >
-                <VscDebugPause />
-              </IconContext.Provider>
-              <IconContext.Provider
-                value={{
-                  size: '2.85em',
-                  color: 'red',
-                  className: 'md:hidden opacity-50',
-                }}
-              >
-                <VscDebugPause />
-              </IconContext.Provider>
-            </>
-          ) : (
-            <>
-              <IconContext.Provider
-                value={{
-                  size: '4em',
-                  color: 'red',
-                  className: 'ml-4 hidden md:block opacity-50',
-                }}
-              >
-                <FaPlay />
-              </IconContext.Provider>
-              <IconContext.Provider
-                value={{
-                  size: '2em',
-                  color: 'red',
-                  className: 'ml-1 md:hidden opacity-50',
-                }}
-              >
-                <FaPlay />
-              </IconContext.Provider>
-            </>
-          )} */}
-        </div>
       </div>
     );
   };
