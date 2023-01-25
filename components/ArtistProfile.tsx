@@ -76,8 +76,8 @@ const ArtistProfile = ({
   udpatedAt,
   dob,
   status,
-  collabsReceived: artistCollabsReceived,
-  collabsSent: artistCollabsSent,
+  collabsReceived,
+  collabsSent,
 }: Artist) => {
   const router = useRouter();
   const { user } = useUser();
@@ -102,16 +102,16 @@ const ArtistProfile = ({
 
   // Logged in user info
   const userId = collabsSentData?.getArtistByEmail.id;
-  const collabsSent = collabsSentData?.getArtistByEmail.collabsSent;
-  const collabsReceived = collabsSentData?.getArtistByEmail.collabsReceived;
+  const userCollabsSent = collabsSentData?.getArtistByEmail.collabsSent;
+  const userCollabsReceived = collabsSentData?.getArtistByEmail.collabsReceived;
 
   // Collabs data
   const { data: collabsSentArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
-    variables: { emails: collabsSent },
+    variables: { emails: userCollabsSent },
   });
   const { data: collabsReceievedArtistData } = useQuery(GET_ARTISTS_BY_EMAIL, {
     variables: {
-      emails: collabsReceived,
+      emails: userCollabsReceived,
     },
   });
 
@@ -119,13 +119,13 @@ const ArtistProfile = ({
   const [addCollabSent] = useMutation(ADD_COLLAB_SENT, {
     variables: {
       id: userId,
-      collabsSent,
+      collabsSent: userCollabsSent,
     },
   });
   const [addCollabReceived] = useMutation(ADD_COLLAB_RECEIVED, {
     variables: {
       id: userId,
-      collabsReceived,
+      collabsReceived: userCollabsReceived,
     },
   });
 
@@ -176,8 +176,8 @@ const ArtistProfile = ({
       received.filter((collab: any) => collab.username === username).length > 0;
 
     // TODO: Fix
-    console.log(artistCollabsSent);
-    console.log(artistCollabsReceived);
+    console.log(collabsSent);
+    console.log(collabsReceived);
 
     setIsCollabed(isCollabed);
     setIsSent(isSent);
@@ -212,7 +212,9 @@ const ArtistProfile = ({
   const handleRemoveFromSent = () => {
     const variables = {
       id: userId,
-      collabsSent: [...collabsSent.filter((collab: any) => collab != email)],
+      collabsSent: [
+        ...userCollabsSent.filter((collab: any) => collab != email),
+      ],
     };
     addCollabSent({ variables });
 
@@ -220,7 +222,7 @@ const ArtistProfile = ({
     const artistVariables = {
       id,
       collabsReceived: [
-        ...artistCollabsReceived.filter((collab: any) => collab != user?.email),
+        ...collabsReceived.filter((collab: any) => collab != user?.email),
       ],
     };
     addCollabReceived({ variables: artistVariables });
@@ -234,7 +236,7 @@ const ArtistProfile = ({
     const variables = {
       id: userId,
       collabsReceived: [
-        ...collabsReceived.filter((collab: any) => collab != email),
+        ...userCollabsReceived.filter((collab: any) => collab != email),
       ],
     };
     addCollabReceived({ variables });
@@ -243,7 +245,7 @@ const ArtistProfile = ({
     const artistVariables = {
       id,
       collabsSent: [
-        ...artistCollabsSent.filter((collab: any) => collab != user?.email),
+        ...collabsSent.filter((collab: any) => collab != user?.email),
       ],
     };
     addCollabSent({ variables: artistVariables });
@@ -256,15 +258,14 @@ const ArtistProfile = ({
   const handleAddToSent = () => {
     const variables = {
       id: userId,
-      collabsSent: [...collabsSent, email],
+      collabsSent: [...userCollabsSent, email],
     };
     addCollabSent({ variables });
 
-    // TODO: Fix multiple adds
     // Add logged in user to receiving user's collabsReceived
     const artistVariables = {
       id,
-      collabsReceived: [...artistCollabsReceived, user?.email],
+      collabsReceived: [...collabsReceived, user?.email],
     };
     addCollabReceived({ variables: artistVariables });
 
