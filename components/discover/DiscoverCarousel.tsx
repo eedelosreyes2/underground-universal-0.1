@@ -1,45 +1,13 @@
-import ArtistProfile from "../ArtistProfile";
-import { gql, useQuery } from "@apollo/client";
-import { Artist } from "@prisma/client";
-import { useUser } from "@auth0/nextjs-auth0";
+import ArtistProfile from '../ArtistProfile';
+import { Artist } from '@prisma/client';
+import { useUser } from '@auth0/nextjs-auth0';
 
-const GET_ARTIST_BY_EMAIL = gql`
-  query {
-    artists {
-      id
-      name
-      email
-      username
-      location
-      bio
-      imgSrc
-      trackId
-      badgeId
-      roles
-      genres
-      experience
-      streamings
-      createdAt
-      udpatedAt
-      dob
-      status
-      collabsSent
-      collabsReceived
-    }
-  }
-`;
-
-const DiscoverCarousel = () => {
+const DiscoverCarousel = ({ artists }: any) => {
   const { user } = useUser();
-  const { data, loading, error } = useQuery(GET_ARTIST_BY_EMAIL);
-  const artists = data?.artists?.filter(
-    (artist: any) => artist.name && artist.username && artist.location
-  );
 
   return (
     <div className="flex flex-col items-center overflow-scroll no-scrollbar">
-      {loading && <p>Loading</p>}
-      {error && <p>Oh no... {error.message}</p>}
+      {!artists && <p>Loading</p>}
 
       {artists?.map((artist: Artist) => {
         if (user?.email !== artist.email) {

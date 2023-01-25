@@ -166,23 +166,24 @@ const ArtistProfile = ({
 
   // On collabs change
   useEffect(() => {
-    const isCollabed =
-      collabs.filter((collab: any) => collab.username === username).length > 0;
-    const isSent =
-      !isCollabed &&
-      sent.filter((collab: any) => collab.username === username).length > 0;
-    const isReceived =
-      !isCollabed &&
-      received.filter((collab: any) => collab.username === username).length > 0;
+    let isSent = false;
+    let isReceived = false;
+    let isCollabed = false;
 
-    // TODO: Fix
-    console.log(collabsSent);
-    console.log(collabsReceived);
+    if (collabsReceived.includes(user?.email!)) {
+      isSent = true;
+    }
+    if (collabsSent.includes(user?.email!)) {
+      isReceived = true;
+    }
+    if (isSent && isReceived) {
+      isCollabed = true;
+    }
 
     setIsCollabed(isCollabed);
     setIsSent(isSent);
     setIsReceived(isReceived);
-  }, [collabs, sent, received]);
+  }, [collabs]);
 
   const isUserProfile = () => {
     return user?.email == email;
@@ -227,7 +228,7 @@ const ArtistProfile = ({
     };
     addCollabReceived({ variables: artistVariables });
 
-    // TODO: Alert or toast saying that you collabed with {name}
+    // TODO: Alert or toast saying that you collabed with {name} - make 1+ second animation
     setIsSent(false);
     setModalOpen(false);
   };
@@ -250,7 +251,7 @@ const ArtistProfile = ({
     };
     addCollabSent({ variables: artistVariables });
 
-    // TODO: Alert or toast saying that you collabed with {name}
+    // TODO: Alert or toast saying that you collabed with {name} - make 1+ second animation
     setReceived(false);
     setModalOpen(false);
   };
@@ -269,7 +270,7 @@ const ArtistProfile = ({
     };
     addCollabReceived({ variables: artistVariables });
 
-    // TODO: Alert or toast saying that you collabed with {name}
+    // TODO: Alert or toast saying that you collabed with {name} - make 1+ second animation
     setIsSent(true);
     setModalOpen(false);
   };
@@ -749,7 +750,7 @@ const ArtistProfile = ({
             </div>
           )}
 
-          {isSent && (
+          {isSent && !isCollabed && (
             <div
               id="button"
               onClick={handleSentClick}
@@ -760,7 +761,7 @@ const ArtistProfile = ({
             </div>
           )}
 
-          {isReceived && (
+          {isReceived && !isCollabed && (
             <div
               id="button"
               onClick={handleReceivedClick}
