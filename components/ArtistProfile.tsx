@@ -270,6 +270,11 @@ const ArtistProfile = ({
     setModalOpen(false);
   };
 
+  const handleRemoveCollab = () => {
+    // TODO
+    console.log('Remove collab');
+  };
+
   const renderAvatar = () => {
     return (
       <div
@@ -366,6 +371,19 @@ const ArtistProfile = ({
   };
 
   const renderMoreInfo = () => {
+    const renderRemoveCollab = () => {
+      if (!isDiscoverPage() && !isUserProfile() && isCollabed) {
+        return (
+          <div
+            onClick={handleRemoveCollab}
+            className="text-button-secondary mt-10"
+          >
+            Remove collab
+          </div>
+        );
+      }
+    };
+
     return (
       <>
         <div className={isDiscoverPage() ? 'line-clamp-4' : ''}>{bio}</div>
@@ -379,6 +397,7 @@ const ArtistProfile = ({
           ))}
         </div>
         {renderCollab()}
+        {renderRemoveCollab()}
       </>
     );
   };
@@ -521,164 +540,6 @@ const ArtistProfile = ({
         setModalOpen(true);
       };
 
-      const renderModal = (modalType: any) => {
-        let modal = null;
-        const containerClass = 'flex flex-col gap-10';
-        const ctaContainerClass = 'flex justify-center items-center gap-10';
-
-        switch (modalType) {
-          case 'collab':
-            if (!user) {
-              modal = (
-                <div className={containerClass}>
-                  <div>
-                    You must be logged in to collab with <b>{name}</b>.
-                  </div>
-                  <div className={ctaContainerClass}>
-                    <div
-                      id="button"
-                      onClick={() => router.push('/api/auth/login')}
-                      className="cta-button"
-                    >
-                      Log in
-                    </div>
-                    <div
-                      id="button"
-                      onClick={() => setModalOpen(false)}
-                      className="text-button"
-                    >
-                      Cancel
-                    </div>
-                  </div>
-                </div>
-              );
-            } else {
-              modal = (
-                <div className={containerClass}>
-                  <div>
-                    Send collab request to <b>{name}</b>?
-                  </div>
-                  <div className={ctaContainerClass}>
-                    <div
-                      id="button"
-                      onClick={() => handleAddToSent()}
-                      className="cta-button"
-                    >
-                      Collab
-                    </div>
-                    <div
-                      id="button"
-                      onClick={() => setModalOpen(false)}
-                      className="text-button"
-                    >
-                      Cancel
-                    </div>
-                  </div>
-                </div>
-              );
-            }
-            break;
-
-          case 'sent':
-            modal = (
-              <div className={containerClass}>
-                <div>
-                  Cancel collab request from <b>{name}</b>?
-                </div>
-                <div className={ctaContainerClass}>
-                  <div
-                    id="button"
-                    onClick={() => handleRemoveFromSent()}
-                    className="text-button"
-                  >
-                    Yes
-                  </div>
-                  <div
-                    id="button"
-                    onClick={() => setModalOpen(false)}
-                    className="cta-button"
-                  >
-                    No
-                  </div>
-                </div>
-              </div>
-            );
-            break;
-
-          case 'received':
-            modal = (
-              <div className={containerClass}>
-                <div>
-                  Accept or Reject collab request from <b>{name}</b>?
-                </div>
-                <div className={ctaContainerClass}>
-                  <div
-                    id="button"
-                    onClick={() => handleAddToSent()}
-                    className="cta-button"
-                  >
-                    Accept
-                  </div>
-                  <div
-                    id="button"
-                    onClick={() => handleRemoveFromReceived()}
-                    className="text-button"
-                  >
-                    Reject
-                  </div>
-                  <div
-                    id="button"
-                    onClick={() => setModalOpen(false)}
-                    className="text-button"
-                  >
-                    Cancel
-                  </div>
-                </div>
-              </div>
-            );
-            break;
-
-          case 'message':
-            modal = (
-              <div className={containerClass}>
-                <div className="flex flex-col gap-5">
-                  <div>
-                    The Messaging Collabs feature is not yet available... For
-                    now you can reach out to <b>{name}</b> through the{' '}
-                    <a
-                      className="text-button"
-                      href="https://discord.com/invite/KNUG3yTsT8/"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Underground Universal Discord
-                    </a>
-                    .
-                  </div>
-                  <div>
-                    Or you can contact them directly at <b>{email}</b>.
-                  </div>
-                </div>
-                <div className={ctaContainerClass}>
-                  <div
-                    id="button"
-                    onClick={() => setModalOpen(false)}
-                    className="text-button"
-                  >
-                    Close
-                  </div>
-                </div>
-              </div>
-            );
-            break;
-
-          default:
-            break;
-        }
-
-        return modal;
-      };
-
       return (
         <div>
           {modalOpen && (
@@ -738,6 +599,164 @@ const ArtistProfile = ({
     );
   };
 
+  const renderModal = (modalType: any) => {
+    let modal = null;
+    const containerClass = 'flex flex-col gap-10';
+    const ctaContainerClass = 'flex justify-center items-center gap-10';
+
+    switch (modalType) {
+      case 'collab':
+        if (!user) {
+          modal = (
+            <div className={containerClass}>
+              <div>
+                You must be logged in to collab with <b>{name}</b>.
+              </div>
+              <div className={ctaContainerClass}>
+                <div
+                  id="button"
+                  onClick={() => router.push('/api/auth/login')}
+                  className="cta-button"
+                >
+                  Log in
+                </div>
+                <div
+                  id="button"
+                  onClick={() => setModalOpen(false)}
+                  className="text-button"
+                >
+                  Cancel
+                </div>
+              </div>
+            </div>
+          );
+        } else {
+          modal = (
+            <div className={containerClass}>
+              <div>
+                Send collab request to <b>{name}</b>?
+              </div>
+              <div className={ctaContainerClass}>
+                <div
+                  id="button"
+                  onClick={() => handleAddToSent()}
+                  className="cta-button"
+                >
+                  Collab
+                </div>
+                <div
+                  id="button"
+                  onClick={() => setModalOpen(false)}
+                  className="text-button"
+                >
+                  Cancel
+                </div>
+              </div>
+            </div>
+          );
+        }
+        break;
+
+      case 'sent':
+        modal = (
+          <div className={containerClass}>
+            <div>
+              Cancel collab request from <b>{name}</b>?
+            </div>
+            <div className={ctaContainerClass}>
+              <div
+                id="button"
+                onClick={() => handleRemoveFromSent()}
+                className="text-button"
+              >
+                Yes
+              </div>
+              <div
+                id="button"
+                onClick={() => setModalOpen(false)}
+                className="cta-button"
+              >
+                No
+              </div>
+            </div>
+          </div>
+        );
+        break;
+
+      case 'received':
+        modal = (
+          <div className={containerClass}>
+            <div>
+              Accept or Reject collab request from <b>{name}</b>?
+            </div>
+            <div className={ctaContainerClass}>
+              <div
+                id="button"
+                onClick={() => handleAddToSent()}
+                className="cta-button"
+              >
+                Accept
+              </div>
+              <div
+                id="button"
+                onClick={() => handleRemoveFromReceived()}
+                className="text-button"
+              >
+                Reject
+              </div>
+              <div
+                id="button"
+                onClick={() => setModalOpen(false)}
+                className="text-button"
+              >
+                Cancel
+              </div>
+            </div>
+          </div>
+        );
+        break;
+
+      case 'message':
+        modal = (
+          <div className={containerClass}>
+            <div className="flex flex-col gap-5">
+              <div>
+                The Messaging Collabs feature is not yet available... For now
+                you can reach out to <b>{name}</b> through the{' '}
+                <a
+                  className="text-button"
+                  href="https://discord.com/invite/KNUG3yTsT8/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Underground Universal Discord
+                </a>
+                .
+              </div>
+              <div>
+                Or you can contact them directly at <b>{email}</b>.
+              </div>
+            </div>
+            <div className={ctaContainerClass}>
+              <div
+                id="button"
+                onClick={() => setModalOpen(false)}
+                className="text-button"
+              >
+                Close
+              </div>
+            </div>
+          </div>
+        );
+        break;
+
+      default:
+        break;
+    }
+
+    return modal;
+  };
+
   return (
     <div
       className={isDiscoverPage() ? 'card cursor-pointer' : ''}
@@ -749,7 +768,6 @@ const ArtistProfile = ({
         {renderInfo()}
       </div>
       {/* TODO: Add remove collabs if collabed */}
-
       {/* Mobile only */}
       <div className="sm:hidden sm:block w-full text-left">
         {renderMoreInfo()}
