@@ -273,6 +273,14 @@ const ArtistProfile = ({
   const handleRemoveCollab = () => {
     // TODO
     console.log('Remove collab');
+
+    // TODO: Remove from sent and received for user
+    addCollabSent();
+    addCollabReceived();
+
+    // TODO: Remove from sent and received for profile
+    addCollabSent();
+    addCollabReceived();
   };
 
   const renderAvatar = () => {
