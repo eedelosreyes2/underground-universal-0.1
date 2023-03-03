@@ -1,11 +1,11 @@
-import { useUser } from '@auth0/nextjs-auth0';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { HiMoon } from 'react-icons/hi';
-import { RiSettings5Fill } from 'react-icons/ri';
-import { gql } from 'apollo-server-micro';
-import { useQuery } from '@apollo/client';
+import { useUser } from "@auth0/nextjs-auth0";
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { BiMoon } from "react-icons/bi";
+import { MdLogout } from "react-icons/md";
+import { gql } from "apollo-server-micro";
+import { useQuery } from "@apollo/client";
 
 const GET_ARTIST = gql`
   query ($email: String!) {
@@ -28,16 +28,12 @@ const TopNav = () => {
     pollInterval: 1000,
   });
 
-  const handleSettingsClick = () => {
-    router.push('/settings');
-  };
-
   const handleProfileClick = () => {
     if (data?.getArtistByEmail.username) {
-      router.push('/' + data.getArtistByEmail.username);
+      router.push("/" + data.getArtistByEmail.username);
     } else {
       // TODO: Send toast message - You need to complete your profile to continue
-      router.push('/settings/profile');
+      router.push("/settings/profile");
     }
   };
 
@@ -47,10 +43,10 @@ const TopNav = () => {
       md:justify-end md:py-7 md:px-12 bg-fill-light dark:bg-fill-dark"
     >
       <div
-        onClick={() => router.push('/discover')}
+        onClick={() => router.push("/discover")}
         className="cursor-pointer md:hidden"
       >
-        {theme === 'dark' ? (
+        {theme === "dark" ? (
           <Image src="/logo.png" width={142} height={42} alt="Logo" />
         ) : (
           <Image src="/logo_light.png" width={142} height={42} alt="Logo" />
@@ -58,18 +54,22 @@ const TopNav = () => {
       </div>
       <div className="flex gap-6 h-fit">
         <div
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           className="flex items-center cursor-pointer"
         >
-          <HiMoon />
+          <BiMoon />
         </div>
 
         {user && (
           <div
-            onClick={handleSettingsClick}
-            className={'flex items-center cursor-pointer'}
+            onClick={() => {
+              if (confirm("Logout of Underground Universal?")) {
+                router.push("/api/auth/logout");
+              }
+            }}
+            className={"flex items-center cursor-pointer"}
           >
-            <RiSettings5Fill />
+            <MdLogout />
           </div>
         )}
 
@@ -81,7 +81,7 @@ const TopNav = () => {
           >
             <Image
               priority
-              src={'/default_artist_img.jpg'}
+              src={"/default_artist_img.jpg"}
               width={32}
               height={32}
               alt="Profile"
@@ -89,7 +89,7 @@ const TopNav = () => {
           </div>
         ) : (
           <div
-            onClick={() => router.push('/api/auth/login')}
+            onClick={() => router.push("/api/auth/login")}
             className="cta-button"
           >
             Log in

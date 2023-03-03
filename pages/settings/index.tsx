@@ -1,6 +1,6 @@
-import { getSession } from '@auth0/nextjs-auth0';
-import Layout from '../../components/Layout';
-import Settings from '../../components/settings/Settings';
+import { getSession } from "@auth0/nextjs-auth0";
+import Layout from "../../components/Layout";
+import Settings from "../../components/settings/Settings";
 
 export const getServerSideProps = async ({
   req,
@@ -15,7 +15,7 @@ export const getServerSideProps = async ({
     return {
       redirect: {
         permanent: false,
-        destination: '/',
+        destination: "/",
       },
       props: {},
     };
@@ -30,7 +30,6 @@ const settings = () => {
   return (
     <Layout>
       <div className="page-container">
-        <h2 className="pb-5 w-full">Settings and Support</h2>
         <Settings />
       </div>
     </Layout>
