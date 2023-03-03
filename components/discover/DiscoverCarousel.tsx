@@ -1,12 +1,12 @@
-import ArtistProfile from '../ArtistProfile';
-import { Artist } from '@prisma/client';
-import { useUser } from '@auth0/nextjs-auth0';
+import ArtistProfile from "../ArtistProfile";
+import { Artist } from "@prisma/client";
+import { useUser } from "@auth0/nextjs-auth0";
 
 const DiscoverCarousel = ({ artists }: any) => {
   const { user } = useUser();
 
   return (
-    <div className="flex flex-col items-center overflow-scroll no-scrollbar w-full">
+    <div className="flex flex-col items-center no-scrollbar w-full">
       {!artists && <p>Loading</p>}
 
       {artists?.map((artist: Artist) => {
