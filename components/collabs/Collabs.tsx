@@ -1,10 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
-import { useUser } from '@auth0/nextjs-auth0';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { IconContext } from 'react-icons';
-import { HiOutlineAtSymbol } from 'react-icons/hi';
-import { IoChatboxEllipses, IoCheckmarkSharp, IoClose } from 'react-icons/io5';
+import { gql, useQuery } from "@apollo/client";
+import { useUser } from "@auth0/nextjs-auth0";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { IconContext } from "react-icons";
+import { HiOutlineAtSymbol } from "react-icons/hi";
+import { IoChatboxEllipses, IoCheckmarkSharp, IoClose } from "react-icons/io5";
 
 const GET_COLLABS = gql`
   query ($email: String!) {
@@ -68,34 +68,34 @@ const Collabs = () => {
   );
 
   const handleRemoveSent = (artist: any) => {
-    if (confirm('Cancel Collab request to ' + artist.name + '?')) {
+    if (confirm("Cancel Collab request to " + artist.name + "?")) {
       // TODO
-      console.log('remove ' + artist.name + ' from collabsSent');
+      console.log("remove " + artist.name + " from collabsSent");
     }
   };
 
   const handleAcceptReceieved = (artist: any) => {
-    if (confirm('Accept Collab request from ' + artist.name + '?')) {
+    if (confirm("Accept Collab request from " + artist.name + "?")) {
       // TODO
       console.log(
-        'add ' + artist.name + ' to collabsSent as well as collabsReceived'
+        "add " + artist.name + " to collabsSent as well as collabsReceived"
       );
     }
   };
 
   const handleRejectReceieved = (artist: any) => {
-    if (confirm('Reject Collab request from ' + artist.name + '?')) {
+    if (confirm("Reject Collab request from " + artist.name + "?")) {
       // TODO
-      console.log('remove ' + artist.name + ' from collabsReceived');
+      console.log("remove " + artist.name + " from collabsReceived");
     }
   };
 
   const handleSendMessage = (artist: any) => {
     // TODO
     alert(
-      'The Messaging Collabs feature is not yet available... For now you can reach out to ' +
+      "The Messaging Collabs feature is not yet available... For now you can reach out to " +
         artist.name +
-        ' through their Discord/Email \n\nJoin the Underground Universal Discord to get updates on when this feature will be ready!'
+        " through their Discord/Email \n\nJoin the Underground Universal Discord to get updates on when this feature will be ready!"
     );
   };
 
@@ -105,16 +105,16 @@ const Collabs = () => {
         key={artist.username}
         onClick={(e) => {
           const target = e.target as HTMLElement;
-          if (target.tagName != 'path' && target.tagName != 'svg') {
-            router.push('/' + artist.username);
+          if (target.tagName != "path" && target.tagName != "svg") {
+            router.push("/" + artist.username);
           }
         }}
-        className="flex items-center justify-between rounded-xl
+        className="hover:scale-[101%] transition-transform flex items-center justify-between rounded-xl
           md:p-5 p-3 bg-component-light dark:bg-component-dark cursor-pointer"
       >
         <div className="flex items-center gap-3 z-50">
           <Image
-            src={'/default_artist_img.jpg'}
+            src={"/default_artist_img.jpg"}
             width={48}
             height={48}
             alt="Profile"
@@ -130,8 +130,8 @@ const Collabs = () => {
         </div>
 
         <div>
-          {type === 'sent' && (
-            <IconContext.Provider value={{ size: '1.2em' }}>
+          {type === "sent" && (
+            <IconContext.Provider value={{ size: "1.2em" }}>
               <IoClose
                 onClick={() => handleRemoveSent(artist)}
                 className="cursor-pointer"
@@ -139,8 +139,8 @@ const Collabs = () => {
             </IconContext.Provider>
           )}
 
-          {type === 'receieved' && (
-            <IconContext.Provider value={{ size: '1.2em' }}>
+          {type === "receieved" && (
+            <IconContext.Provider value={{ size: "1.2em" }}>
               <div className="flex gap-5">
                 <IoCheckmarkSharp
                   onClick={() => handleAcceptReceieved(artist)}
@@ -154,8 +154,8 @@ const Collabs = () => {
             </IconContext.Provider>
           )}
 
-          {type === 'collabed' && (
-            <IconContext.Provider value={{ size: '1.5em' }}>
+          {type === "collabed" && (
+            <IconContext.Provider value={{ size: "1.5em" }}>
               <IoChatboxEllipses
                 onClick={() => handleSendMessage(artist)}
                 className="cursor-pointer"
@@ -171,19 +171,19 @@ const Collabs = () => {
     <div className="flex flex-col w-full">
       <h3 className="mb-3">Sent</h3>
       <div className="flex flex-col gap-3 mb-10">
-        {sent && sent.map((artist: any) => renderCollab(artist, 'sent'))}
+        {sent && sent.map((artist: any) => renderCollab(artist, "sent"))}
       </div>
 
       <h3 className="mb-3">Received</h3>
       <div className="flex flex-col gap-3 mb-10">
         {received &&
-          received.map((artist: any) => renderCollab(artist, 'receieved'))}
+          received.map((artist: any) => renderCollab(artist, "receieved"))}
       </div>
 
       <h3 className="mb-3">Collabed</h3>
       <div className="flex flex-col gap-3 mb-10">
         {collabs &&
-          collabs.map((artist: any) => renderCollab(artist, 'collabed'))}
+          collabs.map((artist: any) => renderCollab(artist, "collabed"))}
       </div>
     </div>
   );

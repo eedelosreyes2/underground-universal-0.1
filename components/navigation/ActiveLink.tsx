@@ -1,6 +1,6 @@
-import { useUser } from '@auth0/nextjs-auth0';
-import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
+import { useUser } from "@auth0/nextjs-auth0";
+import { useRouter } from "next/router";
+import { ReactNode } from "react";
 
 interface Props {
   children?: ReactNode;
@@ -14,10 +14,10 @@ const ActiveLink = ({ children, href }: Props) => {
   const handleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (href === '/discover' || user) {
+    if (href === "/discover" || href === "/settings" || user) {
       router.push(href);
     } else {
-      alert('This page is for members only, JOIN to have access.');
+      alert("This page is for members only, JOIN to have access.");
     }
   };
 
@@ -25,7 +25,7 @@ const ActiveLink = ({ children, href }: Props) => {
     <a
       href={href}
       onClick={handleClick}
-      className={router.pathname === href ? 'text-primary font-bold' : ''}
+      className={router.pathname === href ? "text-primary font-bold" : ""}
     >
       {children}
     </a>
