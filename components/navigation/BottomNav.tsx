@@ -1,9 +1,7 @@
-import { IconContext } from 'react-icons';
-import { RiHeadphoneFill } from 'react-icons/ri';
-import { MdLibraryMusic } from 'react-icons/md';
-import { MdPeopleAlt } from 'react-icons/md';
-import { FaLocationArrow } from 'react-icons/fa';
-import ActiveLink from './ActiveLink';
+import { IconContext } from "react-icons";
+import { MdPeopleAlt, MdHelp } from "react-icons/md";
+import { FaLocationArrow } from "react-icons/fa";
+import ActiveLink from "./ActiveLink";
 
 const BottomNav = () => {
   return (
@@ -14,32 +12,40 @@ const BottomNav = () => {
     >
       <ActiveLink href="/discover">
         <div className="p-3 pt-4">
-          <IconContext.Provider value={{ size: '1.35em' }}>
+          <IconContext.Provider value={{ size: "1.35em" }}>
             <FaLocationArrow />
           </IconContext.Provider>
         </div>
       </ActiveLink>
 
-      <ActiveLink href="/studios">
+      {/* <ActiveLink href="/studios">
         <div className="p-3">
-          <IconContext.Provider value={{ size: '1.75em' }}>
+          <IconContext.Provider value={{ size: "1.75em" }}>
             <RiHeadphoneFill />
           </IconContext.Provider>
         </div>
-      </ActiveLink>
+      </ActiveLink> */}
 
-      <ActiveLink href="/library">
+      {/* <ActiveLink href="/library">
         <div className="p-3">
           <IconContext.Provider value={{ size: '1.75em' }}>
             <MdLibraryMusic />
           </IconContext.Provider>
         </div>
-      </ActiveLink>
+      </ActiveLink> */}
 
       <ActiveLink href="/collabs">
         <div className="p-3">
-          <IconContext.Provider value={{ size: '1.75em' }}>
+          <IconContext.Provider value={{ size: "1.75em" }}>
             <MdPeopleAlt />
+          </IconContext.Provider>
+        </div>
+      </ActiveLink>
+
+      <ActiveLink href="/settings">
+        <div className="p-3">
+          <IconContext.Provider value={{ size: "1.75em" }}>
+            <MdHelp />
           </IconContext.Provider>
         </div>
       </ActiveLink>

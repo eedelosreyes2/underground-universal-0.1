@@ -1,11 +1,10 @@
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { IconContext } from 'react-icons';
-import { FaLocationArrow } from 'react-icons/fa';
-import { MdLibraryMusic, MdPeopleAlt } from 'react-icons/md';
-import { RiHeadphoneFill } from 'react-icons/ri';
-import ActiveLink from './ActiveLink';
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { IconContext } from "react-icons";
+import { FaLocationArrow } from "react-icons/fa";
+import { MdPeopleAlt, MdHelp } from "react-icons/md";
+import ActiveLink from "./ActiveLink";
 
 const Nav = () => {
   const { theme, setTheme } = useTheme();
@@ -18,10 +17,10 @@ const Nav = () => {
     >
       <div className="fixed">
         <div
-          onClick={() => router.push('/discover')}
+          onClick={() => router.push("/discover")}
           className="cursor-pointer pt-8 p-4"
         >
-          {theme === 'dark' ? (
+          {theme === "dark" ? (
             <Image src="/logo.png" width={142} height={42} alt="Logo" />
           ) : (
             <Image src="/logo_light.png" width={142} height={42} alt="Logo" />
@@ -32,7 +31,7 @@ const Nav = () => {
           <div className="flex items-center cursor-pointer gap-3 p-4 pt-4">
             <div className="w-[28px]">
               <IconContext.Provider
-                value={{ size: '1.35em', className: 'ml-1' }}
+                value={{ size: "1.35em", className: "ml-1" }}
               >
                 <FaLocationArrow />
               </IconContext.Provider>
@@ -41,30 +40,39 @@ const Nav = () => {
           </div>
         </ActiveLink>
 
-        <ActiveLink href="/studios">
+        {/* <ActiveLink href="/studios">
           <div className="flex items-center cursor-pointer gap-3 p-4">
             <IconContext.Provider value={{ size: '1.75em' }}>
               <RiHeadphoneFill />
             </IconContext.Provider>
             <h4>Studios</h4>
           </div>
-        </ActiveLink>
+        </ActiveLink> */}
 
-        <ActiveLink href="/library">
+        {/* <ActiveLink href="/library">
           <div className="flex items-center cursor-pointer gap-3 p-4">
             <IconContext.Provider value={{ size: '1.75em' }}>
               <MdLibraryMusic />
             </IconContext.Provider>
             <h4>Library</h4>
           </div>
-        </ActiveLink>
+        </ActiveLink> */}
 
         <ActiveLink href="/collabs">
           <div className="flex items-center cursor-pointer gap-3 p-4">
-            <IconContext.Provider value={{ size: '1.75em' }}>
+            <IconContext.Provider value={{ size: "1.75em" }}>
               <MdPeopleAlt />
             </IconContext.Provider>
             <h4>Collabs</h4>
+          </div>
+        </ActiveLink>
+
+        <ActiveLink href="/settings">
+          <div className="flex items-center cursor-pointer gap-3 p-4">
+            <IconContext.Provider value={{ size: "1.75em" }}>
+              <MdHelp />
+            </IconContext.Provider>
+            <h4>Help</h4>
           </div>
         </ActiveLink>
       </div>
