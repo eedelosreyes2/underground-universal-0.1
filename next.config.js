@@ -5,6 +5,12 @@ module.exports = {
   swcMinify: true,
   images: {
     domains: ['s.gravatar.com', 'lh3.googleusercontent.com', 'www.notion.so'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
   },
   async redirects() {
     return [

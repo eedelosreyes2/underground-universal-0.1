@@ -161,10 +161,10 @@ const Profile = () => {
     variables: {
       id,
       name,
+      imgSrc,
       username,
       location,
       bio,
-      imgSrc,
       trackSig,
       badge,
       roles,
@@ -298,10 +298,10 @@ const Profile = () => {
       const variables = {
         id,
         name: data.Name || name,
+        imgSrc: "joe",
         username: data.Username || username,
         location: data.Location || location,
         bio: data.Bio || bio,
-        imgSrc, // TODO
         trackSig, // TODO
         badge, // TODO
         roles: parsedRoles || roles,
@@ -325,17 +325,22 @@ const Profile = () => {
             <div className="relative rounded-full w-60 h-60">
               <Image
                 priority
-                src={imgSrc || "/default_artist_img.jpg"}
+                src={user?.picture || "/default_artist_img.jpg"}
                 layout="fill"
                 alt="Profile"
                 className="rounded-full"
               />
+              {/* <img
+                src={user?.picture || ""}
+                alt="Profile"
+                className="rounded-full"
+              /> */}
             </div>
-            <label htmlFor="image" className="text-button text-secondary pt-2">
+            {/* <label htmlFor="image" className="text-button text-secondary pt-2">
               Upload image
-            </label>
-            <h3 className="pt-10">Song Title Here</h3>
-            <div className="text-button text-secondary">Select track</div>
+            </label> */}
+            {/* <h3 className="pt-10">Song Title Here</h3>
+            <div className="text-button text-secondary">Select track</div> */}
           </div>
 
           {/* TODO: Validate if name is taken */}

@@ -81,7 +81,7 @@ const TopNav = () => {
           >
             <Image
               priority
-              src={"/default_artist_img.jpg"}
+              src={user.picture || "/default_artist_img.jpg"}
               width={32}
               height={32}
               alt="Profile"

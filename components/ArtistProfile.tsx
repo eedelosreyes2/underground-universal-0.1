@@ -284,6 +284,7 @@ const ArtistProfile = ({
   };
 
   const renderAvatar = () => {
+    console.log(imgSrc);
     return (
       <div
         className="avatar-size relative rounded-full 

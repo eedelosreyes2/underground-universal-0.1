@@ -67,6 +67,8 @@ const Artist = ({ artist }: any) => {
     );
   };
 
+  console.log("imgSrc", imgSrc);
+
   return (
     <div className="pb-12">
       {renderPageHeader()}
