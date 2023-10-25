@@ -1,6 +1,6 @@
-import Layout from '../components/Layout';
-import DiscoverCarousel from '../components/discover/DiscoverCarousel';
-import prisma from '../lib/prisma';
+import Layout from "../components/Layout";
+import DiscoverCarousel from "../components/discover/DiscoverCarousel";
+import prisma from "../lib/prisma";
 
 // TODO: Fetch serverSide props of artists (see [username].tsx)
 export const getServerSideProps = async () => {
