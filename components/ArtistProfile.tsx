@@ -272,7 +272,7 @@ const ArtistProfile = ({
 
   const handleRemoveCollab = () => {
     // TODO
-    console.log("Remove collab");
+    // console.log("Remove collab");
 
     // TODO: Remove from sent and received for user
     addCollabSent();
@@ -284,7 +284,6 @@ const ArtistProfile = ({
   };
 
   const renderAvatar = () => {
-    console.log(imgSrc);
     return (
       <div
         className="avatar-size relative rounded-full 
@@ -449,13 +448,12 @@ const ArtistProfile = ({
       return (
         <div className="w-full flex pl-5">
           {spotify && (
-            <div className={streamingContainerCLass}>
-              <IconContext.Provider
-                value={{
-                  size: "1.75em",
-                  className: "text-spotify mr-2",
-                }}
-              >
+            <div
+              className={
+                streamingContainerCLass + " text-spotify mr-4 scale-150"
+              }
+            >
+              <IconContext.Provider value={{}}>
                 <a href={spotify} target="__blank">
                   <SiSpotify />
                 </a>
@@ -464,13 +462,12 @@ const ArtistProfile = ({
           )}
 
           {appleMusic && (
-            <div className={streamingContainerCLass}>
-              <IconContext.Provider
-                value={{
-                  size: "1.75em",
-                  className: "text-appleMusic mr-2",
-                }}
-              >
+            <div
+              className={
+                streamingContainerCLass + " text-appleMusic mr-4 scale-150"
+              }
+            >
+              <IconContext.Provider value={{}}>
                 <a href={appleMusic} target="__blank">
                   <SiApplemusic />
                 </a>
@@ -479,13 +476,12 @@ const ArtistProfile = ({
           )}
 
           {soundcloud && (
-            <div className={streamingContainerCLass}>
-              <IconContext.Provider
-                value={{
-                  size: "1.75em",
-                  className: "text-soundcloud mr-2",
-                }}
-              >
+            <div
+              className={
+                streamingContainerCLass + " text-soundcloud mr-4 scale-150"
+              }
+            >
+              <IconContext.Provider value={{}}>
                 <a href={soundcloud} target="__blank">
                   <SiSoundcloud />
                 </a>
@@ -494,13 +490,12 @@ const ArtistProfile = ({
           )}
 
           {youtube && (
-            <div className={streamingContainerCLass}>
-              <IconContext.Provider
-                value={{
-                  size: "1.75em",
-                  className: "text-primary mr-2",
-                }}
-              >
+            <div
+              className={
+                streamingContainerCLass + " text-primary mr-4 scale-150"
+              }
+            >
+              <IconContext.Provider value={{}}>
                 <a href={youtube} target="__blank">
                   <SiYoutube />
                 </a>
@@ -509,13 +504,12 @@ const ArtistProfile = ({
           )}
 
           {bandcamp && (
-            <div className={streamingContainerCLass}>
-              <IconContext.Provider
-                value={{
-                  size: "1.75em",
-                  className: "text-bandcamp mr-2",
-                }}
-              >
+            <div
+              className={
+                streamingContainerCLass + " text-bandcamp mr-4 scale-150"
+              }
+            >
+              <IconContext.Provider value={{}}>
                 <a href={bandcamp} target="__blank">
                   <SiBandcamp />
                 </a>

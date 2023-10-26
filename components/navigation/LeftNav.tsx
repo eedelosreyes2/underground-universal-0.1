@@ -5,6 +5,7 @@ import { IconContext } from "react-icons";
 import { FaLocationArrow } from "react-icons/fa";
 import { MdPeopleAlt, MdHelp } from "react-icons/md";
 import ActiveLink from "./ActiveLink";
+import { useEffect } from "react";
 
 const Nav = () => {
   const { theme, setTheme } = useTheme();
@@ -20,19 +21,17 @@ const Nav = () => {
           onClick={() => router.push("/discover")}
           className="cursor-pointer pt-8 p-4"
         >
-          {theme === "dark" ? (
-            <Image src="/logo.png" width={142} height={42} alt="Logo" />
-          ) : (
+          {theme === "light" ? (
             <Image src="/logo_light.png" width={142} height={42} alt="Logo" />
+          ) : (
+            <Image src="/logo.png" width={142} height={42} alt="Logo" />
           )}
         </div>
 
         <ActiveLink href="/discover">
           <div className="flex items-center cursor-pointer gap-3 p-4 pt-4">
-            <div className="w-[28px]">
-              <IconContext.Provider
-                value={{ size: "1.35em", className: "ml-1" }}
-              >
+            <div className="scale-125">
+              <IconContext.Provider value={{}}>
                 <FaLocationArrow />
               </IconContext.Provider>
             </div>
@@ -60,18 +59,22 @@ const Nav = () => {
 
         <ActiveLink href="/collabs">
           <div className="flex items-center cursor-pointer gap-3 p-4">
-            <IconContext.Provider value={{ size: "1.75em" }}>
-              <MdPeopleAlt />
-            </IconContext.Provider>
+            <div className="scale-125">
+              <IconContext.Provider value={{}}>
+                <MdPeopleAlt />
+              </IconContext.Provider>
+            </div>
             <h4>Collabs</h4>
           </div>
         </ActiveLink>
 
         <ActiveLink href="/settings">
           <div className="flex items-center cursor-pointer gap-3 p-4">
-            <IconContext.Provider value={{ size: "1.75em" }}>
-              <MdHelp />
-            </IconContext.Provider>
+            <div className="scale-125">
+              <IconContext.Provider value={{}}>
+                <MdHelp />
+              </IconContext.Provider>
+            </div>
             <h4>Help</h4>
           </div>
         </ActiveLink>
