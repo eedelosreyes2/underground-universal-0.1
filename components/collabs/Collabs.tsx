@@ -21,6 +21,7 @@ const GET_ARTISTS_BY_EMAIL = gql`
       name
       email
       username
+      imgSrc
     }
   }
 `;
@@ -100,6 +101,7 @@ const Collabs = () => {
   };
 
   const renderCollab = (artist: any, type: string) => {
+    console.log(artist);
     return (
       <div
         key={artist.username}
@@ -114,7 +116,7 @@ const Collabs = () => {
       >
         <div className="flex items-center gap-3 z-50">
           <Image
-            src={"/default_artist_img.jpg"}
+            src={artist.imgSrc || "/default_artist_img.jpg"}
             width={48}
             height={48}
             alt="Profile"

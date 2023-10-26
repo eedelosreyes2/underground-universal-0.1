@@ -5,16 +5,16 @@ const Settings = () => {
 
   return (
     <div className="flex flex-col gap-5 justify-start w-full">
-      <h2 className="pb-5 w-full">How it works</h2>
+      {/* <h2 className="pb-5 w-full">How it works</h2>
       <p className="mb-16">
         This is temporary text: When you Collab with someone, we will send you
         both an email agreement...
-      </p>
+      </p> */}
 
-      <h2 className="pb-5 w-full">Support</h2>
+      {/* <h2 className="pb-5 w-full">Support</h2> */}
       <div className="text-button">
         <a
-          href="https://www.undergrounduniversal.com/"
+          href="https://underground-universal-website.vercel.app/"
           target="_blank"
           rel="noreferrer"
         >
@@ -57,6 +57,10 @@ const Settings = () => {
           Suggest a Studio
         </a>
       </div> */}
+      <div className="pt-20 text-lg">
+        The artists displayed on this web app are ai generated for demo
+        purposes.
+      </div>
     </div>
   );
 };
