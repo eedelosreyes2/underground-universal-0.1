@@ -14,6 +14,8 @@ async function main() {
         username: "MCCipher",
         roles: ["RAPPER"],
         experience: "PLAYER",
+        imgSrc:
+          "https://media.canva.com/1/image-resize/1/1600_1600_92_JPG_F/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9MZWVKRS9NQUZ5VTJMZWVKRS8xL3AuanBn?osig=AAAAAAAAAAAAAAAAAAAAAGKCegNnEOuefd4eYOtmj3vlDgFMgwHLfyMlLEU3euE-&exp=1698308422&x-canva-quality=screen_2x&csig=AAAAAAAAAAAAAAAAAAAAAMtx4RwgrT9A3tfEfVxQQHIJIlqO6Gqd8-l8eU4F29pg",
       },
       {
         email: `lyricscribe@hiphopmail.com`,
@@ -25,6 +27,8 @@ async function main() {
         username: "LyricScribe",
         roles: ["PRODUCER"],
         experience: "VETERAN",
+        imgSrc:
+          "https://media.canva.com/1/image-resize/1/1600_1600_92_JPG_F/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS95Z0c5US9NQUZ5VTR5Z0c5US8xL3AuanBn?osig=AAAAAAAAAAAAAAAAAAAAAKuhDln-7hF7wbn0rBlT_UT5wgVC2H8OCrsJfwKIDv_X&exp=1698307627&x-canva-quality=screen_2x&csig=AAAAAAAAAAAAAAAAAAAAAHdz3yxQcTHT3c9XkBvKXqFWeM51Lg_z80qt9mrnr2Gl",
       },
       {
         email: `flowmasterbeats@gmail.com`,
@@ -36,6 +40,8 @@ async function main() {
         username: "DJFlowmaster",
         roles: ["PRODUCER", "RAPPER"],
         experience: "PRO",
+        imgSrc:
+          "https://media.canva.com/1/image-resize/1/1600_1600_92_JPG_F/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS80YVJ5OC9NQUZ5VS00YVJ5OC8xL3AuanBn?osig=AAAAAAAAAAAAAAAAAAAAADV6CRyYKaIRS-zmL9ziGKaAg6vWnORyKIab0jA4jogn&exp=1698306194&x-canva-quality=screen_2x&csig=AAAAAAAAAAAAAAAAAAAAAKd_6kFerDk_UgI-E9FoRenl3_hUOcb2Ln_XxNipNpVc",
       },
       {
         email: `ellarhyme@musicflow.com`,
@@ -47,6 +53,8 @@ async function main() {
         username: "EllaRhyme",
         roles: ["PRODUCER", "RAPPER"],
         experience: "ROOKIE",
+        imgSrc:
+          "https://media.canva.com/1/image-resize/1/1600_1600_92_JPG_F/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9QcUZpUS9NQUZ5VV9QcUZpUS8xL3AuanBn?osig=AAAAAAAAAAAAAAAAAAAAAORWF9aZRzGLi5Q7ZxfyFnjaVnD1drxBpTVye3oIECJi&exp=1698306604&x-canva-quality=screen_2x&csig=AAAAAAAAAAAAAAAAAAAAAHKbbxVe6RwGrJGXvqlq_WKzkTI7ir4dHVCYcwEVtT4-",
       },
     ],
   });

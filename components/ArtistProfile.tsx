@@ -412,8 +412,7 @@ const ArtistProfile = ({
 
   const renderStreamings = () => {
     let spotify, appleMusic, soundcloud, youtube, bandcamp;
-    const streamingContainerCLass =
-      "flex cursor-pointer font-bold mr-1 hover:scale-110 transition:transform";
+    const streamingContainerCLass = "flex cursor-pointer font-bold mr-1";
 
     const setHttps = (url: string) => {
       if (url.search("^http[s]?") == -1) {
