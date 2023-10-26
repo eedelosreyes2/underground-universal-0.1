@@ -18,10 +18,19 @@ const Settings = () => {
           target="_blank"
           rel="noreferrer"
         >
-          About Underground Universal
+          Underground Universal Landing Page
         </a>
       </div>
       <div className="text-button">
+        <a
+          href="https://www.elijahdelosreyes.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Elijah's Website
+        </a>
+      </div>
+      {/* <div className="text-button">
         <a
           href="https://discord.com/invite/KNUG3yTsT8/"
           target="_blank"
@@ -29,8 +38,8 @@ const Settings = () => {
         >
           Contact us on Discord
         </a>
-      </div>
-      <div className="text-button">
+      </div> */}
+      {/* <div className="text-button">
         <a
           href="https://linktr.ee/undergrounduniversal/"
           target="_blank"
@@ -38,7 +47,7 @@ const Settings = () => {
         >
           Follow our Socials
         </a>
-      </div>
+      </div> */}
       {/* <div className="text-button">
         <a
           href="https://www.undergrounduniversal.com/"
