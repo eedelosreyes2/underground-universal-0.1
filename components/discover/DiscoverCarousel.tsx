@@ -10,6 +10,7 @@ const DiscoverCarousel = ({ artists }: any) => {
       {!artists && <p>Loading</p>}
 
       {artists?.map((artist: Artist) => {
+        if (!artist.name) return;
         if (user?.email !== artist.email) {
           return (
             <ArtistProfile
