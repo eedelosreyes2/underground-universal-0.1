@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 interface Props {
   register: any;
@@ -35,23 +35,22 @@ const TextArea = ({
           required: false,
           minLength: {
             value: minLength,
-            message: name + ' must be at least ' + minLength + ' characters',
+            message: name + " must be at least " + minLength + " characters",
           },
           maxLength,
         })}
-        initialvalue={initialvalue}
         placeholder={palceholder}
         className={
-          'pb-2 resize-none no-scrollbar min-h-[200px] input ' +
-          (errors[name] ? 'border-primary' : 'border-gray')
+          "pb-2 resize-none no-scrollbar min-h-[200px] input " +
+          (errors[name] ? "border-primary" : "border-gray")
         }
       />
       <div className=" min-h-[20px] flex justify-between">
         <p className="input-error">{errors[name]?.message}</p>
         <p
           className={
-            'input-error ' +
-            (currentLength > maxLength ? 'text-primary' : 'text-gray')
+            "input-error " +
+            (currentLength > maxLength ? "text-primary" : "text-gray")
           }
         >
           {currentLength}/{maxLength}
