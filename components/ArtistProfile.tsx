@@ -292,7 +292,7 @@ const ArtistProfile = ({
           md:min-w-[240px] md:min-h-[240px]"
       >
         <Image
-          src={imgSrc || "/default_artist_img.jpg"}
+          src={imgSrc || `/profiles/${username}.webp` || "/default_artist_img.jpg"}
           layout="fill"
           alt="Profile"
           className="rounded-full"
