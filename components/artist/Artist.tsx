@@ -25,7 +25,7 @@ const Artist = ({ artist }: any) => {
     status,
     collabsSent,
     collabsReceived,
-  } = artist;
+  } = artist[0];
 
   const isUserProfile = () => {
     return user?.email == email;

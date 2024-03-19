@@ -169,10 +169,10 @@ const ArtistProfile = ({
     let isReceived = false;
     let isCollabed = false;
 
-    if (collabsReceived.includes(user?.email!)) {
+    if (collabsReceived?.includes(user?.email!)) {
       isSent = true;
     }
-    if (collabsSent.includes(user?.email!)) {
+    if (collabsSent?.includes(user?.email!)) {
       isReceived = true;
     }
     if (isSent && isReceived) {

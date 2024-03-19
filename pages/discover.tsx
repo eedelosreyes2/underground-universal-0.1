@@ -1,20 +1,20 @@
 import Layout from "../components/Layout";
 import DiscoverCarousel from "../components/discover/DiscoverCarousel";
 import prisma from "../lib/prisma";
+import artists from "../public/artists.json";
 
-// TODO: Fetch serverSide props of artists (see [username].tsx)
 export const getServerSideProps = async () => {
-  const artists = await prisma.artist.findMany();
+  // const artists = await prisma.artist.findMany();
 
   if (artists == null) return { notFound: true };
 
   for (var i in artists) {
-    const { createdAt, udpatedAt } = artists[i];
+    const { createdAt, updatedAt } = artists[i];
     if (createdAt) {
       artists[i].createdAt = JSON.parse(JSON.stringify(createdAt));
     }
-    if (udpatedAt) {
-      artists[i].udpatedAt = JSON.parse(JSON.stringify(udpatedAt));
+    if (updatedAt) {
+      artists[i].updatedAt = JSON.parse(JSON.stringify(updatedAt));
     }
   }
 
